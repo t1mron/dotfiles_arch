@@ -1,0 +1,233 @@
+# Verify the boot mode
+ls /sys/firmware/efi/efivars
+#If the command shows the directory without error, then the system is booted in UEFI mode. If the directory does not exist, the system may be booted in BIOS mode.
+
+# Check internet connection
+ping archlinux.org
+
+# Sync time 
+timedatectl set-ntp true 
+
+# Choose the disk
+fdisk -l
+
+# Wipe disk before install
+(echo g;echo w) | fdisk /dev/sda
+
+# /dev/sda1 256M EFI
+(echo n;echo ;echo ;echo 526335;echo t;echo 1;echo w) | fdisk /dev/sda
+
+# /dev/sda2 512M Linux filesystem
+(echo n;echo ;echo ;echo 1574911; echo w) | fdisk /dev/sda
+
+# /dev/sda3 All Linux filesystem
+(echo n;echo ;echo ;echo ; echo w) | fdisk /dev/sda
+
+# Load encrypt modules 
+modprobe dm-crypt
+modprobe dm-mod
+
+# Encrypt and open /dev/sda3  
+cryptsetup luksFormat -v -s 512 -h sha512 /dev/sda3
+cryptsetup open /dev/sda3 archlinux
+
+# Formatting the partitions
+mkfs.vfat -n "EFI System" /dev/sda1
+mkfs.ext4 -L boot /dev/sda2
+mkfs.ext4 -L root /dev/sda3
+
+# Mount partitions and create folders
+mount /dev/sda3 /mnt
+mkdir /mnt/boot
+mount /dev/sda2 /mnt/boot
+mkdir /mnt/boot/efi
+mount /dev/sda1 /mnt/boot/efi
+
+# Setup swap 
+#count=<amount of your RAM>
+dd if=/dev/zero of=/mnt/swap bs=1M count=16384 status=progress
+chmod 0600 /mnt/swap
+mkswap /mnt/swap
+swapon /mnt/swap
+
+# Install the system and some tools
+pacstrap /mnt base linux linux-firmware base-devel efibootmgr NetworkManager grub amd-ucode vi vim git wget 
+
+# Generate fstab
+genfstab -U /mnt > /mnt/etc/fstab
+
+# Review the /mnt/etc/fstab
+#rw,noatime
+
+# Enter the new system
+arch-chroot /mnt /bin/bash
+
+# Create user
+useradd -G wheel -m -d /home/user user
+passwd user
+
+# set sudo privileges
+visudo
+#uncomment %wheel ALL=(All) NOPASSWD: ALL
+
+# Set the time zone and a system clock
+ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime
+hwclock --systohc --utc
+
+# Generate and set default locale
+vim /etc/locale.gen
+# Uncomment en_US.UTF-8
+locale-gen
+echo LANG=en_US.utf8 > /etc/locale.conf
+
+# Set the hostname
+echo arch > /etc/hostname
+
+# Set the host
+vim /etc/hosts
+#127.0.0.1   localhost arch
+#::1         localhost arch
+
+# Setup grub
+# Edit /etc/default/grub
+vim /etc/default/grub
+#GRUB_CMDLINE_LINUX="cryptdevice=/dev/sda3:archlinux"
+
+# Configure mkinitcpio
+vim /etc/mkinitcpio.conf
+
+# Add 'encrypt' to HOOKS before filesystems
+HOOKS="base udev autodetect modconf block encrypt filesystems keyboard fsck"
+
+# Regenerate initrd image
+mkinitcpio -p linux
+
+# Install grub and create configuration
+grub-install --boot-directory=/boot --efi-directory=/boot/efi /dev/sda2
+grub-mkconfig -o /boot/grub/grub.cfg
+grub-mkconfig -o /boot/efi/EFI/arch/grub.cfg
+
+# Exit new system and go into the cd shell
+exit
+
+# Reboot into the new system, don't forget to remove the usb
+reboot
+
+# login user
+
+# Enable NetworkManager
+sudo systemctl enable NetworkManager
+sudo systemctl start NetworkManager
+
+# Install AUR helper - yay 
+git clone https://aur.archlinux.org/yay.git ~/git/yay
+cd ~/git/yay && makepkg -si
+
+::TODO:: Update the installed packages. Finish configuration.
+yay -Syu
+-------------------------------------------------------------------------
+# Optional: 
+# Install dynamic window manager
+sudo pacman -S xorg-server xorg-xinit xorg-xsetroot picom rofi feh ttf-font-awesome 
+#xorg-xrandr alsa-utils pamixer playerctl 
+
+git clone https://git.suckless.org/dwm ~/git/dwm
+git clone https://git.suckless.org/st ~/git/st
+
+cd ~/git/dwm/ && make && sudo make clean install
+cd ~/git/st
+wget https://st.suckless.org/patches/anysize/st-anysize-0.8.1.diff
+patch < st-anysize-0.8.1.diff && make && sudo make clean install
+
+
+
+cp /etc/X11/xinit/xinitrc .xinitrc
+vim .xinitrc
+
+# Compositor
+picom -f &
+
+#Wallpaper
+
+# Execute DWM
+exec dwm
+
+# Loop
+while true; do
+            dwm >/dev/null 2>&1
+done
+
+
+# sxhkd 
+sudo pacman -S sxhkd xorg-xev
+
+# Office programs
+
+# Utilities
+pacman -S keepassx 
+
+# System tools
+pacman -S bleachbit gparted lsof
+
+# Multimedia
+yay -S librewolf
+sudo pacman -S  
+            
+# Network
+
+pacman -S 
+
+# Virtualisation
+pacman -S wine winetricks
+
+# AMD drivers
+pacman -S mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon 
+
+# Development
+pacman -S code
+---------------------------------------------
+# Security (create systemd file)
+sudo pacman -S ufw etckeeper rkhunter clamav clamtk
+yay -S chkrootkit
+
+sudo ufw enable &&sudo ufw reload
+
+sudo freshclam
+#if error freshclam
+sudo systemctl stop clamav-daemon.service
+sudo rm /var/log/clamav/freshclam.log
+sudo systemctl start clamav-daemon.service
+sudo systemctl status clamav-daemon.service
+
+
+vim /etc/systemd/system/rkhunter.service
+
+__________________________________________
+[Unit]
+Description=rkhunter rootkit scan and malware detection
+
+Documentation=man:rkhunter
+
+[Service]
+ExecStartPre=/usr/bin/rkhunter –update
+ExecStartPre=/usr/bin/rkhunter –propupd
+ExecStart=/usr/bin/rkhunter –check -sk
+SuccessExitStatus=1 2
+____________________________________
+vim /etc/systemd/system/rkhunter.timer
+
+[Unit]
+Description=Run rkhunter daily
+
+[Timer]
+OnCalendar=*-*-* 04:20:00
+Persistent=true
+
+RemainAfterElapse=true
+
+[Install]
+WantedBy=timers.target
+___________________________________________
+
+
+snapper, htop, net-tools, wireless_tools,wpa_supplicant 
