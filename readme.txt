@@ -127,35 +127,15 @@ cd ~/git/yay && makepkg -si
 yay -Syu
 -------------------------------------------------------------------------
 # Optional: 
-# Install dynamic window manager
-sudo pacman -S xorg-server xorg-xinit xorg-xsetroot picom rofi feh ttf-font-awesome 
-#xorg-xrandr alsa-utils pamixer playerctl 
-
-git clone https://git.suckless.org/dwm ~/git/dwm
-git clone https://git.suckless.org/st ~/git/st
-
-cd ~/git/dwm/ && make && sudo make clean install
-cd ~/git/st
-wget https://st.suckless.org/patches/anysize/st-anysize-0.8.1.diff
-patch < st-anysize-0.8.1.diff && make && sudo make clean install
+# Install dynamic window manager i3-wm
+sudo pacman -S i3 xorg-server xorg-xinit picom termite rofi feh 
 
 
 
-cp /etc/X11/xinit/xinitrc .xinitrc
-vim .xinitrc
 
-# Compositor
-picom -f &
 
-#Wallpaper
 
-# Execute DWM
-exec dwm
 
-# Loop
-while true; do
-            dwm >/dev/null 2>&1
-done
 
 
 # sxhkd 
