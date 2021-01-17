@@ -1,4 +1,7 @@
-# automatically start 
+# Automatically start 
+
+# Start a terminal
+bindsym Mod1+Return exec i3-sensible-terminal
 
 # Adjust volume in alsa.
 
@@ -15,7 +18,7 @@ set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
 
-# Hiding borders and 
+# Hiding borders
 for_window [class="^.*"] border pixel 1
 hide_edge_borders smart
 
@@ -25,9 +28,9 @@ hide_edge_borders smart
 font pango:DejaVu Sans Mono 8
 
 # xss-lock and i3lock
-#exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+# exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
-# use these keys for focus, movement, and resize directions when reaching for the arrows is not convenient
+# use these keys for focus, movement, and resize directions 
 set $up l
 set $down k
 set $left j
@@ -36,18 +39,11 @@ set $right semicolon
 # use Mouse+Mod1 to drag floating windows to their wanted position
 floating_modifier Mod1
 
-# start a terminal
-bindsym Mod1+Return exec i3-sensible-terminal
-
 # kill focused window
 bindsym Mod1+Shift+q kill
 
 # start dmenu (a program launcher)
 bindsym Mod1+d exec dmenu_run
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
-# bindsym Mod1+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
 bindsym Mod1+$left focus left
@@ -55,23 +51,11 @@ bindsym Mod1+$down focus down
 bindsym Mod1+$up focus up
 bindsym Mod1+$right focus right
 
-# alternatively, you can use the cursor keys:
-bindsym Mod1+Left focus left
-bindsym Mod1+Down focus down
-bindsym Mod1+Up focus up
-bindsym Mod1+Right focus right
-
 # move focused window
 bindsym Mod1+Shift+$left move left
 bindsym Mod1+Shift+$down move down
 bindsym Mod1+Shift+$up move up
 bindsym Mod1+Shift+$right move right
-
-# alternatively, you can use the cursor keys:
-bindsym Mod1+Shift+Left move left
-bindsym Mod1+Shift+Down move down
-bindsym Mod1+Shift+Up move up
-bindsym Mod1+Shift+Right move right
 
 # split in horizontal orientation
 bindsym Mod1+h split h
@@ -132,8 +116,10 @@ bindsym Mod1+Shift+0 move container to workspace number $ws10
 
 # reload the configuration file
 bindsym Mod1+Shift+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+
+# restart i3 
 bindsym Mod1+Shift+r restart
+
 # exit i3 (logs you out of your X session)
 bindsym Mod1+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
