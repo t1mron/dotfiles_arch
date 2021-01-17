@@ -162,3 +162,4 @@ mode "resize" {
 bindsym Mod1+r mode "resize"
 
 # start polypar to display a status bar
+exec_always --no-startup-id /home/user/.config/polybar/launch
