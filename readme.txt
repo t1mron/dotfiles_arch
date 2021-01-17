@@ -134,7 +134,7 @@ yay -S siji-git ttf-unifont polybar
 
 
 # Sound, wi-fi, bluetooth, vpn
-sudo pacman -S alsa-utils 
+sudo pacman -S alsa-utils iwd
 
   
 # Office programs
