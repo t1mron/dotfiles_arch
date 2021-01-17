@@ -129,8 +129,7 @@ yay -Syu
 # Optional: 
 
 # Window manager
-sudo pacman -S i3 xorg-server xorg-xinit xorg-xev picom termite ofi feh 
-#xss-lock 
+sudo pacman -S i3 xorg-server xorg-xinit xorg-xev picom termite rofi feh 
 
 # Sound, wi-fi, bluetooth, vpn
 sudo pacman -S alsa-utils wpa_supplicant bluez openvpn
