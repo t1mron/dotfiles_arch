@@ -161,5 +161,8 @@ mode "resize" {
 
 bindsym Mod1+r mode "resize"
 
+# Start picom
+exec_always picom -C --mark-ovredir-focused 
+
 # start polypar to display a status bar
 exec_always --no-startup-id /home/user/.config/polybar/launch
