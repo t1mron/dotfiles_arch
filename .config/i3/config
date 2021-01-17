@@ -15,8 +15,9 @@ set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
 
-# Hiding borders adjacent to the screen edges
-hide_edge_borders both
+# Hiding borders and 
+for_window [class="^.*"] border pixel 1
+hide_edge_borders smart
 
 #Default settings
 #---------------------------------------------
