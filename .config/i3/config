@@ -162,4 +162,4 @@ mode "resize" {
 bindsym Mod1+r mode "resize"
 
 # start polypar to display a status bar
-exec --no-startup-id killall polybar; polybar -r bar
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
