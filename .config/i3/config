@@ -5,19 +5,6 @@ bindsym Mod1+Return exec i3-sensible-terminal
 
 # Adjust volume in alsa.
 
-# Define names for default workspaces for which we configure key bindings later on.
-# We use variables to avoid repeating the names in multiple places.
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
-
 # Hiding borders
 for_window [class="^.*"] border pixel 1
 hide_edge_borders smart
@@ -101,6 +88,19 @@ bindsym Mod1+7 workspace number $ws7
 bindsym Mod1+8 workspace number $ws8
 bindsym Mod1+9 workspace number $ws9
 bindsym Mod1+0 workspace number $ws10
+
+# Define names for default workspaces for which we configure key bindings later on.
+# We use variables to avoid repeating the names in multiple places.
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
 
 # move focused container to workspace
 bindsym Mod1+Shift+1 move container to workspace number $ws1
