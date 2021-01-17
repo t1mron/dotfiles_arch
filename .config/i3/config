@@ -1,27 +1,15 @@
-# Start a terminal
-bindsym Mod1+Return exec termite
-
-# Adjust volume in alsa.
-
-# Hiding borders
-for_window [class="^.*"] border pixel 1
-hide_edge_borders smart
-
-# kill focused window
-bindsym Mod1+q kill
-
-# Automatically start 
-
-#Default settings
-#---------------------------------------------
-
-# Font for window titles. 
+# font for window titles
 font pango:DejaVu Sans Mono 8
 
-# xss-lock and i3lock 
+# xss-lock and i3lock
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
-# focus, movement, and resize directions 
+# networkManager
+
+# adjust volume in Alsa.
+
+# use these keys for focus, movement, and resize directions when reaching for
+# the arrows is not convenient
 set $up l
 set $down k
 set $left j
@@ -29,6 +17,15 @@ set $right semicolon
 
 # use Mouse+Mod1 to drag floating windows to their wanted position
 floating_modifier Mod1
+
+# start a terminal
+bindsym Mod1+Return exec termite
+
+# kill focused window
+bindsym Mod1+q kill
+
+# start xofi
+bindsym Mod1+d exec 
 
 # change focus
 bindsym Mod1+$left focus left
@@ -87,7 +84,11 @@ bindsym Mod1+Shift+minus move scratchpad
 # If there are multiple scratchpad windows, this command cycles through them.
 bindsym Mod1+minus scratchpad show
 
-# Define names for default workspaces for which we configure key bindings later on.
+# hiding borders
+for_window [class="^.*"] border pixel 1
+hide_edge_borders smart
+
+# hefine names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 "1"
 set $ws2 "2"
@@ -159,3 +160,5 @@ mode "resize" {
 }
 
 bindsym Mod1+r mode "resize"
+
+# start polypar to display a status bar
