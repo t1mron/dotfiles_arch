@@ -51,7 +51,7 @@ mkswap /mnt/swap
 swapon /mnt/swap
 
 # Install the system and some tools
-pacstrap /mnt base linux linux-firmware base-devel efibootmgr NetworkManager grub amd-ucode vi vim git wget 
+pacstrap /mnt base linux linux-firmware base-devel efibootmgr connman grub amd-ucode vi vim git wget 
 
 # Generate fstab
 genfstab -U /mnt > /mnt/etc/fstab
@@ -115,9 +115,9 @@ reboot
 
 # login user
 
-# Enable NetworkManager
-sudo systemctl enable NetworkManager
-sudo systemctl start NetworkManager
+# Enable connman - internet manager
+sudo systemctl enable connman
+sudo systemctl start connman
 
 # Install AUR helper - yay 
 git clone https://aur.archlinux.org/yay.git ~/git/yay
@@ -127,19 +127,14 @@ cd ~/git/yay && makepkg -si
 yay -Syu
 -------------------------------------------------------------------------
 # Optional: 
-# Install dynamic window manager i3-wm
-sudo pacman -S i3 xorg-server xorg-xinit picom termite rofi feh 
 
+# Window manager
+sudo pacman -S i3 xorg-server xorg-xinit xorg-xev picom termite ofi feh 
+#xss-lock 
 
+# Sound, wi-fi, bluetooth, vpn
+sudo pacman -S alsa-utils wpa_supplicant bluez openvpn
 
-
-
-
-
-
-
-# sxhkd 
-sudo pacman -S sxhkd xorg-xev
 
 # Office programs
 
@@ -169,6 +164,7 @@ pacman -S code
 # Security (create systemd file)
 sudo pacman -S ufw etckeeper rkhunter clamav clamtk
 yay -S chkrootkit
+#xss-lock
 
 sudo ufw enable &&sudo ufw reload
 
