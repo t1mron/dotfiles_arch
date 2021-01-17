@@ -2,7 +2,7 @@
 font pango:DejaVu Sans Mono 8
 
 # xss-lock and i3lock
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+#exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 # networkManager
 
@@ -161,7 +161,7 @@ mode "resize" {
 
 bindsym Mod1+r mode "resize"
 
-# Start picom
+# start picom
 exec_always picom --mark-ovredir-focused
 
 # start polypar to display a status bar
