@@ -105,6 +105,11 @@ cursor-scroll = ns-resize
 ## ПОДКЛЮЧЕНЫЕ МОДУЛИ  ##
 #########################
 
+############################################################################################################
+#Модуль раскладки клавиатуры
+#https://github.com/polybar/polybar/wiki/Module:-xkeyboard
+
+
 [module/xkeyboard]
 type = internal/xkeyboard
 blacklist-0 = num lock
@@ -124,12 +129,13 @@ label-indicator-underline = ${colors.secondary}
 [module/filesystem]
 type = internal/fs
 interval = 25
-
 mount-0 = /
 
-label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
+label-mounted =  %mountpoint%: %percentage_used%%
 label-unmounted = %mountpoint% not mounted
-label-unmounted-foreground = ${colors.foreground-alt}
+#label-unmounted-foreground = ${colors.foreground-alt}
+#label-unmounted-underline = #ff0000
+#label-mounted-underline = #c38611
 
 [module/i3]
 type = internal/i3
