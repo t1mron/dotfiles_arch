@@ -20,7 +20,7 @@ background = ${colors.background}
 foreground = ${colors.foreground}
 
 line-size = 4
-;line-color = #f00
+line-color = #f00
 
 border-size = 0
 border-color = #00000000
@@ -144,7 +144,7 @@ label-urgent-background = ${colors.alert}
 label-urgent-padding = 2
 
 ; Separator in between workspaces
-; label-separator = |
+label-separator = |
 
 [module/xbacklight]
 type = internal/xbacklight
