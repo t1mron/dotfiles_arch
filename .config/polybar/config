@@ -40,6 +40,8 @@ modules-left = i3
 modules-center = 
 modules-right = filesystem xbacklight alsa xkeyboard memory cpu wlan eth battery temperature date powermenu
 
+separator = |
+
 tray-position = right
 tray-padding = 2
 ;tray-background = #0063ff
