@@ -1,85 +1,109 @@
-;==========================================================
-;
-;
-;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
-;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
-;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
-;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
-;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
-;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
-;
-;
-;   To learn more about how to configure Polybar
-;   go to https://github.com/polybar/polybar
-;
-;   The README contains a lot of information
-;
-;==========================================================
+######################################
+#             Arch Linux             #
+######################################
+#;;;;;;;;;;;;;;POLYBAR;;;;;;;;;;;;;;;#
+######################################
+## ОСНОВНЫЕ НАСТРОЙКИ | ВНЕШНИЙ ВИД ##
+######################################
+# https://github.com/polybar/polybar #
+######################################
+#   Для иконок используем шрифт:     #
+#       ttf-font-awesome             #
+# https://fontawesome.com/cheatsheet #
+# sudo pacman -S ttf-font-awesome    #
+############################################################################################################
 
+#Цвета панели
 [colors]
-;background = ${xrdb:color0:#222}
 background = #222
 background-alt = #444
-;foreground = ${xrdb:color7:#222}
 foreground = #dfdfdf
 foreground-alt = #555
 primary = #ffb52a
 secondary = #e60053
 alert = #bd2c40
 
+#размеры панели
+#указываем название бара к которому будет обрящаться скрипт автозапуска launch.sh в стоке [bar/название бара]
 [bar/example]
-;monitor = ${env:MONITOR:HDMI-1}
+#monitor = ${env:MONITOR:HDMI-1}
+
+#Ширина панели
 width = 100%
+
+#высота панели 
 height = 27
-;offset-x = 1%
-;offset-y = 1%
-radius = 6.0
-fixed-center = false
+
+#offset-x = 1%
+#offset-y = 1%
+
+#radius = 6.0
+
+#зафиксированый центр или динамический true / false
+fixed-center = true
+
+#локаль панели отвечает за вывод некотоых данных например дата
+#locale = ru_RU.UTF-8 
 
 background = ${colors.background}
 foreground = ${colors.foreground}
 
+#размер нижней линии под модулями
 line-size = 3
-line-color = #f00
+#line-color = #f00
 
-border-size = 4
-border-color = #00000000
+#border-size = 4
+#border-color = #00000000
 
+#отступы содержимого панели от края
 padding-left = 0
-padding-right = 2
+padding-right = 0
 
+#отступы между модулями
 module-margin-left = 1
-module-margin-right = 2
+module-margin-right = 1
 
-font-0 = fixed:pixelsize=10;1
-font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
-font-2 = siji:pixelsize=10;1
+#Шрифты
+font-0 = Iosevka Nerd Font:style=Medium:size=8;3
+font-1 = FontAwesome5Free:style=Solid:size=7.5;2.5
+font-2 = FontAwesome5Brands:style=Solid:size=7.5;2.5
 
-modules-left = bspwm i3
-modules-center = mpd
-modules-right = filesystem xbacklight alsa pulseaudio xkeyboard memory cpu wlan eth battery temperature date powermenu
 
+
+#######################################
+## РАСПОЛОЖЕНИЕ И АКТИВАЦИЯ МОДУЛЕЙ  ##
+#######################################
+
+modules-left = i3
+modules-center = 
+modules-right = filesystem xbacklight alsa xkeyboard memory cpu wlan eth battery temperature date powermenu
+
+#системный лоток расположение tray иконок none|right|center|left
 tray-position = right
 tray-padding = 2
-;tray-background = #0063ff
+tray-detached = false
+#tray-background = #0063ff
 
-;wm-restack = bspwm
-;wm-restack = i3
+#Currently supported WM's
+wm-restack = i3
 
-;override-redirect = true
+#Tell the Window Manager not to configure the window.
+#Use this to detach the bar if your WM is locking its size/position.
+#override-redirect = true
 
-;scroll-up = bspwm-desknext
-;scroll-down = bspwm-deskprev
+#Fallback click handlers that will be called if there's no matching module handler found.
+#scroll-up = i3wm-wsnext
+#scroll-down = i3wm-wsprev
 
-;scroll-up = i3wm-wsnext
-;scroll-down = i3wm-wsprev
-
+#Requires polybar to be built with xcursor support (xcb-util-cursor)
 cursor-click = pointer
 cursor-scroll = ns-resize
 
-[module/xwindow]
-type = internal/xwindow
-label = %title:0:30:...%
+
+
+#########################
+## ПОДКЛЮЧЕНЫЕ МОДУЛИ  ##
+#########################
 
 [module/xkeyboard]
 type = internal/xkeyboard
@@ -106,28 +130,6 @@ mount-0 = /
 label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.foreground-alt}
-
-[module/bspwm]
-type = internal/bspwm
-
-label-focused = %index%
-label-focused-background = ${colors.background-alt}
-label-focused-underline= ${colors.primary}
-label-focused-padding = 2
-
-label-occupied = %index%
-label-occupied-padding = 2
-
-label-urgent = %index%!
-label-urgent-background = ${colors.alert}
-label-urgent-padding = 2
-
-label-empty = %index%
-label-empty-foreground = ${colors.foreground-alt}
-label-empty-padding = 2
-
-; Separator in between workspaces
-; label-separator = |
 
 [module/i3]
 type = internal/i3
