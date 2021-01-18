@@ -20,7 +20,7 @@ background = ${colors.background}
 foreground = ${colors.foreground}
 
 line-size = 4
-line-color = #f00
+;line-color = #f00
 
 border-size = 0
 border-color = #00000000
