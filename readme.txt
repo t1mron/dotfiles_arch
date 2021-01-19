@@ -51,7 +51,7 @@ mkswap /mnt/swap
 swapon /mnt/swap
 
 # Install the system and some tools
-pacstrap /mnt base linux linux-firmware base-devel efibootmgr connman grub amd-ucode vi vim git wget 
+pacstrap /mnt base linux linux-firmware base-devel efibootmgr iwd grub amd-ucode vi vim git wget 
 
 # Generate fstab
 genfstab -U /mnt > /mnt/etc/fstab
@@ -115,10 +115,6 @@ reboot
 
 # login user
 
-# Enable connman - internet manager
-sudo systemctl enable connman
-sudo systemctl start connman
-
 # Install AUR helper - yay 
 git clone https://aur.archlinux.org/yay.git ~/git/yay
 cd ~/git/yay && makepkg -si
@@ -134,7 +130,7 @@ yay -S polybar
 
 
 # Sound, wi-fi, bluetooth, vpn
-sudo pacman -S alsa-utils iwd
+sudo pacman -S alsa-utils 
 
   
 # Office programs
