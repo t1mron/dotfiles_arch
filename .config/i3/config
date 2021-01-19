@@ -72,8 +72,8 @@ bindsym $mod+d exec rofi -combi-modi window,drun,ssh -theme solarized -font "hac
 ### Горячие клавиши
 bindsym $mod+q kill
 bindsym $mod+Return exec termite
-bindsym $mod+Escape exec shutdown -h now
-bindsym $mod+r exec reboot
+#bindsym $mod+Escape exec shutdown -h now
+#bindsym $mod+r exec reboot
 
 ### Убить окно нажав средней кнопкой мыши на титульный заголовок окна
 bindsym --whole-window button2 kill
