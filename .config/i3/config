@@ -38,7 +38,7 @@ bindsym --release button2 kill
 #bindsym $mod+v exec --no-startup-id sudo protonvpn c -f
 #bindsym $mod+Ctrl+v exec --no-startup-id sudo protonvpn disconnect
 #bindsym $mod+b exec --no-startup-id bleachbit
-#bindsym $mod+d exec dmenu_run
+bindsym $mod+d exec rofi -combi-modi window,drun,ssh -theme solarized -font "hack 10" -show combi
 
 ### vlc 
 #bindsym XF86AudioPlay exec --no-startup-id cvlc ~/Музыка/000_My_The_Best
