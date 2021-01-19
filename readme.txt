@@ -125,32 +125,31 @@ yay -Syu
 # Optional: 
 
 # Window manager
-sudo pacman -S i3 xorg-server xorg-xinit xorg-xev picom termite rofi feh 
+sudo pacman -S i3 xorg-server xorg-xinit xorg-xev picom termite rofi feh ttf-font-awesome
 yay -S polybar
 
-
-# Sound, wi-fi, bluetooth, vpn
+# Sound, bluetooth, vpn
 sudo pacman -S alsa-utils 
 
-  
 # Office programs
 
 # Utilities
-pacman -S keepassx 
+sudo pacman -S keepass 
 
 # System tools
-pacman -S bleachbit gparted lsof
+pacman -S bleachbit
 
 # Multimedia
-yay -S librewolf
-sudo pacman -S  
+sudo pacman -S 
+
             
 # Network
+yay -S librewolf
 
 pacman -S 
 
 # Virtualisation
-pacman -S wine winetricks
+pacman -S 
 
 # AMD drivers
 pacman -S mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon 
