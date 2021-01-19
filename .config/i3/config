@@ -1,11 +1,10 @@
 ### Назначенная клавиша MOD по умолчанию
-set $mod Mod4
-
+set $mod Mod1
 
 ### Автозапуск программ
 exec_always --no-startup-id killall polybar; polybar -r example
-exec --no-startup-id setxkbmap "us,ru" ",winkeys" "grp:alt_shift_toggle,grp_led:scroll"
-exec --no-startup-id feh --bg-scale /usr/share/backgrounds/bg.jpg
+#exec --no-startup-id setxkbmap "us,ru" ",winkeys" "grp:alt_shift_toggle,grp_led:scroll"
+#exec --no-startup-id feh --bg-scale /usr/share/backgrounds/bg.jpg
 exec --no-startup-id exec picom -b --backend glx --vsync --xrender-sync-fence --glx-no-rebind-pixmap --use-damage --glx-no-stencil
 #exec --no-startup-id xrandr --dpi 100
 #exec --no-startup-id flameshot
