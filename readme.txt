@@ -133,6 +133,7 @@ sudo pacman -S alsa-utils
 # Window manager
 sudo pacman -S i3 xorg-server xorg-xinit xorg-xev picom termite rofi feh ttf-font-awesome
 yay -S polybar
+rofi-theme-selector
 
 # Office programs
 
