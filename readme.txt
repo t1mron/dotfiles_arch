@@ -123,6 +123,9 @@ cd ~/git/yay && makepkg -si
 yay -Syu
 -------------------------------------------------------------------------
 # Optional: 
+# Window manager
+sudo pacman -S i3 xorg-server xorg-xinit xorg-xev picom termite rofi feh ranger ttf-font-awesome
+yay -S polybar
 
 # AMD drivers
 pacman -S mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon 
@@ -130,18 +133,14 @@ pacman -S mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon
 # Sound, bluetooth, vpn
 sudo pacman -S alsa-utils 
 
-# Window manager
-sudo pacman -S i3 xorg-server xorg-xinit xorg-xev picom termite rofi feh ranger ttf-font-awesome
-yay -S polybar
-rofi-theme-selector
-
 # Office programs
+sudo pacman -S libreoffice-still zathura 
 
 # Utilities
-sudo pacman -S keepass zathura 
+sudo pacman -S keepass 
 
 # System tools
-sudo pacman -S bleachbit 
+sudo pacman -S bleachbit udiskie 
 yay -S timeshift
 
 # Multimedia
