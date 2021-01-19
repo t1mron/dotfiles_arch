@@ -131,14 +131,14 @@ pacman -S mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon
 sudo pacman -S alsa-utils 
 
 # Window manager
-sudo pacman -S i3 xorg-server xorg-xinit xorg-xev picom termite rofi feh ttf-font-awesome
+sudo pacman -S i3 xorg-server xorg-xinit xorg-xev picom termite rofi feh ranger ttf-font-awesome
 yay -S polybar
 rofi-theme-selector
 
 # Office programs
 
 # Utilities
-sudo pacman -S keepass 
+sudo pacman -S keepass zathura 
 
 # System tools
 sudo pacman -S bleachbit 
