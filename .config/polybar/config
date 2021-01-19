@@ -69,11 +69,9 @@ font-1 = FontAwesome5Free:style=Solid:size=7.5;2.5
 font-2 = FontAwesome5Brands:style=Solid:size=7.5;2.5
 
 
-
 #######################################
 ## РАСПОЛОЖЕНИЕ И АКТИВАЦИЯ МОДУЛЕЙ  ##
 #######################################
-
 modules-left = i3
 modules-center = 
 modules-right = filesystem xbacklight alsa xkeyboard memory cpu wlan eth battery temperature date powermenu
@@ -84,22 +82,6 @@ tray-padding = 2
 tray-detached = false
 #tray-background = #0063ff
 
-#Currently supported WM's
-wm-restack = i3
-
-#Tell the Window Manager not to configure the window.
-#Use this to detach the bar if your WM is locking its size/position.
-#override-redirect = true
-
-#Fallback click handlers that will be called if there's no matching module handler found.
-#scroll-up = i3wm-wsnext
-#scroll-down = i3wm-wsprev
-
-#Requires polybar to be built with xcursor support (xcb-util-cursor)
-cursor-click = pointer
-cursor-scroll = ns-resize
-
-
 
 #########################
 ## ПОДКЛЮЧЕНЫЕ МОДУЛИ  ##
@@ -107,24 +89,30 @@ cursor-scroll = ns-resize
 
 ############################################################################################################
 #Модуль раскладки клавиатуры
-#https://github.com/polybar/polybar/wiki/Module:-xkeyboard
-
 
 [module/xkeyboard]
 type = internal/xkeyboard
 blacklist-0 = num lock
+label-NAME-maxlen = 10
+#format-prefix = ""
+#format-prefix-foreground = ${colors.foreground-alt}
+#format-prefix-overline = CF5E7F
+#format-prefix-underline = CF5E7F
 
-format-prefix = " "
-format-prefix-foreground = ${colors.foreground-alt}
-format-prefix-underline = ${colors.secondary}
+#label-layout =  %layout%
+#label-layout-overline = CF5E7F
+#label-layout-underline = CF5E7F
 
-label-layout = %layout%
-label-layout-underline = ${colors.secondary}
+#label-indicator-padding = 2
+#label-indicator-margin = 0
+#label-indicator-background = 2B7DBC
+#label-indicator-overline = 2B7DBC
+#label-indicator-underline = 2B7DBC
+#format-underline = #fff
 
-label-indicator-padding = 2
-label-indicator-margin = 1
-label-indicator-background = ${colors.secondary}
-label-indicator-underline = ${colors.secondary}
+
+############################################################################################################
+#Модуль файловой системы
 
 [module/filesystem]
 type = internal/fs
@@ -137,56 +125,71 @@ label-unmounted = %mountpoint% not mounted
 #label-unmounted-underline = #ff0000
 #label-mounted-underline = #c38611
 
+############################################################################################################
+#Модуль для отображения информации о рабочих пространствах и активном режиме
+
 [module/i3]
 type = internal/i3
 format = <label-state> <label-mode>
 index-sort = true
 wrapping-scroll = false
 
-; Only show workspaces on the same output as the bar
-;pin-workspaces = true
+#Only show workspaces on the same output as the bar
+#pin-workspaces = true
 
-label-mode-padding = 2
+label-mode-padding = 1
 label-mode-foreground = #000
 label-mode-background = ${colors.primary}
 
-; focused = Active workspace on focused monitor
-label-focused = %index%
-label-focused-background = ${colors.background-alt}
-label-focused-underline= ${colors.primary}
-label-focused-padding = 2
+# focused = Active workspace on focused monitor
+label-focused = %icon%
+label-focused-background = 002873C0
+label-focused-foreground = ${colors.foreground}
+label-focused-padding = 1
+#label-focused-underline = 018BFF
+label-focused-overline = ${colors.foreground}
 
-; unfocused = Inactive workspace on any monitor
-label-unfocused = %index%
-label-unfocused-padding = 2
+# unfocused = Inactive workspace on any monitor
+label-unfocused = %icon%
+label-unfocused-background = 00255498
+label-unfocused-foreground = ${colors.foreground}
+label-unfocused-padding = 1
+#label-unfocused-underline = 255498
+#label-unfocused-overline = ${colors.background}
 
-; visible = Active workspace on unfocused monitor
-label-visible = %index%
-label-visible-background = ${self.label-focused-background}
-label-visible-underline = ${self.label-focused-underline}
-label-visible-padding = ${self.label-focused-padding}
+# visible = Active workspace on unfocused monitor
+label-visible = %icon%
+label-visible-background = ${colors.background}
+label-visible-foreground = ${colors.foreground}
+label-visible-padding = 1
+#label-visible-underline = ${colors.background}
+#label-visible-overline = ${colors.background}
 
-; urgent = Workspace with urgency hint set
-label-urgent = %index%
+# urgent = Workspace with urgency hint set
+label-urgent = %icon%
 label-urgent-background = ${colors.alert}
-label-urgent-padding = 2
+label-urgent-foreground = ${colors.foreground}
+label-urgent-padding = 1
+#label-urgent-underline = ${colors.alert}
+#label-urgent-overline = ${colors.background}
 
-; Separator in between workspaces
-; label-separator = |
+ws-icon-0 = 1;1
+ws-icon-1 = 2;2
+ws-icon-2 = 3;3
+ws-icon-3 = 4;4
+ws-icon-4 = 5;5
+ws-icon-5 = 6;6
+ws-icon-6 = 7;7
+ws-icon-7 = 8;8
+ws-icon-8 = 9;9
+ws-icon-9 = 10;10
+
+# Separator in between workspaces
+# label-separator = |
 
 
-[module/mpd]
-type = internal/mpd
-format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
-
-icon-prev = 
-icon-stop = 
-icon-play = 
-icon-pause = 
-icon-next = 
-
-label-song-maxlen = 25
-label-song-ellipsis = true
+############################################################################################################
+#Модуль для регулировки яркости монитора (не для АМД)
 
 [module/xbacklight]
 type = internal/xbacklight
@@ -205,26 +208,43 @@ bar-empty = ─
 bar-empty-font = 2
 bar-empty-foreground = ${colors.foreground-alt}
 
+
+############################################################################################################
+#Модуль для регулировки яркости монитора ACPI (не для АМД)
+
 [module/backlight-acpi]
 inherit = module/xbacklight
 type = internal/backlight
 card = intel_backlight
+
+
+############################################################################################################
+#модуль загрузки CPU
 
 [module/cpu]
 type = internal/cpu
 interval = 2
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #f90000
-label = %percentage:2%%
+#format-underline = #f90000
+label = %percentage%%
+
+
+############################################################################################################
+#Модуль памяти ОЗУ
 
 [module/memory]
 type = internal/memory
 interval = 2
 format-prefix = " "
-format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #4bffdc
+#format-prefix-foreground = ${colors.foreground-alt}
+#format-overline = #61C07C
+#format-underline = #8d61ff
 label = %percentage_used%%
+
+
+############################################################################################################
+#Модуль беспроводной связи
 
 [module/wlan]
 type = internal/network
@@ -248,6 +268,10 @@ ramp-signal-3 = 
 ramp-signal-4 = 
 ramp-signal-foreground = ${colors.foreground-alt}
 
+
+############################################################################################################
+#Модуль проводной связи
+
 [module/eth]
 type = internal/network
 interface = enp0s3
@@ -264,48 +288,33 @@ format-disconnected =
 ;label-disconnected = %ifname% disconnected
 ;label-disconnected-foreground = ${colors.foreground-alt}
 
+
+############################################################################################################
+#Модуль времени и даты
+
 [module/date]
 type = internal/date
-interval = 5
+interval = 1
+dqate =
+time =%{F#E0D9FF} %H:%M:%S 
 
-date =
-date-alt = " %Y-%m-%d"
-
-time = %H:%M
-time-alt = %H:%M:%S
+#клик ЛКМ на время открывает дату
+date-alt =%{F#E0D9FF} %a %e %B %Y
+time-alt = %H:%M
 
 format-prefix = 
-format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #0a6cf5
-
+#format-prefix-foreground = ${colors.foreground-alt}
+#format-overline = #7163AF
+#format-underline = #7163AF
 label = %date% %time%
 
-[module/pulseaudio]
-type = internal/pulseaudio
+#Фон для модуля
+#format-background = #7163AF
+#format-foreground = #E0D9FF
 
-format-volume = <label-volume> <bar-volume>
-label-volume = VOL %percentage%%
-label-volume-foreground = ${root.foreground}
 
-label-muted = 🔇 muted
-label-muted-foreground = #666
-
-bar-volume-width = 10
-bar-volume-foreground-0 = #55aa55
-bar-volume-foreground-1 = #55aa55
-bar-volume-foreground-2 = #55aa55
-bar-volume-foreground-3 = #55aa55
-bar-volume-foreground-4 = #55aa55
-bar-volume-foreground-5 = #f5a70a
-bar-volume-foreground-6 = #ff5555
-bar-volume-gradient = false
-bar-volume-indicator = |
-bar-volume-indicator-font = 2
-bar-volume-fill = ─
-bar-volume-fill-font = 2
-bar-volume-empty = ─
-bar-volume-empty-font = 2
-bar-volume-empty-foreground = ${colors.foreground-alt}
+############################################################################################################
+#Модуль управления звуком через alsa
 
 [module/alsa]
 type = internal/alsa
@@ -335,57 +344,50 @@ bar-volume-empty = ─
 bar-volume-empty-font = 2
 bar-volume-empty-foreground = ${colors.foreground-alt}
 
-[module/battery]
-type = internal/battery
-battery = BAT0
-adapter = AC
-full-at = 98
 
-format-charging = <animation-charging> <label-charging>
-format-charging-underline = #ffb52a
+############################################################################################################
+# Модуль батарея
 
-format-discharging = <animation-discharging> <label-discharging>
-format-discharging-underline = ${self.format-charging-underline}
+[module/battery-combined-tlp]
+type = custom/script
+exec = ~/.config/polybar/scripts/battery-combined-tlp.sh
+interval = 10
+#label-underline = 2B7DBC
 
-format-full-prefix = " "
-format-full-prefix-foreground = ${colors.foreground-alt}
-format-full-underline = ${self.format-charging-underline}
 
-ramp-capacity-0 = 
-ramp-capacity-1 = 
-ramp-capacity-2 = 
-ramp-capacity-foreground = ${colors.foreground-alt}
+############################################################################################################
+#Модуль отображения температуры core3
 
-animation-charging-0 = 
-animation-charging-1 = 
-animation-charging-2 = 
-animation-charging-foreground = ${colors.foreground-alt}
-animation-charging-framerate = 750
-
-animation-discharging-0 = 
-animation-discharging-1 = 
-animation-discharging-2 = 
-animation-discharging-foreground = ${colors.foreground-alt}
-animation-discharging-framerate = 750
-
-[module/temperature]
+[module/temperature_core3]
 type = internal/temperature
 thermal-zone = 0
-warn-temperature = 60
+# при достижении критической отметки модуль меняет цвет на тот который мы зададим в label-warn
+warn-temperature = 65
 
-format = <ramp> <label>
-format-underline = #f50a4d
-format-warn = <ramp> <label-warn>
-format-warn-underline = ${self.format-underline}
+#путь к файлу отвечающему за температуру ядра
+hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon1/temp3_input
 
 label = %temperature-c%
 label-warn = %temperature-c%
-label-warn-foreground = ${colors.secondary}
+label-warn-foreground = #CA4E4E
+#format-overline = #DFC257
+#format-underline = #ff0000
+#format-warn-underline = #CA4E4E
+interval = 10
 
-ramp-0 = 
-ramp-1 = 
-ramp-2 = 
-ramp-foreground = ${colors.foreground-alt}
+format = <ramp> <label>
+format-warn = <ramp> <label-warn>
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+#ramp-foreground = #ff0000
+#ramp-foreground = #FBE191
+
+
+
+
+
+
 
 [module/powermenu]
 type = custom/menu
@@ -416,16 +418,35 @@ menu-2-0-exec = sudo poweroff
 menu-2-1 = cancel
 menu-2-1-exec = menu-open-0
 
+
 [settings]
+#Reload upon receiving XCB_RANDR_SCREEN_CHANGE_NOTIFY events
 screenchange-reload = true
-;compositing-background = xor
-;compositing-background = screen
-;compositing-foreground = source
-;compositing-border = over
-;pseudo-transparency = false
+#compositing-background = xor
+#compositing-background = screen
+#compositing-foreground = source
+#compositing-border = over
+#pseudo-transparency = false
+
 
 [global/wm]
+#Used for top and bottom aligned bars
 margin-top = 5
 margin-bottom = 5
 
-; vim:ft=dosini
+#Currently supported WM's
+wm-restack = i3
+
+#Tell the Window Manager not to configure the window.
+#Use this to detach the bar if your WM is locking its size/position.
+#override-redirect = true
+
+#Fallback click handlers that will be called if there's no matching module handler found.
+#scroll-up = i3wm-wsnext
+#scroll-down = i3wm-wsprev
+
+#Requires polybar to be built with xcursor support (xcb-util-cursor)
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+#vim:ft=dosini
