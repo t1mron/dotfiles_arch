@@ -124,12 +124,15 @@ yay -Syu
 -------------------------------------------------------------------------
 # Optional: 
 
-# Window manager
-sudo pacman -S i3 xorg-server xorg-xinit xorg-xev picom termite rofi feh ttf-font-awesome
-yay -S polybar
+# AMD drivers
+pacman -S mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon 
 
 # Sound, bluetooth, vpn
 sudo pacman -S alsa-utils 
+
+# Window manager
+sudo pacman -S i3 xorg-server xorg-xinit xorg-xev picom termite rofi feh ttf-font-awesome
+yay -S polybar
 
 # Office programs
 
@@ -137,25 +140,23 @@ sudo pacman -S alsa-utils
 sudo pacman -S keepass 
 
 # System tools
-pacman -S bleachbit
+sudo pacman -S bleachbit 
+yay -S timeshift
 
 # Multimedia
 sudo pacman -S 
 
-            
 # Network
-yay -S librewolf
+yay -S librewolf 
 
 pacman -S 
 
 # Virtualisation
 pacman -S 
 
-# AMD drivers
-pacman -S mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon 
-
 # Development
 pacman -S code
+
 ---------------------------------------------
 # Security (create systemd file)
 sudo pacman -S ufw etckeeper rkhunter clamav clamtk
