@@ -74,7 +74,7 @@ font-2 = FontAwesome5Brands:style=Solid:size=7.5;2.5
 #######################################
 modules-left = i3
 modules-center = 
-modules-right = filesystem xbacklight alsa xkeyboard memory cpu wlan eth battery temperature date powermenu
+modules-right = filesystem xbacklight alsa xkeyboard memory cpu wlan eth battery-combined-tlp temperature_core3 date powermenu
 
 #системный лоток расположение tray иконок none|right|center|left
 tray-position = right
