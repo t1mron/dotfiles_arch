@@ -144,7 +144,7 @@ sudo pacman -S bleachbit udiskie
 yay -S timeshift
 
 # Multimedia
-sudo pacman -S 
+sudo pacman -S mpv
 
 # Network
 yay -S librewolf 
