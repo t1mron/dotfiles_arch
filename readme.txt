@@ -51,7 +51,7 @@ mkswap /mnt/swap
 swapon /mnt/swap
 
 # Install the system and some tools
-pacstrap /mnt base linux linux-firmware base-devel efibootmgr iwd grub amd-ucode vi vim git wget 
+pacstrap /mnt base linux linux-firmware base-devel efibootmgr iwd grub amd-ucode vim git wget 
 
 # Generate fstab
 genfstab -U /mnt > /mnt/etc/fstab
@@ -67,7 +67,7 @@ useradd -G wheel -m -d /home/user user
 passwd user
 
 # set sudo privileges
-visudo
+vim /etc/sudoers
 #uncomment %wheel ALL=(All) NOPASSWD: ALL
 
 # Set the time zone and a system clock
