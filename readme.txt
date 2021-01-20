@@ -66,6 +66,9 @@ arch-chroot /mnt /bin/bash
 useradd -G wheel -m -d /home/user user
 passwd user
 
+# Ограничение на вход root
+passwd --lock root
+
 # set sudo privileges
 vim /etc/sudoers
 #uncomment %wheel ALL=(All) NOPASSWD: ALL
