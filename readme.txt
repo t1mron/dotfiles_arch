@@ -127,8 +127,8 @@ yay -Syu
 -------------------------------------------------------------------------
 # Optional: 
 # Window manager
-sudo pacman -S i3 xorg-server xorg-xinit xorg-xev picom termite rofi feh ranger ttf-font-awesome
-yay -S polybar
+sudo pacman -S sway kitty ranger 
+yay -S 
 
 # AMD drivers
 pacman -S mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon 
