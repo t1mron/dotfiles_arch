@@ -37,7 +37,7 @@ mkfs.ext4 -L boot /dev/sda2
 mkfs.ext4 -L root /dev/mapper/archlinux
 
 # Mount partitions and create folders
-mount /dev/sda3 /mnt
+mount /dev/mapper/archlinux /mnt
 mkdir /mnt/boot
 mount /dev/sda2 /mnt/boot
 mkdir /mnt/boot/efi
