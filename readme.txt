@@ -127,11 +127,10 @@ yay -Syu
 -------------------------------------------------------------------------
 # Optional: 
 # Window manager
-sudo pacman -S sway kitty ranger 
-yay -S 
+sudo pacman -S sway kitty wofi waybar ttf-font-awesome   ranger 
 
 # AMD drivers
-pacman -S mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon 
+sudo pacman -S mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon 
 
 # Sound, bluetooth, vpn
 sudo pacman -S alsa-utils 
@@ -140,7 +139,7 @@ sudo pacman -S alsa-utils
 sudo pacman -S libreoffice-still zathura 
 
 # Utilities
-sudo pacman -S keepass 
+sudo pacman -S keepass man
 
 # System tools
 sudo pacman -S bleachbit udiskie 
@@ -150,7 +149,7 @@ yay -S timeshift
 sudo pacman -S mpv
 
 # Network
-yay -S librewolf 
+yay -S librewolf-bin
 
 pacman -S 
 
