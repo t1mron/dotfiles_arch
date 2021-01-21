@@ -127,7 +127,7 @@ yay -Syu
 -------------------------------------------------------------------------
 # Optional: 
 # Window manager
-sudo pacman -S sway kitty wofi waybar ttf-font-awesome   ranger 
+sudo pacman -S sway kitty wofi waybar ttf-font-awesome ranger 
 
 # AMD drivers
 sudo pacman -S mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon 
