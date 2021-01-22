@@ -168,7 +168,7 @@ sudo pacman -S mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon
 sudo pacman -S iwd alsa-utils 
 
 # Office programs
-sudo pacman -S libreoffice-still zathura 
+sudo pacman -S libreoffice-still zathura zathura-pdf-poppler zathura-ps
 
 # Utilities
 sudo pacman -S keepass man-db
