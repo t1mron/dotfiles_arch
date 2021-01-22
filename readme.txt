@@ -12,36 +12,36 @@ timedatectl set-ntp true
 fdisk -l
 
 # Wipe disk before install
-(echo g;echo w) | fdisk /dev/sda
+(echo g;echo w) | fdisk /dev/nvme0n1
 
 # /dev/sda1 256M EFI
-(echo n;echo ;echo ;echo 526335;echo t;echo 1;echo w) | fdisk /dev/sda
+(echo n;echo ;echo ;echo 526335;echo t;echo 1;echo w) | fdisk /dev/nvme0n1
 
 # /dev/sda2 512M Linux filesystem
-(echo n;echo ;echo ;echo 1574911; echo w) | fdisk /dev/sda
+(echo n;echo ;echo ;echo 1574911; echo w) | fdisk /dev/nvme0n1
 
 # /dev/sda3 All Linux filesystem
-(echo n;echo ;echo ;echo ; echo w) | fdisk /dev/sda
+(echo n;echo ;echo ;echo ; echo w) | fdisk /dev/nvme0n1
 
 # Load encrypt modules 
 modprobe dm-crypt
 modprobe dm-mod
 
 # Encrypt and open /dev/sda3  
-cryptsetup luksFormat -v -s 512 -h sha512 /dev/sda3
-cryptsetup open /dev/sda3 archlinux
+cryptsetup luksFormat -v -s 512 -h sha512 /dev/nvme0n1p3
+cryptsetup open /dev/nvme0n1p3 archlinux
 
 # Formatting the partitions
-mkfs.vfat -n "EFI System" /dev/sda1
-mkfs.ext4 -L boot /dev/sda2
+mkfs.vfat -n "EFI System" /dev/nvme0n1p1
+mkfs.ext4 -L boot /dev/nvme0n1p2
 mkfs.ext4 -L root /dev/mapper/archlinux
 
 # Mount partitions and create folders
 mount /dev/mapper/archlinux /mnt
 mkdir /mnt/boot
-mount /dev/sda2 /mnt/boot
+mount /dev/nvme0n1p2 /mnt/boot
 mkdir /mnt/boot/efi
-mount /dev/sda1 /mnt/boot/efi
+mount /dev/nvme0n1p1 /mnt/boot/efi
 
 # Setup swap 
 #count=<amount of your RAM>
@@ -51,7 +51,7 @@ mkswap /mnt/swap
 swapon /mnt/swap
 
 # Install the system and some tools
-pacstrap /mnt base linux linux-firmware base-devel efibootmgr iwd grub amd-ucode vim git wget 
+pacstrap /mnt base linux linux-firmware base-devel efibootmgr grub amd-ucode vim git wget 
 
 # Generate fstab
 genfstab -U /mnt > /mnt/etc/fstab
@@ -88,8 +88,11 @@ echo arch > /etc/hostname
 
 # Set the host
 vim /etc/hosts
-#127.0.0.1   localhost arch
-#::1         localhost arch
+----------------------
+127.0.0.1	   localhost
+::1		       localhost
+127.0.1.1	   arch.localdomain	arch
+----------------------
 
 # Setup grub
 # Edit /etc/default/grub
@@ -118,6 +121,30 @@ reboot
 
 # login user
 
+# set systemd-networkd
+sudo vim /etc/systemd/network/20-wired.network
+----------------------
+[Match]
+Name=enp1s0
+
+[Network]
+DHCP=ipv4
+----------------------
+
+# set systemd-resolved
+sudo vim /etc/systemd/resolved.conf
+----------------------
+[Resolve]
+DNS=1.1.1.1 9.9.9.9
+FallbackDNS=8.8.8.8 1.0.0.1 8.8.4.4
+DNSSEC=yes
+DNSOverTLS=yes
+----------------------
+sudo systemctl enable systemd-networkd
+sudo systemctl start systemd-networkd
+sudo systemctl enable systemd-resolved
+sudo systemctl start systemd-resolved
+
 # Install AUR helper - yay 
 git clone https://aur.archlinux.org/yay.git ~/git/yay
 cd ~/git/yay && makepkg -si
@@ -127,13 +154,18 @@ yay -Syu
 -------------------------------------------------------------------------
 # Optional: 
 # Window manager
-sudo pacman -S sway kitty wofi waybar ttf-font-awesome ranger 
+sudo pacman -S i3 xorg-server xorg-xinit xorg-xev picom kitty rofi ranger ttf-font-awesome
+yay -S polybar
+
+# Network
+yay -S librewolf-bin
+pacman -S 
 
 # AMD drivers
 sudo pacman -S mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon 
 
-# Sound, bluetooth, vpn
-sudo pacman -S alsa-utils 
+# wi fi, Sound, bluetooth, vpn
+sudo pacman -S iwd alsa-utils 
 
 # Office programs
 sudo pacman -S libreoffice-still zathura 
@@ -143,15 +175,12 @@ sudo pacman -S keepass man
 
 # System tools
 sudo pacman -S bleachbit udiskie 
-yay -S timeshift
+yay -S timeshift-bin
 
 # Multimedia
 sudo pacman -S mpv
 
-# Network
-yay -S librewolf-bin
 
-pacman -S 
 
 # Virtualisation
 pacman -S 
@@ -205,4 +234,4 @@ WantedBy=timers.target
 ___________________________________________
 
 
-snapper, htop, net-tools, wireless_tools,wpa_supplicant 
+snapper, htop
