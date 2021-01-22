@@ -94,6 +94,28 @@ vim /etc/hosts
 127.0.1.1	   arch.localdomain	arch
 ----------------------
 
+# set systemd-networkd
+vim /etc/systemd/network/20-wired.network
+----------------------
+[Match]
+Name=enp1s0
+
+[Network]
+DHCP=ipv4
+----------------------
+
+# set systemd-resolved
+vim /etc/systemd/resolved.conf
+----------------------
+[Resolve]
+DNS=1.1.1.1 9.9.9.9
+FallbackDNS=8.8.8.8 1.0.0.1 8.8.4.4
+DNSSEC=yes
+DNSOverTLS=yes
+----------------------
+rm -rf /etc/resolv.conf
+ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
+
 # Setup grub
 # Edit /etc/default/grub
 vim /etc/default/grub
@@ -121,29 +143,8 @@ reboot
 
 # login user
 
-# set systemd-networkd
-sudo vim /etc/systemd/network/20-wired.network
-----------------------
-[Match]
-Name=enp1s0
-
-[Network]
-DHCP=ipv4
-----------------------
-
-# set systemd-resolved
-sudo vim /etc/systemd/resolved.conf
-----------------------
-[Resolve]
-DNS=1.1.1.1 9.9.9.9
-FallbackDNS=8.8.8.8 1.0.0.1 8.8.4.4
-DNSSEC=yes
-DNSOverTLS=yes
-----------------------
-sudo systemctl enable systemd-networkd
-sudo systemctl start systemd-networkd
-sudo systemctl enable systemd-resolved
-sudo systemctl start systemd-resolved
+sudo systemctl enable --now systemd-networkd
+sudo systemctl enable --now systemd-resolved
 
 # Install AUR helper - yay 
 git clone https://aur.archlinux.org/yay.git ~/git/yay
@@ -154,7 +155,7 @@ yay -Syu
 -------------------------------------------------------------------------
 # Optional: 
 # Window manager
-sudo pacman -S i3 xorg-server xorg-xinit xorg-xev picom kitty rofi ranger ttf-font-awesome arandr autorandr
+sudo pacman -S i3-wm xorg-server xorg-xinit xorg-xev picom kitty feh rofi ranger ttf-font-awesome arandr autorandr
 yay -S polybar
 
 # Network
