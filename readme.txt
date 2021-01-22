@@ -14,20 +14,20 @@ fdisk -l
 # Wipe disk before install
 (echo g;echo w) | fdisk /dev/nvme0n1
 
-# /dev/sda1 256M EFI
+# /dev/nvme0n1p1 256M EFI
 (echo n;echo ;echo ;echo 526335;echo t;echo 1;echo w) | fdisk /dev/nvme0n1
 
-# /dev/sda2 512M Linux filesystem
+# /dev/nvme0n1p2 512M Linux filesystem
 (echo n;echo ;echo ;echo 1574911; echo w) | fdisk /dev/nvme0n1
 
-# /dev/sda3 All Linux filesystem
+# /dev/nvme0n1p3 All Linux filesystem
 (echo n;echo ;echo ;echo ; echo w) | fdisk /dev/nvme0n1
 
 # Load encrypt modules 
 modprobe dm-crypt
 modprobe dm-mod
 
-# Encrypt and open /dev/sda3  
+# Encrypt and open /dev/nvme0n1p3  
 cryptsetup luksFormat -v -s 512 -h sha512 /dev/nvme0n1p3
 cryptsetup open /dev/nvme0n1p3 archlinux
 
@@ -80,6 +80,7 @@ hwclock --systohc --utc
 # Generate and set default locale
 vim /etc/locale.gen
 # Uncomment en_US.UTF-8
+
 locale-gen
 echo LANG=en_US.utf8 > /etc/locale.conf
 
@@ -119,7 +120,7 @@ ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
 # Setup grub
 # Edit /etc/default/grub
 vim /etc/default/grub
-#GRUB_CMDLINE_LINUX="cryptdevice=/dev/sda3:archlinux"
+#GRUB_CMDLINE_LINUX="cryptdevice=/dev/nvme0n1p3:archlinux"
 
 # Configure mkinitcpio
 vim /etc/mkinitcpio.conf
@@ -131,7 +132,7 @@ HOOKS="base udev autodetect modconf block encrypt filesystems keyboard fsck"
 mkinitcpio -p linux
 
 # Install grub and create configuration
-grub-install --boot-directory=/boot --efi-directory=/boot/efi /dev/sda2
+grub-install --boot-directory=/boot --efi-directory=/boot/efi /dev/nvme0n1p2
 grub-mkconfig -o /boot/grub/grub.cfg
 grub-mkconfig -o /boot/efi/EFI/arch/grub.cfg
 
@@ -165,8 +166,8 @@ pacman -S
 # AMD drivers
 sudo pacman -S mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon 
 
-# wi fi, Sound, bluetooth, vpn
-sudo pacman -S iwd alsa-utils 
+# wi fi, sound, bluetooth, vpn
+sudo pacman -S iwd pulseaudio pulseaudio-alsa
 
 # Office programs
 sudo pacman -S libreoffice-still zathura zathura-pdf-poppler zathura-ps
