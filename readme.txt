@@ -171,7 +171,7 @@ sudo pacman -S iwd alsa-utils
 sudo pacman -S libreoffice-still zathura 
 
 # Utilities
-sudo pacman -S keepass man
+sudo pacman -S keepass man-db
 
 # System tools
 sudo pacman -S bleachbit udiskie 
