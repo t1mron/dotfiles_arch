@@ -1,145 +1,62 @@
-### Назначенная клавиша MOD по умолчанию
+#--------#
+# BASICS #
+#--------#
+
+# mod
 set $mod Mod4
+set $alt Mod1
 
-### Автозапуск программ
-exec_always --no-startup-id killall polybar; polybar -r main
-#exec --no-startup-id setxkbmap "us,ru" ",winkeys" "grp:alt_shift_toggle,grp_led:scroll"
-exec --no-startup-id feh --bg-scale /home/user/pictures/pixel_town.png
-exec --no-startup-id exec picom -b --backend glx --vsync --xrender-sync-fence --glx-no-rebind-pixmap --use-damage --glx-no-stencil
-#exec --no-startup-id xrandr --dpi 100
-#exec --no-startup-id flameshot
-#exec --no-startup-id sbxkb
-#exec --no-startup-id xflux -l 55.7, -g 37.6 -k 2000
-#exec --no-startup-id megasync
-#exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+# font
+font pango:FiraGO 12
 
-### Отлючение заголовков
-default_border pixel
+#-----------------------------#
+# WINDOW / WORKSPACE COMMANDS #
+#-----------------------------#
 
-### Убить окно нажав средней кнопкой мыши на титульный заголовок окна
-bindsym --release button2 kill
+# drag floating key
+floating_modifier $alt
 
-### Запуск программ
-#bindsym $mod+F1 exec --no-startup-id firefox
-#bindsym $mod+F2 exec --no-startup-id pcmanfm
-#bindsym $mod+F3 exec --no-startup-id subl3
-#bindsym $mod+Ctrl+F3 exec --no-startup-id killall -s 6 subl3
-#bindsym $mod+F4 exec --no-startup-id cherrytree
-#bindsym $mod+F5 exec --no-startup-id chromium
-#bindsym $mod+Menu exec --no-startup-id trello; workspace 9
-#bindsym Menu exec --no-startup-id todoist; workspace 10
-#bindsym $mod+Home exec --no-startup-id cvlc
-#bindsym $mod+Prior exec --no-startup-id killall -s 6 vlc
-#bindsym $mod+t exec --no-startup-id telegram-desktop
-#bindsym $mod+Ctrl+t exec --no-startup-id killall -s 6 telegram-desktop
-#bindsym $mod+w exec --no-startup-id libreoffice --writer
-#bindsym $mod+c exec --no-startup-id libreoffice --calc
-#bindsym Print exec --no-startup-id flameshot gui
-#bindsym $mod+v exec --no-startup-id sudo protonvpn c -f
-#bindsym $mod+Ctrl+v exec --no-startup-id sudo protonvpn disconnect
-#bindsym $mod+b exec --no-startup-id bleachbit
-bindsym $mod+d exec rofi -show run -theme gruvbox-dark-soft
-
-### vlc 
-#bindsym XF86AudioPlay exec --no-startup-id cvlc ~/Музыка/000_My_The_Best
-#bindsym Home exec --no-startup-id cvlc ~/Музыка/best.m3u
-#bindsym XF86AudioStop exec --no-startup-id  killall -s 6 vlc
-
-# Media player controls
-#bindsym XF86AudioPlay exec playerctl play
-#bindsym XF86AudioPause exec playerctl pause
-#bindsym XF86AudioNext exec playerctl next
-#bindsym XF86AudioPrev exec playerctl previous
-
-## Specific workspaces
-#assign [window_role="browser"] $ws1
-#assign [window_role="gimp"] $ws5
-#assign [class="(?i)trello|todoist"] $ws10
-#assign [class="(?i)cherrytree"] $ws4
-#assign [class="(?i)chromium"] $ws8
-#assign [title="(?i)term-tiling"] $ws2
-#assign [class="(?i)subl3|thunar"] $ws3
-#assign [class="(?i)telegram|discord"] $ws6
-
-### Перекидывает открытое окно на нужный рабочий стол
-#for_window [class="todoist"] move to workspace $ws10
-
-### Открытие программ в плавающе окне
-#for_window [title="galculator$"] floating enable
-#for_window [class="Yad" title="yad-calendar"] floating enable
-#for_window [class="Xfce4-terminal"] floating enable
-
-### Горячие клавиши
+# kill focused window
 bindsym $mod+q kill
-bindsym $mod+Return exec termite
-#bindsym $mod+Escape exec shutdown -h now
-#bindsym $mod+r exec reboot
-
-### Убить окно нажав средней кнопкой мыши на титульный заголовок окна
-bindsym --whole-window button2 kill
-
-### Переключение рабочих столов
-bindsym $mod+1 workspace number $ws1
-bindsym $mod+2 workspace number $ws2
-bindsym $mod+3 workspace number $ws3
-bindsym $mod+4 workspace number $ws4
-bindsym $mod+5 workspace number $ws5
-bindsym $mod+6 workspace number $ws6
-bindsym $mod+7 workspace number $ws7
-bindsym $mod+8 workspace number $ws8
-bindsym $mod+9 workspace number $ws9
-bindsym $mod+0 workspace number $ws10
-
-### Cпрятать окно, чтобы оно не мешалось, но в то же время было всегда под рукой. 
-### Можно добавить несколько окон и переключаться между ними. 
-bindsym $mod+Shift+Tab move scratchpad
-bindsym $mod+Tab scratchpad show, resize set 1366 750, move position center
-
-font pango:monospace 8
-
-# Use pactl to adjust volume in Alsa.
-
-### Управление яркостью экрана, нужно установить xbacklight
-bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
-
-# Use Mouse+$mod to drag floating windows to their wanted position
-floating_modifier $mod
+bindsym $alt+F4 kill
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# toggle split
+bindsym $mod+v split toggle
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
-### переключение между режимами отображения, окрытых окон
-# change container layout (stacked, tabbed, toggle split)
-# bindsym $mod+s layout stacking
-# bindsym $mod+w layout tabbed
-# bindsym $mod+e layout toggle split
-
 # toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
+bindsym $mod+b floating toggle, resize set 1280 720, move position center
 
-# change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+workspace_auto_back_and_forth yes
 
-# focus the parent container
-bindsym $mod+a focus parent
+# Make the currently focused window a scratchpad
+bindsym $mod+Shift+z move scratchpad
 
-# focus the child container
-#bindsym $mod+d focus child
+# Show the first scratchpad window
+bindsym $mod+z scratchpad show
+
+# Sticky floating windows
+bindsym $mod+w sticky toggle
+bindsym $mod+Shift+w sticky enable, floating enable, resize set 480 270
+
+bindsym $mod+p layout toggle tabbed split
 
 # Define names for default workspaces for which we configure key bindings later on.
+# We use variables to avoid repeating the names in multiple places.
 set $ws1 "1"
 set $ws2 "2"
 set $ws3 "3"
@@ -151,50 +68,215 @@ set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
 
+# switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace number $ws1
-bindsym $mod+Shift+2 move container to workspace number $ws2
-bindsym $mod+Shift+3 move container to workspace number $ws3
-bindsym $mod+Shift+4 move container to workspace number $ws4
-bindsym $mod+Shift+5 move container to workspace number $ws5
-bindsym $mod+Shift+6 move container to workspace number $ws6
-bindsym $mod+Shift+7 move container to workspace number $ws7
-bindsym $mod+Shift+8 move container to workspace number $ws8
-bindsym $mod+Shift+9 move container to workspace number $ws9
-bindsym $mod+Shift+0 move container to workspace number $ws10
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
 
-### Режим изменение размера окон mod+r меняем стрелками (вместо этого можно использовать мышь или другие горячие клавиши) 
-
+bindsym $mod+y move workspace to output up
 
 mode "resize" {
-        bindsym j resize shrink width 5 px or 5 ppt
-        bindsym k resize grow height 5 px or 5 ppt
-        bindsym l resize shrink height 5 px or 5 ppt
-        bindsym semicolon resize grow width 5 px or 10 ppt
+	bindsym h resize shrink width 10 px
+	bindsym j resize grow height 10 px
+	bindsym k resize shrink height 10 px
+	bindsym l resize grow width 10 px
 
-        # back to normal: Enter or Escape or $mod+r
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-        bindsym $mod+r mode "default"
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+	bindsym $mod+r mode "default"
 }
 
-bindsym $mod+Insert mode "resize"
+bindsym $mod+r mode "resize"
 
-### Изменение размера окон на лету
-bindsym $mod+Ctrl+Right resize shrink width 10 px or 5 ppt
-bindsym $mod+Ctrl+Up resize grow height 10 px or 5 ppt
-bindsym $mod+Ctrl+Down resize shrink height 10 px or 5 ppt
-bindsym $mod+Ctrl+Left resize grow width 10 px or 5 ppt
+#----------------#
+# BASIC BINDINGS #
+#----------------#
 
-# reload the configuration file
-bindsym $mod+Shift+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+# drun
+bindsym $mod+d exec --no-startup-id ~/bin/rofi.sh -d
+
+# clipmenu
+bindsym $alt+v exec --no-startup-id ~/bin/rofi.sh -l
+
+# calc
+bindsym $mod+c exec --no-startup-id ~/bin/rofi.sh -c
+
+# Power-menu
+bindsym $mod+e exec --no-startup-id ~/bin/rofi.sh -p
+
+# print screen
+bindsym Print exec --no-startup-id  ~/bin/rofi.sh -s
+
+# emoji picker
+bindsym $mod+m exec --no-startup-id ~/bin/rofi.sh -e
+
+# terminal
+bindsym $mod+Return exec --no-startup-id kitty
+bindsym $mod+Shift+Return exec --no-startup-id kitty --title="i3-float"
+
+# File Manager
+bindsym $mod+Tab exec --no-startup-id thunar
+
+# restart i3 in place
 bindsym $mod+Shift+r restart
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+# Firefox
+bindsym $mod+a exec --no-startup-id firefox
+
+# Telegram
+bindsym $mod+t exec --no-startup-id flatpak run org.telegram.desktop
 
 
+#------------#
+# APPEARANCE #
+#------------#
 
+smart_borders on
 
+# window border
+for_window [class="^.*"] border pixel 1
 
+set_from_resource $fg i3wm.foreground #f0f0f0
+set_from_resource $bg i3wm.background #f0f0f0
+set_from_resource $cl0 i3wm.color0 #f0f0f0
+set_from_resource $cl1 i3wm.color1 #f0f0f0
+set_from_resource $cl2 i3wm.color2 #f0f0f0
+set_from_resource $cl3 i3wm.color3 #f0f0f0
+set_from_resource $cl4 i3wm.color4 #f0f0f0
+set_from_resource $cl5 i3wm.color5 #f0f0f0
+set_from_resource $cl6 i3wm.color6 #f0f0f0
+set_from_resource $cl7 i3wm.color7 #f0f0f0
+set_from_resource $cl8 i3wm.color8 #f0f0f0
+set_from_resource $cl9 i3wm.color9 #f0f0f0
+set_from_resource $cl10 i3wm.color10 #f0f0f0
+set_from_resource $cl11 i3wm.color11 #f0f0f0
+set_from_resource $cl12 i3wm.color12 #f0f0f0
+set_from_resource $cl13 i3wm.color13 #f0f0f0
+set_from_resource $cl14 i3wm.color14 #f0f0f0
+set_from_resource $cl15 i3wm.color15 #f0f0f0
 
+# class                 border  backgr. text   indicator child_border
+client.focused          $cl7    $bg     $fg    $fg       $fg
+client.focused_inactive $cl0    $bg     $fg    $bg       $bg
+client.unfocused        $cl0    $bg     $fg    $bg       $bg
+client.urgent           $cl13   $bg     $cl13  $bg       $cl13
+client.placeholder      $bg     $bg     $fg    $bg       $fg
+
+client.background       $bg
+
+#----------------------#
+# STARTUP APPLICATIONS #
+#----------------------#
+
+# Keyboard layout
+exec_always --no-startup-id setxkbmap -layout us,ru && setxkbmap -option 'grp:alt_shift_toggle' &
+
+exec_always --no-startup-id nitrogen --restore &
+exec_always --no-startup-id xrdb ~/.Xresources &
+exec_always --no-startup-id ~/bin/bar.sh &
+exec_always --no-startup-id killall dunst; dunst -lf "$fg" -nf "$fg" -cf "$fg" -lb "$bg" -nb "$bg" -cb "$bg" -lfr "$lw" -nfr "$cl10" -cfr "$cl13" &
+exec_always --no-startup-id killall picom; picom --experimental-backends --config ~/.config/picom/picom.conf &
+#exec_always --no-startup-id killall conky; conky &
+#exec_always --no-startup-id killall glava; glava -d &
+
+#exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+exec --no-startup-id udiskie --smart-tray &
+exec --no-startup-id nextcloud --background &
+exec --no-startup-id flatpak run org.telegram.desktop -startintray &
+exec --no-startup-id /usr/lib/kdeconnectd &
+exec --no-startup-id xcalib -v '/home/soul/Acer Swift 3 SF315-41.icm' &
+exec --no-startup-id redshift &
+exec --no-startup-id corectrl &
+
+#---------------#
+# SPECIAL CASES #
+#---------------#
+
+# Telegram
+for_window [class="TelegramDesktop"]                                               resize set 400 1000,    move position 20 40
+for_window [class="TelegramDesktop" title="Media viewer"]      fullscreen enable
+# KotatogramDesktop
+for_window [class="KotatogramDesktop"]                                             resize set 400 1000,    move position 20 40
+for_window [class="KotatogramDesktop" title="Media viewer"]    fullscreen enable
+
+# KeePassXC
+for_window [class="KeePassXC"]                                 floating enable,    resize set 1280 720,    move position center
+
+# pcmanfm
+for_window [class="(?i)pcmanfm" window_type="normal"]          floating enable,    resize set 1280 720,    move position center
+
+# Thunar
+for_window [class="Thunar" window_type="normal"]          floating enable,    resize set 1280 720,    move position center
+
+# sxiv
+for_window [class="Sxiv"]                                      floating enable,    resize set 1280 720,    move position center
+
+# libreoffice
+for_window [class="Soffice"]                                                       resize set 1000 750,    move position center
+
+# Yad popup calendar
+for_window [class="Yad" title="yad-calendar"]                  floating enable
+
+# Make window with specified title float
+for_window [title="^i3-float$"]                                floating enable,    resize set 1280 720,    move position center
+
+for_window [class="^Steam$" title="^Steam Guard - Computer Authorization Required$"] floating enable,    resize set 380 420
+
+for_window [window_role="About"]                               floating enable
+
+for_window [window_role="PictureInPicture"]                    floating enable,    sticky enable
+
+#------------#
+# MEDIA KEYS #
+#------------#
+
+# audio controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
+
+# screen brightness controls
+bindsym XF86MonBrightnessUp exec --no-startup-id light -A 10
+bindsym XF86MonBrightnessDown exec --no-startup-id light -U 10
+
+#floating_maximum_size 1900 x 1060
+#floating_minimum_size -1 x -1
+
+#-------------#
+# ASSIGNMENTS #
+#-------------#
+
+assign [class="firefox" window_type="normal"] $ws2
+assign [class="Code"] $ws3
+assign [class="code-oss"] $ws3
+assign [class="VSCodium"] $ws3
+assign [class="qBittorrent" window_type="normal"] $ws4
+assign [class="Transmission" window_type="normal"] $ws4
+assign [class="Deluge" window_type="normal"] $ws4
+assign [class="mpv"] $ws5
+assign [class="Steam" title="Steam"] $ws6
+assign [class="TelegramDesktop"] $ws7
+assign [class="KotatogramDesktop"] $ws7
+assign [class="discord"] $ws7
+for_window [class="Spotify"] move to workspace $ws10
+
+# vim: set ft=i3config:
