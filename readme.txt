@@ -156,7 +156,7 @@ yay -Syu
 -------------------------------------------------------------------------
 # Optional: 
 # Window manager
-sudo pacman -S i3-wm xorg-server xorg-xinit xorg-xev picom kitty feh rofi ttf-font-awesome arandr autorandr
+sudo pacman -S i3-wm xorg-server xorg-xinit xorg-xev picom kitty ranger feh rofi ttf-font-awesome arandr autorandr
 yay -S polybar
 
 # Network
@@ -176,7 +176,7 @@ sudo pacman -S libreoffice-still zathura zathura-pdf-poppler zathura-ps
 sudo pacman -S keepass man-db
 
 # System tools
-sudo pacman -S bleachbit udiskie 
+sudo pacman -S neofetch udiskie bleachbit 
 yay -S timeshift-bin
 
 # Multimedia
