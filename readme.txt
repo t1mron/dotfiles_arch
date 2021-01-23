@@ -176,7 +176,7 @@ sudo pacman -S libreoffice-still zathura zathura-pdf-poppler zathura-ps
 sudo pacman -S keepass man-db
 
 # System tools
-sudo pacman -S neofetch udiskie bleachbit 
+sudo pacman -S neofetch udiskie bleachbit htop 
 yay -S timeshift-bin
 
 # Multimedia
