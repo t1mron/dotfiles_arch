@@ -1,7 +1,6 @@
 ; vim:ft=cfg
 ; POLYBAR CONFIG
 
-
 [colors]
 background = ${xrdb:background:#222}
 foreground = ${xrdb:foreground:#222}
@@ -10,9 +9,8 @@ primary = ${xrdb:color13:#222}
 secondary = ${xrdb:color4:#222}
 alert = ${xrdb:color5:#222}
 
-
 [bar/base]
-monitor = ${env:MONITOR:HDMI-1}
+;monitor = ${env:MONITOR:HDMI-1}
 
 ; Dimensions
 width = 100%
@@ -32,11 +30,7 @@ bottom = false
 ; Fonts
 font-0 = "FiraGO:size=11;2"
 font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=12;2"
-font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=12;2"
-font-3 = "Font Awesome 5 Brands:pixelsize=12;2"
-font-4 = "Material Design Icons:pixelsize=13;3"
-font-5 = "FuraCode Nerd Font:pixelsize=13;3"
-font-6 = "JoyPixels:scale=10:pixelsize=11;3"
+font-2 = "Font Awesome 5 Brands:pixelsize=12;2"
 
 ; Colors
 background = ${colors.background}
@@ -53,42 +47,18 @@ tray-detached = false
 tray-background = ${colors.background}
 
 ; Modules
-modules-left = vpn-wireguard-wg wlan cpu memory keyboard spotify
-modules-center = i3
-modules-right = updates-arch-combined github kdeconnect battery backlight pulseaudio date time
-
-
-[module/font-test]
-type = custom/script
-interval = 1
-exec = ~/bin/polybar-scripts/font-test.sh
-
-
-[module/vpn-wireguard-wg]
-type = custom/script
-interval = 5
-exec = ~/bin/polybar-scripts/vpn-wireguard-wg.sh
-click-left = ~/bin/polybar-scripts/vpn-wireguard-wg.sh --toggle &
-
-
-[module/wlan]
-type = internal/network
-interface = wlp1s0
-
-label-connected = %{A1:~/bin/rofi.sh -n:}%{T5}󰤨%{T-} %essid%%{A}
-label-disconnected = %{A1:~/bin/rofi.sh -n:}%{T5}󰤮%{T-} Not Connected%{A}
-
+modules-left = i3 cpu memory keyboard 
+modules-center = 
+modules-right = battery ulseaudio 
 
 [module/cpu]
 type = internal/cpu
 label = %{T2}%{T-} %percentage%%
 
-
 [module/memory]
 type = internal/memory
 label = %{T2}%{T-} %gb_used%
 interval = 3
-
 
 [module/keyboard]
 type = internal/xkeyboard
@@ -96,16 +66,6 @@ blacklist-0 = num lock
 blacklist-1 = scroll lock
 
 label-layout = %{T3}%{T-} %layout%
-
-
-[module/spotify]
-type = custom/script
-interval = 5
-format-prefix = "%{T6}%{T-}"
-format = <label>
-exec = python ~/bin/polybar-spotify/spotify_status.py -f ' {song} - {artist}'
-click-left = i3-msg '[class="Spotify"] focus' &
-
 
 [module/i3]
 type = internal/i3
@@ -144,27 +104,10 @@ label-urgent = %icon%
 label-urgent-background = ${colors.alert}
 label-urgent-padding = 1
 
-
 [module/updates-arch-combined]
 type = custom/script
-exec = ~/bin/polybar-scripts/updates-arch-combined.sh
+exec = 
 interval = 600
-
-
-[module/github]
-type = internal/github
-token = ${file:~/.secrets/github-notification.token}
-empty-notifications = false
-interval = 30
-format = <label>
-label = %{T5}󰊤%{T-} %notifications%
-
-
-[module/kdeconnect]
-type = custom/script
-exec = "~/bin/polybar-scripts/polybar-kdeconnect.sh -d"
-tail = true
-
 
 [module/battery]
 type = internal/battery
@@ -196,7 +139,6 @@ animation-charging-4 = 󰂊
 animation-charging-5 = 󰂋
 animation-charging-6 = 󰂅
 
-
 [module/backlight]
 type = internal/backlight
 card = amdgpu_bl0
@@ -215,7 +157,6 @@ ramp-6 = 󰪣
 ramp-7 = 󰪤
 ramp-8 = 󰪥
 
-
 [module/pulseaudio]
 type = internal/pulseaudio
 
@@ -229,19 +170,3 @@ ramp-volume-1 = 奔
 ramp-volume-2 = 墳
 
 
-[module/date]
-type = internal/date
-date = %{A1:~/bin/polybar-scripts/popup-calendar.sh --popup &:}%{T5}󰸗%{T-}%e %B%{A}
-label = %date%
-
-
-[module/time]
-type = internal/date
-interval = 1.0
-date = %{A1:~/bin/polybar-scripts/popup-calendar.sh --popup &:}%{T5}%{T-} %H:%M%{A}
-
-
-[module/popup-calendar]
-type = custom/script
-interval = 60
-exec = ~/bin/polybar-scripts/popup-calendar.sh
