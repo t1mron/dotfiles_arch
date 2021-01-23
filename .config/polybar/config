@@ -1,354 +1,247 @@
-#Цвета панели
+; vim:ft=cfg
+; POLYBAR CONFIG
+
+
 [colors]
-background = #222
-background-alt = #02f517
-foreground = #dfdfdf
-foreground-alt = #bd2c40
-alert = #bd2c40
+background = ${xrdb:background:#222}
+foreground = ${xrdb:foreground:#222}
+foreground-alt = ${xrdb:color7:#222}
+primary = ${xrdb:color13:#222}
+secondary = ${xrdb:color4:#222}
+alert = ${xrdb:color5:#222}
 
-#размеры панели
-#указываем название бара к которому будет обрящаться скрипт автозапуска launch.sh в стоке [bar/название бара]
-[bar/main]
-#monitor = ${env:MONITOR:HDMI-1}
 
-#Ширина панели
+[bar/base]
+monitor = ${env:MONITOR:HDMI-1}
+
+; Dimensions
 width = 100%
+height = 22
+offset-y = 0
+offset-x = 0
+border-top-size = 0
+border-bottom-size = 0
+border-right-size = 0
+border-left-size = 0
 
-#высота панели 
-height = 20
+; Location
+bottom = false
+; wm-restack = i3
+; override-redirect = true
 
-#зафиксированый центр или динамический true / false
-fixed-center = true
+; Fonts
+font-0 = "FiraGO:size=11;2"
+font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=12;2"
+font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=12;2"
+font-3 = "Font Awesome 5 Brands:pixelsize=12;2"
+font-4 = "Material Design Icons:pixelsize=13;3"
+font-5 = "FuraCode Nerd Font:pixelsize=13;3"
+font-6 = "JoyPixels:scale=10:pixelsize=11;3"
 
-#локаль панели отвечает за вывод некотоых данных например дата
-#locale = ru_RU.UTF-8 
-
+; Colors
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-#отступы содержимого панели от края
-padding-left = 0
+; Misc
+fixed-center = true
+padding-left = 2
 padding-right = 2
-
-#отступы между модулями
-module-margin-left = 1
-module-margin-right = 1
-
-#Шрифты
-font-0 = Iosevka Nerd Font:style=Medium:size=8;3
-font-1 = FontAwesome5Free:style=Solid:size=7.5;2.5
-font-2 = FontAwesome5Brands:style=Solid:size=7.5;2.5
-
-
-#######################################
-## РАСПОЛОЖЕНИЕ И АКТИВАЦИЯ МОДУЛЕЙ  ##
-#######################################
-modules-left = i3
-modules-center = 
-modules-right = filesystem xbacklight alsa xkeyboard memory cpu wlan eth battery-combined-tlp temperature_core3 date
-
-#системный лоток расположение tray иконок none|right|center|left
-tray-position = right
-tray-padding = 2
+module-margin = 2
+tray-position = ${env:TRAY_POSITION:right}
+#tray-position = right
 tray-detached = false
-#tray-background = #0063ff
+tray-background = ${colors.background}
+
+; Modules
+modules-left = vpn-wireguard-wg wlan cpu memory keyboard spotify
+modules-center = i3
+modules-right = updates-arch-combined github kdeconnect battery backlight pulseaudio date time
 
 
-#########################
-## ПОДКЛЮЧЕНЫЕ МОДУЛИ  ##
-#########################
-
-############################################################################################################
-#Модуль раскладки клавиатуры
-
-[module/xkeyboard]
-type = internal/xkeyboard
-blacklist-0 = num lock
-label-NAME-maxlen = 10
-#format-prefix = ""
-#format-prefix-foreground = ${colors.foreground-alt}
-
-label-layout =  %layout%
-
-#label-indicator-padding = 2
-#label-indicator-margin = 0
-#label-indicator-background = 2B7DBC
+[module/font-test]
+type = custom/script
+interval = 1
+exec = ~/bin/polybar-scripts/font-test.sh
 
 
-############################################################################################################
-#Модуль файловой системы
+[module/vpn-wireguard-wg]
+type = custom/script
+interval = 5
+exec = ~/bin/polybar-scripts/vpn-wireguard-wg.sh
+click-left = ~/bin/polybar-scripts/vpn-wireguard-wg.sh --toggle &
 
-[module/filesystem]
-type = internal/fs
-interval = 25
-mount-0 = /
-
-label-mounted =  %mountpoint%: %percentage_used%%
-label-unmounted = %mountpoint% not mounted
-#label-unmounted-foreground = ${colors.foreground-alt}
-
-
-############################################################################################################
-#Модуль для отображения информации о рабочих пространствах и активном режиме
-
-[module/i3]
-type = internal/i3
-format = <label-state> <label-mode>
-index-sort = true
-wrapping-scroll = false
-
-#Only show workspaces on the same output as the bar
-#pin-workspaces = true
-
-label-mode-padding = 1
-lgabel-mode-foreground = #004
-label-mode-background = ${colors.primary}
-
-# focused = Active workspace on focused monitor
-label-focused = %icon%
-label-focused-background = 002873C0
-label-focused-foreground = ${colors.foreground}
-label-focused-padding = 1
-
-# unfocused = Inactive workspace on any monitor
-label-unfocused = %icon%
-label-unfocused-background = 00255498
-label-unfocused-foreground = ${colors.foreground}
-label-unfocused-padding = 1
-
-# visible = Active workspace on unfocused monitor
-label-visible = %icon%
-label-visible-background = ${colors.background}
-label-visible-foreground = ${colors.foreground}
-label-visible-padding = 1
-
-# urgent = Workspace with urgency hint set
-label-urgent = %icon%
-label-urgent-background = ${colors.alert}
-label-urgent-foreground = ${colors.foreground}
-label-urgent-padding = 1
-
-ws-icon-0 = 1;1
-ws-icon-1 = 2;2
-ws-icon-2 = 3;3
-ws-icon-3 = 4;4
-ws-icon-4 = 5;5
-ws-icon-5 = 6;6
-ws-icon-6 = 7;7
-ws-icon-7 = 8;8
-ws-icon-8 = 9;9
-ws-icon-9 = 10;10
-
-
-############################################################################################################
-#Модуль для регулировки яркости монитора (не для АМД)
-
-[module/xbacklight]
-type = internal/xbacklight
-
-format = <label> <bar>
-label = BL
-
-bar-width = 10
-bar-indicator = |
-bar-indicator-foreground = #fff
-bar-indicator-font = 2
-bar-fill = ─
-bar-fill-font = 2
-bar-fill-foreground = #9f78e1
-bar-empty = ─
-bar-empty-font = 2
-bar-empty-foreground = ${colors.foreground-alt}
-
-
-############################################################################################################
-#Модуль для регулировки яркости монитора ACPI (не для АМД)
-
-[module/backlight-acpi]
-inherit = module/xbacklight
-type = internal/backlight
-card = intel_backlight
-
-
-############################################################################################################
-#модуль загрузки CPU
-
-[module/cpu]
-type = internal/cpu
-interval = 2
-#format-prefix = " "
-format-prefix-foreground = ${colors.foreground-alt}
-label =  %percentage%%
-
-
-############################################################################################################
-#Модуль памяти ОЗУ
-
-[module/memory]
-type = internal/memory
-interval = 2
-#format-prefix = " "
-format-prefix-foreground = ${colors.foreground-alt}
-label =  %gb_used%
-
-
-############################################################################################################
-#Модуль беспроводной связи
 
 [module/wlan]
 type = internal/network
-interface = net1
-interval = 3.0
+interface = wlp1s0
 
-format-connected = <ramp-signal> <label-connected>
-format-connected-underline = #9f78e1
-label-connected = %essid%
-
-format-disconnected =
-#format-disconnected = <label-disconnected>
-#label-disconnected = %ifname% disconnected
-#label-disconnected-foreground = ${colors.foreground-alt}
-
-ramp-signal-0 = 
-ramp-signal-1 = 
-ramp-signal-2 = 
-ramp-signal-3 = 
-ramp-signal-4 = 
-ramp-signal-foreground = ${colors.foreground-alt}
+label-connected = %{A1:~/bin/rofi.sh -n:}%{T5}󰤨%{T-} %essid%%{A}
+label-disconnected = %{A1:~/bin/rofi.sh -n:}%{T5}󰤮%{T-} Not Connected%{A}
 
 
-############################################################################################################
-#Модуль проводной связи
-
-[module/eth]
-type = internal/network
-interface = enp0s3
-interval = 3.0
-
-format-connected-underline = #55aa55
-#format-connected-prefix = " "
-format-connected-prefix-foreground = ${colors.foreground-alt}
-label-connected = %local_ip%
-
-format-disconnected =
-#format-disconnected = <label-disconnected>
-#label-disconnected = %ifname% disconnected
-#label-disconnected-foreground = ${colors.foreground-alt}
+[module/cpu]
+type = internal/cpu
+label = %{T2}%{T-} %percentage%%
 
 
-############################################################################################################
-#Модуль времени и даты
+[module/memory]
+type = internal/memory
+label = %{T2}%{T-} %gb_used%
+interval = 3
+
+
+[module/keyboard]
+type = internal/xkeyboard
+blacklist-0 = num lock
+blacklist-1 = scroll lock
+
+label-layout = %{T3}%{T-} %layout%
+
+
+[module/spotify]
+type = custom/script
+interval = 5
+format-prefix = "%{T6}%{T-}"
+format = <label>
+exec = python ~/bin/polybar-spotify/spotify_status.py -f ' {song} - {artist}'
+click-left = i3-msg '[class="Spotify"] focus' &
+
+
+[module/i3]
+type = internal/i3
+
+ws-icon-0 = 1;%{T0}%{T-}
+ws-icon-1 = 2;%{T4}%{T-}
+ws-icon-2 = 3;%{T0}%{T-}
+ws-icon-3 = 4;%{T2}%{T-}
+ws-icon-4 = 5;%{T0}%{T-}
+ws-icon-5 = 6;%{T4}%{T-}
+ws-icon-6 = 7;%{T5}%{T-}
+ws-icon-7 = 8;%{T0}%{T-}
+ws-icon-8 = 9;%{T0}%{T-}
+ws-icon-9 = 10;%{T4}%{T-}
+pin-workspaces = true
+enable-scroll = true
+
+format = <label-state> <label-mode>
+
+label-mode = %mode%
+label-mode-padding = 1
+label-mode-background = ${colors.secondary}
+
+label-focused = %icon%
+label-focused-foreground = ${colors.primary}
+label-focused-padding = 1
+
+label-unfocused = %icon%
+label-unfocused-padding = 1
+
+label-visible = %icon%
+label-visible-foreground = ${colors.primary}
+label-visible-padding = 1
+
+label-urgent = %icon%
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 1
+
+
+[module/updates-arch-combined]
+type = custom/script
+exec = ~/bin/polybar-scripts/updates-arch-combined.sh
+interval = 600
+
+
+[module/github]
+type = internal/github
+token = ${file:~/.secrets/github-notification.token}
+empty-notifications = false
+interval = 30
+format = <label>
+label = %{T5}󰊤%{T-} %notifications%
+
+
+[module/kdeconnect]
+type = custom/script
+exec = "~/bin/polybar-scripts/polybar-kdeconnect.sh -d"
+tail = true
+
+
+[module/battery]
+type = internal/battery
+
+battery = BAT0
+adapter = AC1
+
+format-discharging = %{T5}<ramp-capacity>%{T-}<label-discharging>
+format-charging = %{T5}<animation-charging>%{T-}<label-charging>
+format-full = %{T5}<ramp-capacity>%{T-}<label-full>
+
+ramp-capacity-0 = 󰂎
+ramp-capacity-1 = 󰁺
+ramp-capacity-2 = 󰁻
+ramp-capacity-3 = 󰁼
+ramp-capacity-4 = 󰁽
+ramp-capacity-5 = 󰁾
+ramp-capacity-6 = 󰁿
+ramp-capacity-7 = 󰂀
+ramp-capacity-8 = 󰂁
+ramp-capacity-9 = 󰂂
+ramp-capacity-10 = 󰁹
+
+animation-charging-0 = 󰂆
+animation-charging-1 = 󰂇
+animation-charging-2 = 󰂈
+animation-charging-3 = 󰂉
+animation-charging-4 = 󰂊
+animation-charging-5 = 󰂋
+animation-charging-6 = 󰂅
+
+
+[module/backlight]
+type = internal/backlight
+card = amdgpu_bl0
+
+format-spacing = 1
+format = %{T5}<ramp>%{T-}<label>
+label = %percentage%%
+
+ramp-0 = 󰝦
+ramp-1 = 󰪞
+ramp-2 = 󰪟
+ramp-3 = 󰪠
+ramp-4 = 󰪡
+ramp-5 = 󰪢
+ramp-6 = 󰪣
+ramp-7 = 󰪤
+ramp-8 = 󰪥
+
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+format-volume = %{A3:pavucontrol &:}%{T6}<ramp-volume>%{T-} <label-volume>%{A}
+use-ui-max = true
+
+label-muted = %{A3:pavucontrol &:}%{T5}婢%{T-}%{A}
+
+ramp-volume-0 = 奄
+ramp-volume-1 = 奔
+ramp-volume-2 = 墳
+
 
 [module/date]
 type = internal/date
-interval = 60
-time =%{F#E0D9FF} %H:%M
-label = %time%
-
-#format-prefix-foreground = ${colors.foreground-alt}
-
-#Фон для модуля
-#format-background = #7163AF
-#format-foreground = #E0D9FF
+date = %{A1:~/bin/polybar-scripts/popup-calendar.sh --popup &:}%{T5}󰸗%{T-}%e %B%{A}
+label = %date%
 
 
-############################################################################################################
-#Модуль управления звуком через alsa
-
-[module/alsa]
-type = internal/alsa
-format-volume = <label-volume> <bar-volume>
-
-label-volume = 
-label-volume-foreground = ${root.foreground}
-
-label-muted =  sound muted
-format-muted-foreground = ${colors.foreground-alt}
-
-bar-volume-width = 5
-bar-volume-foreground-0 = #55aa55
-bar-volume-foreground-1 = #55aa55
-bar-volume-foreground-2 = #55aa55
-bar-volume-foreground-3 = #55aa55
-bar-volume-foreground-4 = #55aa55
-bar-volume-foreground-5 = #f5a70a
-bar-volume-foreground-6 = #ff5555
-bar-volume-gradient = false
-bar-volume-indicator = []
-bar-volume-indicator-font = 2
-bar-volume-fill = ─
-bar-volume-fill-font = 2
-bar-volume-empty = ─
-bar-volume-empty-font = 2
-bar-volume-empty-foreground = ${colors.foreground-alt}
+[module/time]
+type = internal/date
+interval = 1.0
+date = %{A1:~/bin/polybar-scripts/popup-calendar.sh --popup &:}%{T5}%{T-} %H:%M%{A}
 
 
-############################################################################################################
-# Модуль батарея
-
-[module/battery-combined-tlp]
+[module/popup-calendar]
 type = custom/script
-exec = ~/.config/polybar/scripts/battery-combined-tlp.sh
-interval = 10
-
-
-############################################################################################################
-#Модуль отображения температуры core3
-
-[module/temperature_core3]
-type = internal/temperature
-thermal-zone = 0
-# при достижении критической отметки модуль меняет цвет на тот который мы зададим в label-warn
-warn-temperature = 65
-
-#путь к файлу отвечающему за температуру ядра
-hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon1/temp3_input
-
-label = %temperature-c%
-label-warn = %temperature-c%
-label-warn-foreground = #CA4E4E
-#format-overline = #DFC257
-#format-underline = #ff0000
-#format-warn-underline = #CA4E4E
-interval = 10
-
-format = <ramp> <label>
-format-warn = <ramp> <label-warn>
-ramp-0 = 
-ramp-1 = 
-ramp-2 = 
-#ramp-foreground = #ff0000
-#ramp-foreground = #FBE191
-
-
-[settings]
-#Reload upon receiving XCB_RANDR_SCREEN_CHANGE_NOTIFY events
-screenchange-reload = true
-#compositing-background = xor
-#compositing-background = screen
-#compositing-foreground = source
-#compositing-border = over
-#pseudo-transparency = false
-
-
-[global/wm]
-#Used for top and bottom aligned bars
-margin-top = 5
-margin-bottom = 5
-
-#Currently supported WM's
-wm-restack = i3
-
-#Tell the Window Manager not to configure the window.
-#Use this to detach the bar if your WM is locking its size/position.
-#override-redirect = true
-
-#Fallback click handlers that will be called if there's no matching module handler found.
-#scroll-up = i3wm-wsnext
-#scroll-down = i3wm-wsprev
-
-#Requires polybar to be built with xcursor support (xcb-util-cursor)
-cursor-click = pointer
-cursor-scroll = ns-resize
-
-#vim:ft=dosini
+interval = 60
+exec = ~/bin/polybar-scripts/popup-calendar.sh
