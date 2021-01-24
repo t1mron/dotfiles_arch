@@ -165,7 +165,7 @@ yay -Syu
 -------------------------------------------------------------------------
 # Optional: 
 # Window manager
-sudo pacman -S i3-wm xorg-server xorg-xinit xorg-xev picom kitty ranger feh rofi ttf-font-awesome arandr autorandr
+sudo pacman -S i3-wm xorg-server xorg-xinit xorg-xev kitty ranger rofi ttf-font-awesome arandr autorandr
 yay -S polybar
 
 # Network
