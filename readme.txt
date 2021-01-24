@@ -173,7 +173,7 @@ pacman -S
 sudo pacman -S mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon 
 
 # wi fi, sound, bluetooth, vpn
-sudo pacman -S iwd pulseaudio pulseaudio-alsa
+sudo pacman -S iwd pulseaudio alsa-lib alsa-utils 
 
 # Office programs
 sudo pacman -S libreoffice-still zathura zathura-pdf-poppler zathura-ps
@@ -182,7 +182,7 @@ sudo pacman -S libreoffice-still zathura zathura-pdf-poppler zathura-ps
 sudo pacman -S keepass man-db
 
 # System tools
-sudo pacman -S neofetch udiskie bleachbit htop wget 
+sudo pacman -S neofetch bleachbit htop wget f2fs-tools dosfstools ntfs-3g gvfs
 yay -S timeshift-bin
 
 # Multimedia
