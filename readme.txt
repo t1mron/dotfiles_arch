@@ -243,6 +243,3 @@ RemainAfterElapse=true
 [Install]
 WantedBy=timers.target
 ___________________________________________
-
-
-snapper, htop
