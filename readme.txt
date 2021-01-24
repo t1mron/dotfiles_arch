@@ -131,8 +131,11 @@ vim /etc/default/grub
 # Configure mkinitcpio
 vim /etc/mkinitcpio.conf
 
+# Add 'amdgpu' to MODULES
+MODULES=(amdgpu)
+
 # Add 'encrypt' to HOOKS before filesystems
-HOOKS="base udev autodetect modconf block encrypt filesystems keyboard fsck"
+HOOKS=(base udev autodetect modconf block encrypt filesystems keyboard fsck)
 
 # Regenerate initrd image
 mkinitcpio -p linux
