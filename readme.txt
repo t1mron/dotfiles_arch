@@ -32,9 +32,9 @@ cryptsetup luksFormat -v -s 512 -h sha512 /dev/nvme0n1p3
 cryptsetup open /dev/nvme0n1p3 archlinux
 
 # Formatting the partitions
-mkfs.fat -F32 /dev/nvme0n1p1
-mkfs.ext4 /dev/nvme0n1p2
-mkfs.ext4 /dev/mapper/archlinux
+mkfs.vfat -n "EFI System" /dev/nvme0n1p1
+mkfs.ext4 -L boot /dev/nvme0n1p2
+mkfs.ext4 -L root /dev/mapper/archlinux
 
 # Mount partitions and create folders
 mount /dev/mapper/archlinux /mnt
