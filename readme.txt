@@ -175,8 +175,8 @@ pacman -S
 # AMD drivers
 sudo pacman -S mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon 
 
-# wi fi, sound, bluetooth, vpn
-sudo pacman -S iwd pulseaudio alsa-lib alsa-utils 
+# wi fi, sound, bluetooth, vpn, screen-bright
+sudo pacman -S iwd pulseaudio alsa-lib alsa-utils pavucontrol brightnessctl
 
 # Office programs
 sudo pacman -S libreoffice-still zathura zathura-pdf-poppler zathura-ps
