@@ -32,9 +32,9 @@ cryptsetup luksFormat -v -s 512 -h sha512 /dev/nvme0n1p3
 cryptsetup open /dev/nvme0n1p3 archlinux
 
 # Formatting the partitions
-mkfs.vfat -n "EFI System" /dev/nvme0n1p1
-mkfs.ext4 -L boot /dev/nvme0n1p2
-mkfs.ext4 -L root /dev/mapper/archlinux
+mkfs.fat -F32 /dev/nvme0n1p1
+mkfs.ext4 /dev/nvme0n1p2
+mkfs.ext4 /dev/mapper/archlinux
 
 # Mount partitions and create folders
 mount /dev/mapper/archlinux /mnt
@@ -51,7 +51,7 @@ mkswap /mnt/swap
 swapon /mnt/swap
 
 # Install the system and some tools
-pacstrap /mnt base linux linux-firmware base-devel efibootmgr grub amd-ucode vim git wget 
+pacstrap /mnt base linux linux-firmware base-devel efibootmgr grub amd-ucode vim git
 
 # Generate fstab
 genfstab -U /mnt > /mnt/etc/fstab
@@ -77,12 +77,18 @@ vim /etc/sudoers
 ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 hwclock --systohc --utc
 
-# Generate and set default locale
-vim /etc/locale.gen
-# Uncomment en_US.UTF-8
+# Set default locale
+echo -e "en_US.UTF-8 UTF-8\nru_RU.UTF-8 UTF-8" >> /etc/locale.gen
 
+# Update current locale
 locale-gen
-echo LANG=en_US.utf8 > /etc/locale.conf
+
+# Set system language
+echo 'LANG="ru_RU.UTF-8"' > /etc/locale.conf
+
+# Set keymap and font for console 
+echo 'KEYMAP=ru' >> /etc/vconsole.conf
+echo 'FONT=cyr-sun16' >> /etc/vconsole.conf
 
 # Set the hostname
 echo arch > /etc/hostname
@@ -176,7 +182,7 @@ sudo pacman -S libreoffice-still zathura zathura-pdf-poppler zathura-ps
 sudo pacman -S keepass man-db
 
 # System tools
-sudo pacman -S neofetch udiskie bleachbit htop 
+sudo pacman -S neofetch udiskie bleachbit htop wget 
 yay -S timeshift-bin
 
 # Multimedia
