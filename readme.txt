@@ -165,7 +165,7 @@ yay -Syu
 -------------------------------------------------------------------------
 # Optional: 
 # Window manager
-sudo pacman -S i3-wm xorg-server xorg-xinit xorg-xev kitty ranger rofi ttf-font-awesome arandr autorandr
+sudo pacman -S i3-wm xorg-server xorg-xinit xorg-xev termite ranger rofi ttf-font-awesome arandr autorandr
 yay -S polybar
 
 # Network
@@ -178,8 +178,9 @@ sudo pacman -S mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon
 # Laptop
 light tlp
 
-# wi fi, sound, bluetooth, vpn
+# wi-fi, sound, bluetooth, vpn
 sudo pacman -S iwd pulseaudio alsa-lib alsa-utils pavucontrol 
+yay -S iwgtk
 
 # Office programs
 sudo pacman -S libreoffice-still zathura zathura-pdf-poppler zathura-ps
