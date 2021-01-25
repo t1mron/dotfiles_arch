@@ -63,7 +63,7 @@ genfstab -U /mnt > /mnt/etc/fstab
 arch-chroot /mnt /bin/bash
 
 # Create user
-useradd -G wheel -m -d /home/user user
+useradd -G wheel,video -m -d /home/user user
 passwd user
 
 # Ограничение на вход root
@@ -176,7 +176,7 @@ pacman -S
 sudo pacman -S mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon 
 
 # Laptop
-brightnessctl tlp
+light tlp
 
 # wi fi, sound, bluetooth, vpn
 sudo pacman -S iwd pulseaudio alsa-lib alsa-utils pavucontrol 
