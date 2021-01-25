@@ -169,8 +169,8 @@ sudo pacman -S i3-wm xorg-server xorg-xinit xorg-xev termite ranger rofi ttf-fon
 yay -S polybar
 
 # Network
-yay -S librewolf-bin
-pacman -S 
+yay -S 
+pacman -S wget 
 
 # AMD drivers
 sudo pacman -S mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon 
@@ -189,11 +189,11 @@ sudo pacman -S libreoffice-still zathura zathura-pdf-poppler zathura-ps
 sudo pacman -S keepass man-db
 
 # System tools
-sudo pacman -S neofetch bleachbit htop wget f2fs-tools dosfstools ntfs-3g gvfs
+sudo pacman -S neofetch bleachbit htop f2fs-tools dosfstools ntfs-3g gvfs
 yay -S timeshift-bin
 
 # Multimedia
-sudo pacman -S mpv
+sudo pacman -S mpv firefox telegram-desktop thunar 
 
 
 
