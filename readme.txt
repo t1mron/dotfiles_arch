@@ -111,15 +111,6 @@ Name=enp1s0
 DHCP=ipv4
 ----------------------
 
-# set systemd-resolved
-vim /etc/systemd/resolved.conf
-----------------------
-[Resolve]
-DNS=1.1.1.1 9.9.9.9
-FallbackDNS=8.8.8.8 1.0.0.1 8.8.4.4
-DNSSEC=yes
-DNSOverTLS=yes
-----------------------
 rm -rf /etc/resolv.conf
 ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
 
@@ -156,21 +147,21 @@ reboot
 sudo systemctl enable --now systemd-networkd
 sudo systemctl enable --now systemd-resolved
 
-# Install AUR helper - yay 
-git clone https://aur.archlinux.org/yay.git ~/git/yay
-cd ~/git/yay && makepkg -si
+# Install AUR helper - paru 
+git clone https://aur.archlinux.org/paru.git ~/git/paru
+cd ~/git/paru && makepkg -si
 
 ::TODO:: Update the installed packages. Finish configuration.
-yay -Syu
+paru -Syu
 -------------------------------------------------------------------------
 # Optional: 
 # Window manager
 sudo pacman -S i3-wm xorg-server xorg-xinit xorg-xev termite rofi ttf-font-awesome arandr autorandr
-yay -S polybar
+paru -S polybar
 
 # Network
-yay -S 
-pacman -S wget 
+paru  -S 
+sudo pacman -S wget 
 
 # AMD drivers
 sudo pacman -S mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon 
@@ -180,7 +171,7 @@ light tlp
 
 # wi-fi, sound, bluetooth, vpn
 sudo pacman -S iwd pulseaudio alsa-lib alsa-utils pavucontrol 
-yay -S iwgtk
+paru  -S iwgtk
   # Disable POP sound
   sudo vim /etc/pulse/default.pa
   #comment load-module module-suspend-on-idle
@@ -197,23 +188,23 @@ sudo pacman -S keepass man-db
 
 # System tools
 sudo pacman -S pacman-contrib neofetch bleachbit htop f2fs-tools dosfstools ntfs-3g gvfs thunar ranger
-yay -S timeshift-bin
+paru -S timeshift-bin
 
 # Multimedia
 sudo pacman -S mpv firefox telegram-desktop 
-yay -S spotify spotify-adblock-linux
+paru -S spotify spotify-adblock-linux
 
 
 # Virtualisation
-pacman -S 
+sudo pacman -S 
 
 # Development
-pacman -S code
+sudo pacman -S code
 
 ---------------------------------------------
 # Security (create systemd file)
 sudo pacman -S ufw etckeeper rkhunter clamav clamtk
-yay -S chkrootkit
+paru -S chkrootkit
 #xss-lock
 
 sudo ufw enable &&sudo ufw reload
