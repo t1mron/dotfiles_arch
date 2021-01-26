@@ -165,7 +165,7 @@ yay -Syu
 -------------------------------------------------------------------------
 # Optional: 
 # Window manager
-sudo pacman -S i3-wm xorg-server xorg-xinit xorg-xev termite ranger rofi ttf-font-awesome arandr autorandr
+sudo pacman -S i3-wm xorg-server xorg-xinit xorg-xev termite rofi ttf-font-awesome arandr autorandr
 yay -S polybar
 
 # Network
@@ -181,6 +181,13 @@ light tlp
 # wi-fi, sound, bluetooth, vpn
 sudo pacman -S iwd pulseaudio alsa-lib alsa-utils pavucontrol 
 yay -S iwgtk
+  # Disable POP sound
+  sudo vim /etc/pulse/default.pa
+  #comment load-module module-suspend-on-idle
+  
+  sudo vim /etc/modprobe.d/modprobe.conf
+  # Do not load the 'snd_hda_codec_realtek' module on boot.
+  blacklist snd_hda_codec_realtek
 
 # Office programs
 sudo pacman -S libreoffice-still zathura zathura-pdf-poppler zathura-ps
@@ -189,12 +196,12 @@ sudo pacman -S libreoffice-still zathura zathura-pdf-poppler zathura-ps
 sudo pacman -S keepass man-db
 
 # System tools
-sudo pacman -S neofetch bleachbit htop f2fs-tools dosfstools ntfs-3g gvfs
+sudo pacman -S neofetch bleachbit htop f2fs-tools dosfstools ntfs-3g gvfs thunar ranger
 yay -S timeshift-bin
 
 # Multimedia
-sudo pacman -S mpv firefox telegram-desktop thunar 
-
+sudo pacman -S mpv firefox telegram-desktop 
+yay -S spotify spotify-adblock-linux
 
 
 # Virtualisation
