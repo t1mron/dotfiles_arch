@@ -1,18 +1,13 @@
-; vim:ft=cfg
-; POLYBAR CONFIG
-
 [colors]
-background = ${xrdb:background:#222}
-foreground = ${xrdb:foreground:#222}
-foreground-alt = ${xrdb:color7:#222}
-primary = ${xrdb:color13:#222}
-secondary = ${xrdb:color4:#222}
-alert = ${xrdb:color5:#222}
+foreground = #D2BF8C
+background = #32302F
+background-alt= #665C54
+alert = #bd2c40
 
-[bar/base]
-;monitor = ${env:MONITOR:HDMI-1}
+[bar/main]
+monitor = ${env:MONITOR:eDP}
 
-; Dimensions
+# Dimensions
 width = 100%
 height = 22
 offset-y = 0
@@ -22,151 +17,156 @@ border-bottom-size = 0
 border-right-size = 0
 border-left-size = 0
 
-; Location
+# Location
 bottom = false
-; wm-restack = i3
-; override-redirect = true
+wm-restack = i3
 
-; Fonts
-font-0 = "FiraGO:size=11;2"
-font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=12;2"
-font-2 = "Font Awesome 5 Brands:pixelsize=12;2"
+# Fonts
+font-0 = DejaVu Sans Mono:size=9;2
+font-1 = Font Awesome 5 Free:style=Solid:size=12;2
+font-2 = Font Awesome 5 Brands:pixelsize=12;2
 
-; Colors
+# Colors
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-; Misc
+# Misc
 fixed-center = true
-padding-left = 2
-padding-right = 2
-module-margin = 2
-tray-position = ${env:TRAY_POSITION:right}
-#tray-position = right
+padding-left = 0
+padding-right = 1
+module-margin = 1
+tray-position = right
 tray-detached = false
-tray-background = ${colors.background}
 
-; Modules
-modules-left = i3 cpu memory keyboard 
-modules-center = 
-modules-right = battery ulseaudio 
-
-[module/cpu]
-type = internal/cpu
-label = %{T2}%{T-} %percentage%%
-
-[module/memory]
-type = internal/memory
-label = %{T2}%{T-} %gb_used%
-interval = 3
-
-[module/keyboard]
-type = internal/xkeyboard
-blacklist-0 = num lock
-blacklist-1 = scroll lock
-
-label-layout = %{T3}%{T-} %layout%
+# Modules
+modules-left = i3
+modules-center = time
+modules-right = updates keyboard filesystem backlight pulseaudio mic-volume wlan cpu memory battery
 
 [module/i3]
 type = internal/i3
 
-ws-icon-0 = 1;%{T0}%{T-}
-ws-icon-1 = 2;%{T4}%{T-}
-ws-icon-2 = 3;%{T0}%{T-}
-ws-icon-3 = 4;%{T2}%{T-}
-ws-icon-4 = 5;%{T0}%{T-}
-ws-icon-5 = 6;%{T4}%{T-}
-ws-icon-6 = 7;%{T5}%{T-}
-ws-icon-7 = 8;%{T0}%{T-}
-ws-icon-8 = 9;%{T0}%{T-}
-ws-icon-9 = 10;%{T4}%{T-}
-pin-workspaces = true
-enable-scroll = true
+ws-icon-0 = 1;1
+ws-icon-1 = 2;2
+ws-icon-2 = 3;3
+ws-icon-3 = 4;4
+ws-icon-4 = 5;5
+ws-icon-5 = 6;6
+ws-icon-6 = 7;7
+ws-icon-7 = 8;8
+ws-icon-8 = 9;9
+ws-icon-9 = 10;10
+
+#pin-workspaces = true
+index-sort = true
 
 format = <label-state> <label-mode>
 
 label-mode = %mode%
 label-mode-padding = 1
-label-mode-background = ${colors.secondary}
+label-mode-background = ${colors.foreground}
 
 label-focused = %icon%
-label-focused-foreground = ${colors.primary}
+label-focused-background = ${colors.background-alt}
+label-focused-foreground = ${colors.foreground}
 label-focused-padding = 1
 
 label-unfocused = %icon%
 label-unfocused-padding = 1
 
 label-visible = %icon%
-label-visible-foreground = ${colors.primary}
+label-visible-foreground = ${colors.foreground}
 label-visible-padding = 1
 
 label-urgent = %icon%
 label-urgent-background = ${colors.alert}
 label-urgent-padding = 1
 
-[module/updates-arch-combined]
+[module/cpu]
+type = internal/cpu
+label =  %percentage:3%%
+
+[module/memory]
+type = internal/memory
+label =  %gb_used%
+interval = 3
+
+[module/keyboard]
+type = internal/xkeyboard
+blacklist-0 = num lock
+blacklist-1 = scroll lock
+blacklist-2 = caps lock
+label-layout =  %{A1::} %layout%%{A}
+
+[module/filesystem]
+type = internal/fs
+interval = 25
+mount-0 = /
+
+label-mounted =  %percentage_used:3%%
+#label-unmounted = %mountpoint% not mounted
+
+[module/updates]
 type = custom/script
-exec = 
+exec = bash ~/.config/polybar/scripts/updates-arch-combined.sh
 interval = 600
 
 [module/battery]
 type = internal/battery
 
 battery = BAT0
-adapter = AC1
+adapter = AC
 
-format-discharging = %{T5}<ramp-capacity>%{T-}<label-discharging>
-format-charging = %{T5}<animation-charging>%{T-}<label-charging>
-format-full = %{T5}<ramp-capacity>%{T-}<label-full>
+format-charging = <ramp-capacity> <label-charging>
+format-discharging = <ramp-capacity> <label-discharging>
 
-ramp-capacity-0 = 󰂎
-ramp-capacity-1 = 󰁺
-ramp-capacity-2 = 󰁻
-ramp-capacity-3 = 󰁼
-ramp-capacity-4 = 󰁽
-ramp-capacity-5 = 󰁾
-ramp-capacity-6 = 󰁿
-ramp-capacity-7 = 󰂀
-ramp-capacity-8 = 󰂁
-ramp-capacity-9 = 󰂂
-ramp-capacity-10 = 󰁹
+label-charging = %percentage%%
+label-discharging = %percentage%%
 
-animation-charging-0 = 󰂆
-animation-charging-1 = 󰂇
-animation-charging-2 = 󰂈
-animation-charging-3 = 󰂉
-animation-charging-4 = 󰂊
-animation-charging-5 = 󰂋
-animation-charging-6 = 󰂅
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
+[module/time]
+type = internal/date
+interval = 60
+date = %H:%M
 
 [module/backlight]
 type = internal/backlight
 card = amdgpu_bl0
+enable-scroll = true
 
-format-spacing = 1
-format = %{T5}<ramp>%{T-}<label>
-label = %percentage%%
-
-ramp-0 = 󰝦
-ramp-1 = 󰪞
-ramp-2 = 󰪟
-ramp-3 = 󰪠
-ramp-4 = 󰪡
-ramp-5 = 󰪢
-ramp-6 = 󰪣
-ramp-7 = 󰪤
-ramp-8 = 󰪥
+label =  %percentage:3%%
 
 [module/pulseaudio]
 type = internal/pulseaudio
+use-ui-max = false
 
-format-volume = %{A3:pavucontrol &:}%{T6}<ramp-volume>%{T-} <label-volume>%{A}
-use-ui-max = true
+label-volume = %{A1:pavucontrol -t 1:} %percentage:3%%%{A}
+label-muted =  %{O7}OFF
 
-label-muted = %{A3:pavucontrol &:}%{T5}婢%{T-}%{A}
+[module/mic-volume]
+type = custom/script
+interval = 1
 
-ramp-volume-0 = 奄
-ramp-volume-1 = 奔
-ramp-volume-2 = 墳
+format=%{A1:pavucontrol -t 4:}<label>%{A}
 
+exec = bash ~/.config/polybar/scripts/mic-volume.sh 
+
+[module/wlan]
+type = internal/network
+interface = wlan0
+
+label-connected = %{A1:iwgtk:} %essid%%{A}
+label-disconnected = %{A1:iwgtk:} %{O7}OFF%{A}
+
+[module/bluetooth]
+type = custom/script
+exec = bash ~/.config/polybar/scripts/bluetooth.sh
+interval = 2
+click-left = exec blueberry
+click-right = exec path/to/scripts/config/polybar/toggle_bluetooth.sh
 
