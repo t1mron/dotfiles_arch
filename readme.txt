@@ -171,15 +171,15 @@ light tlp
 sudo systemctl enable --now tlp
 
 # wi-fi, sound, bluetooth, vpn
-sudo pacman -S iwd pulseaudio alsa-lib alsa-utils pavucontrol bluez bluez-utils
+sudo pacman -S iwd pulseaudio alsa-lib alsa-utils pavucontrol bluez bluez-utils blueman
 paru  -S iwgtk
 
 modprobe btusb
 sudo systemctl --now bluetooth.service
-  # Disable POP sound
+  # Disable POP and BEEP sound
   sudo sed -i -e 's/load-module module-suspend-on-idle//g' /etc/pulse/default.pa
   echo "blacklist snd_hda_codec_realtek" | sudo tee -a /etc/modprobe.d/disable_pop.conf
-
+  echo "blacklist pcspkr" | sudo tee -a /etc/modprobe.d/nobeep.conf
 
 # Office programs
 sudo pacman -S libreoffice-still zathura zathura-pdf-poppler zathura-ps
