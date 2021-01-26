@@ -91,7 +91,7 @@ echo 'KEYMAP=ru' >> /etc/vconsole.conf
 echo 'FONT=cyr-sun16' >> /etc/vconsole.conf
 
 # Set the hostname
-echo arch > /etc/hostname
+echo arch >> /etc/hostname
 
 # Set the host
 vim /etc/hosts
@@ -173,12 +173,9 @@ light tlp
 sudo pacman -S iwd pulseaudio alsa-lib alsa-utils pavucontrol 
 paru  -S iwgtk
   # Disable POP sound
-  sudo vim /etc/pulse/default.pa
-  #comment load-module module-suspend-on-idle
+  sudo sed -i -e 's/load-module module-suspend-on-idle//g' /etc/pulse/default.pa
+  echo "blacklist snd_hda_codec_realtek" | sudo tee -a /etc/modprobe.d/disable_pop.conf
   
-  sudo vim /etc/modprobe.d/modprobe.conf
-  # Do not load the 'snd_hda_codec_realtek' module on boot.
-  blacklist snd_hda_codec_realtek
 
 # Office programs
 sudo pacman -S libreoffice-still zathura zathura-pdf-poppler zathura-ps
