@@ -168,14 +168,18 @@ sudo pacman -S mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon
 
 # Laptop
 light tlp
+sudo systemctl enable --now tlp
 
 # wi-fi, sound, bluetooth, vpn
-sudo pacman -S iwd pulseaudio alsa-lib alsa-utils pavucontrol 
+sudo pacman -S iwd pulseaudio alsa-lib alsa-utils pavucontrol bluez bluez-utils
 paru  -S iwgtk
+
+modprobe btusb
+sudo systemctl --now bluetooth.service
   # Disable POP sound
   sudo sed -i -e 's/load-module module-suspend-on-idle//g' /etc/pulse/default.pa
   echo "blacklist snd_hda_codec_realtek" | sudo tee -a /etc/modprobe.d/disable_pop.conf
-  
+
 
 # Office programs
 sudo pacman -S libreoffice-still zathura zathura-pdf-poppler zathura-ps
