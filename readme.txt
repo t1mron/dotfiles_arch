@@ -117,7 +117,10 @@ ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
 # Setup grub
 # Edit /etc/default/grub
 vim /etc/default/grub
-#GRUB_CMDLINE_LINUX="cryptdevice=/dev/nvme0n1p3:archlinux"
+----------------------
+GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet acpi_backlight=vendor"
+GRUB_CMDLINE_LINUX="cryptdevice=/dev/nvme0n1p3:archlinux"
+----------------------
 
 # Configure mkinitcpio
 vim /etc/mkinitcpio.conf
@@ -175,7 +178,7 @@ sudo pacman -S iwd pulseaudio alsa-lib alsa-utils pavucontrol bluez bluez-utils 
 paru  -S iwgtk
 
 modprobe btusb
-sudo systemctl --now bluetooth.service
+sudo systemctl enable --now bluetooth
   # Disable POP and BEEP sound
   sudo sed -i -e 's/load-module module-suspend-on-idle//g' /etc/pulse/default.pa
   echo "blacklist snd_hda_codec_realtek" | sudo tee -a /etc/modprobe.d/disable_pop.conf
