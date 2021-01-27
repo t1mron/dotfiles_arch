@@ -187,6 +187,9 @@ sudo systemctl enable --now bluetooth
 # Office programs
 sudo pacman -S libreoffice-still zathura zathura-pdf-poppler zathura-ps
 
+# Look and feel
+paru -S bibata-cursor-theme
+
 # Utilities
 sudo pacman -S keepass man-db
 
