@@ -191,7 +191,7 @@ sudo pacman -S libreoffice-still zathura zathura-pdf-poppler zathura-ps
 sudo pacman -S keepass man-db
 
 # System tools
-sudo pacman -S pacman-contrib neofetch bleachbit htop f2fs-tools dosfstools ntfs-3g gvfs thunar ranger
+sudo pacman -S pacman-contrib neofetch bleachbit htop f2fs-tools dosfstools ntfs-3g gvfs nautilus ranger
 paru -S timeshift-bin
 
 # Multimedia
