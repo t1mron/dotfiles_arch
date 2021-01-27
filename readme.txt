@@ -155,11 +155,11 @@ git clone https://aur.archlinux.org/paru.git ~/git/paru
 cd ~/git/paru && makepkg -si
 
 ::TODO:: Update the installed packages. Finish configuration.
-paru -Syu
+paru 
 -------------------------------------------------------------------------
 # Optional: 
 # Window manager
-sudo pacman -S i3-wm xorg-server xorg-xinit xorg-xev termite rofi ttf-font-awesome arandr autorandr
+sudo pacman -S i3-wm xorg-server xorg-xinit xorg-xev termite rofi nautilus ttf-font-awesome arandr autorandr
 paru -S polybar
 
 # Network
@@ -191,13 +191,12 @@ sudo pacman -S libreoffice-still zathura zathura-pdf-poppler zathura-ps
 sudo pacman -S keepass man-db
 
 # System tools
-sudo pacman -S pacman-contrib neofetch bleachbit htop f2fs-tools dosfstools ntfs-3g gvfs nautilus ranger
+sudo pacman -S pacman-contrib neofetch bleachbit htop f2fs-tools dosfstools ntfs-3g gvfs 
 paru -S timeshift-bin
 
 # Multimedia
 sudo pacman -S mpv firefox telegram-desktop 
-paru -S spotify spotify-adblock-linux
-
+paru -S librewolf-bin spotify spotify-adblock-linux
 
 # Virtualisation
 sudo pacman -S 
