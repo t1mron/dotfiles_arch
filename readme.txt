@@ -113,17 +113,12 @@ rm -rf /etc/resolv.conf
 ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
 
 # Setup grub
-GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet acpi_backlight=vendor"
-
 sed -i "s|^GRUB_CMDLINE_LINUX_DEFAULT=.*|GRUB_CMDLINE_LINUX_DEFAULT='loglevel=3 quiet acpi_backlight=vendor'|" /etc/default/grub
 sed -i "s|^GRUB_CMDLINE_LINUX=.*|GRUB_CMDLINE_LINUX='cryptdevice=/dev/nvme0n1p3:archlinux'|" /etc/default/grub
 
 # Configure mkinitcpio
 sed -i "s|^MODULES=.*|MODULES=(amdgpu)|" /etc/mkinitcpio.conf
 sed -i "s|^HOOKS=.*|HOOKS=(base udev autodetect modconf block encrypt filesystems keyboard fsck)|" /etc/mkinitcpio.conf
-
-# Add 'encrypt' to HOOKS before filesystems
-HOOKS=(base udev autodetect modconf block encrypt filesystems keyboard fsck)
 
 # Regenerate initrd image
 mkinitcpio -p linux
