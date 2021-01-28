@@ -9,7 +9,6 @@ set $alt Mod1
 # font
 font pango:monospace 8
 
-
 #-----------------------------#
 # WINDOW / WORKSPACE COMMANDS #
 #-----------------------------#
@@ -129,13 +128,13 @@ bindsym $mod+Return exec --no-startup-id termite
 bindsym $mod+Shift+Return exec --no-startup-id termite --title="i3-float"
 
 # File Manager
-bindsym $mod+Tab exec --no-startup-id thunar
+bindsym $mod+Tab exec --no-startup-id nautilus
 
 # restart i3 in place
 bindsym $mod+Shift+r restart
 
 # Firefox
-bindsym $mod+a exec --no-startup-id librewolf 
+bindsym $mod+a exec --no-startup-id firefox
 
 # Telegram
 #bindsym $mod+t exec --no-startup-id flatpak run org.telegram.desktop
@@ -167,21 +166,20 @@ exec_always --no-startup-id killall polybar; polybar -r main
 #---------------#
 
 # Telegram
-for_window [class="TelegramDesktop"]                                               resize set 400 1000,    move position 20 40
-for_window [class="TelegramDesktop" title="Media viewer"]      fullscreen enable
+#for_window [class="TelegramDesktop"]                                            resize set 400 1000, move position 20 40
+for_window [class="TelegramDesktop" title="Media viewer"]       fullscreen enable
 
-# Thunar
-for_window [class="Thunar" window_type="normal"]          floating enable,    resize set 1280 720,    move position center
+# Nautilus
+for_window [class="Nautilus" window_type="normal"]              floating enable, resize set 1280 720, move position center
 
 # iwgtk
 for_window [title="iwgtk"]					floating enable, resize set 1280 720, move position center
 
-# pavucontrol
+# Pavucontrol
 for_window [class="Pavucontrol"]				floating enable, resize set 1280 720, move position center
 
-
 # Make window with specified title float
-#for_window [title="^i3-float$"]                                floating enable,    resize set 1280 720,    move position center
+for_window [title="^i3-float$"]                                	floating enable, resize set 1280 720, move position center
 
 
 #------------#
