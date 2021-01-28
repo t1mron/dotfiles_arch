@@ -169,6 +169,8 @@ paru  -S iwgtk
 sudo systemctl enable --now iwd
 modprobe btusb
 sudo systemctl enable --now bluetooth
+gsettings set org.blueman.plugins.powermanager auto-power-on false
+
   # Disable POP and BEEP sound
   sudo sed -i -e 's/load-module module-suspend-on-idle//g' /etc/pulse/default.pa
   echo "blacklist snd_hda_codec_realtek" | sudo tee -a /etc/modprobe.d/disable_pop.conf
