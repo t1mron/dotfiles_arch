@@ -187,7 +187,7 @@ sudo pacman -S pacman-contrib neofetch bleachbit htop f2fs-tools dosfstools ntfs
 paru -S timeshift-bin
 
 # Multimedia
-sudo pacman -S mpv firefox telegram-desktop 
+sudo pacman -S mpv telegram-desktop-bin
 paru -S librewolf-bin spotify spotify-adblock-linux
 
 # Virtualisation
