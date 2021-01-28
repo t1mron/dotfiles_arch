@@ -66,12 +66,11 @@ arch-chroot /mnt /bin/bash
 useradd -G wheel,video -m -d /home/user user
 passwd user
 
-# Ограничение на вход root
+# Disable root login
 passwd --lock root
 
 # set sudo privileges
-vim /etc/sudoers
-#uncomment %wheel ALL=(All) NOPASSWD: ALL
+echo "%wheel ALL=(All) NOPASSWD: ALL" >> /etc/sudoers
 
 # Set the time zone and a system clock
 ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime
@@ -94,27 +93,22 @@ echo FONT=cyr-sun16 >> /etc/vconsole.conf
 echo arch >> /etc/hostname
 
 # Set the host
-cat <<EOF
+cat << EOF | sudo tee -a /etc/hosts
 127.0.0.1    localhost
 ::1          localhost
 127.0.1.1    arch.localdomain arch
 EOF
-----------------------
-127.0.0.1	   localhost
-::1		       localhost
-127.0.1.1	   arch.localdomain	arch
-----------------------
 
 # set systemd-networkd
-vim /etc/systemd/network/20-wired.network
-----------------------
+cat << EOF | sudo tee -a /etc/systemd/network/20-wired.network
 [Match]
 Name=enp1s0
 
 [Network]
 DHCP=ipv4
-----------------------
+EOF
 
+# symlink resolv.conf
 rm -rf /etc/resolv.conf
 ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
 
