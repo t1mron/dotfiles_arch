@@ -1,4 +1,4 @@
-# Verify the boot mode
+# Verify the boot mode 
 ls /sys/firmware/efi/efivars
 #If the command shows the directory without error, then the system is booted in UEFI mode. If the directory does not exist, the system may be booted in BIOS mode.
 
@@ -251,3 +251,4 @@ RemainAfterElapse=true
 [Install]
 WantedBy=timers.target
 ___________________________________________
+ава
