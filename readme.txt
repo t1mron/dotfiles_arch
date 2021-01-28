@@ -158,13 +158,14 @@ sudo pacman -S wget
 sudo pacman -S mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon 
 
 # Laptop
-light tlp
+sudo pacman -S light tlp
 sudo systemctl enable --now tlp
 
 # wi-fi, sound, bluetooth, vpn
-sudo pacman -S iwd pulseaudio alsa-lib alsa-utils pavucontrol bluez bluez-utils blueman
+sudo pacman -S iwd pulseaudio alsa-lib alsa-utils pavucontrol bluez bluez-utils blueberry
 paru  -S iwgtk
 
+sudo systemctl enable --now iwd
 modprobe btusb
 sudo systemctl enable --now bluetooth
   # Disable POP and BEEP sound
