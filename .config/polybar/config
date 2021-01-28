@@ -8,17 +8,7 @@ alert = #bd2c40
 monitor = ${env:MONITOR:eDP}
 
 # Dimensions
-width = 100%
 height = 22
-offset-y = 0
-offset-x = 0
-border-top-size = 0
-border-bottom-size = 0
-border-right-size = 0
-border-left-size = 0
-
-# Location
-bottom = false
 wm-restack = i3
 
 # Fonts
@@ -35,13 +25,12 @@ fixed-center = true
 padding-left = 0
 padding-right = 1
 module-margin = 1
-tray-position = right
-tray-detached = false
 
 # Modules
 modules-left = i3
 modules-center = time
-modules-right = updates keyboard filesystem backlight pulseaudio mic-volume wlan cpu memory battery
+modules-right = updates wi-fi bluetooth pulseaudio mic backlight filesystem cpu memory keyboard battery
+
 
 [module/i3]
 type = internal/i3
@@ -57,46 +46,83 @@ ws-icon-7 = 8;8
 ws-icon-8 = 9;9
 ws-icon-9 = 10;10
 
-#pin-workspaces = true
+pin-workspaces = false
 index-sort = true
+enable-click = false
+enable-scroll = false
 
 format = <label-state> <label-mode>
 
 label-mode = %mode%
 label-mode-padding = 1
-label-mode-background = ${colors.foreground}
 
 label-focused = %icon%
 label-focused-background = ${colors.background-alt}
-label-focused-foreground = ${colors.foreground}
 label-focused-padding = 1
 
 label-unfocused = %icon%
 label-unfocused-padding = 1
 
 label-visible = %icon%
-label-visible-foreground = ${colors.foreground}
 label-visible-padding = 1
 
 label-urgent = %icon%
 label-urgent-background = ${colors.alert}
 label-urgent-padding = 1
 
-[module/cpu]
-type = internal/cpu
-label =  %percentage:3%%
 
-[module/memory]
-type = internal/memory
-label =  %gb_used%
-interval = 3
+[module/time]
+type = internal/date
+interval = 60
+date = %H:%M
 
-[module/keyboard]
-type = internal/xkeyboard
-blacklist-0 = num lock
-blacklist-1 = scroll lock
-blacklist-2 = caps lock
-label-layout =  %{A1::} %layout%%{A}
+
+[module/updates]
+type = custom/script
+exec = bash ~/.config/polybar/scripts/updates.sh
+interval = 600
+
+
+[module/wi-fi]
+type = internal/network
+interface = wlan0
+
+label-connected = %{A1:iwgtk:}%essid% %{A}
+label-disconnected = %{A1:iwgtk:}%{F#66ffffff}%{F-}%{A}
+
+
+[module/bluetooth]
+type = custom/script
+exec = bash ~/.config/polybar/scripts/bluetooth.sh
+interval = 1
+
+format=%{A1:blueberry:}<label>%{A}
+
+
+[module/pulseaudio]
+type = internal/pulseaudio
+use-ui-max = false
+
+label-volume = %{A1:pavucontrol -t 1:} %percentage:3%%%{A}
+label-muted = %{A1:pavucontrol -t 1:}%{F#66ffffff} %percentage:3%%%{F-}%{A}
+
+
+[module/mic]
+type = custom/script
+interval = 1
+
+format=%{A1:pavucontrol -t 4:}<label>%{A}
+
+exec = bash ~/.config/polybar/scripts/mic.sh 
+
+
+[module/backlight]
+type = internal/backlight
+card = amdgpu_bl0
+enable-scroll = true
+
+label =  %percentage:3%%
+
 
 [module/filesystem]
 type = internal/fs
@@ -106,10 +132,25 @@ mount-0 = /
 label-mounted =  %percentage_used:3%%
 #label-unmounted = %mountpoint% not mounted
 
-[module/updates]
-type = custom/script
-exec = bash ~/.config/polybar/scripts/updates-arch-combined.sh
-interval = 600
+
+[module/cpu]
+type = internal/cpu
+label =  %percentage:3%%
+
+
+[module/memory]
+type = internal/memory
+label =  %gb_used%
+interval = 3
+
+
+[module/keyboard]
+type = internal/xkeyboard
+blacklist-0 = num lock
+blacklist-1 = scroll lock
+blacklist-2 = caps lock
+label-layout =  %{A1::} %layout%%{A}
+
 
 [module/battery]
 type = internal/battery
@@ -128,45 +169,3 @@ ramp-capacity-1 = 
 ramp-capacity-2 = 
 ramp-capacity-3 = 
 ramp-capacity-4 = 
-
-[module/time]
-type = internal/date
-interval = 60
-date = %H:%M
-
-[module/backlight]
-type = internal/backlight
-card = amdgpu_bl0
-enable-scroll = true
-
-label =  %percentage:3%%
-
-[module/pulseaudio]
-type = internal/pulseaudio
-use-ui-max = false
-
-label-volume = %{A1:pavucontrol -t 1:} %percentage:3%%%{A}
-label-muted =  %{O7}OFF
-
-[module/mic-volume]
-type = custom/script
-interval = 1
-
-format=%{A1:pavucontrol -t 4:}<label>%{A}
-
-exec = bash ~/.config/polybar/scripts/mic-volume.sh 
-
-[module/wlan]
-type = internal/network
-interface = wlan0
-
-label-connected = %{A1:iwgtk:} %essid%%{A}
-label-disconnected = %{A1:iwgtk:} %{O7}OFF%{A}
-
-[module/bluetooth]
-type = custom/script
-exec = bash ~/.config/polybar/scripts/bluetooth.sh
-interval = 2
-click-left = exec blueberry
-click-right = exec path/to/scripts/config/polybar/toggle_bluetooth.sh
-
