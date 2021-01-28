@@ -177,7 +177,7 @@ sudo systemctl enable --now bluetooth
 sudo pacman -S libreoffice-still zathura zathura-pdf-poppler zathura-ps
 
 # Look and feel
-paru -S lxappearance bibata-cursor-theme gruvbox-dark-gtk gruvbox-dark-icons-gtk
+paru -S lxappearance gruvbox-dark-gtk gruvbox-dark-icons-gtk
 
 # Utilities
 sudo pacman -S keepass man-db
