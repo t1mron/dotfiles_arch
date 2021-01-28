@@ -93,7 +93,7 @@ echo FONT=cyr-sun16 >> /etc/vconsole.conf
 echo arch >> /etc/hostname
 
 # Set the host
-cat << EOF | sudo tee -a /etc/hosts
+cat << EOF | tee -a /etc/hosts
 127.0.0.1    localhost
 ::1          localhost
 127.0.1.1    arch.localdomain arch
