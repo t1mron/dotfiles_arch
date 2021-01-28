@@ -100,7 +100,7 @@ cat << EOF | sudo tee -a /etc/hosts
 EOF
 
 # set systemd-networkd
-cat << EOF | sudo tee -a /etc/systemd/network/20-wired.network
+cat << EOF | tee -a /etc/systemd/network/20-wired.network
 [Match]
 Name=enp1s0
 
@@ -113,18 +113,14 @@ rm -rf /etc/resolv.conf
 ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
 
 # Setup grub
-# Edit /etc/default/grub
-vim /etc/default/grub
-----------------------
 GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet acpi_backlight=vendor"
-GRUB_CMDLINE_LINUX="cryptdevice=/dev/nvme0n1p3:archlinux"
-----------------------
+
+sed -i "s|^GRUB_CMDLINE_LINUX_DEFAULT=.*|GRUB_CMDLINE_LINUX_DEFAULT='loglevel=3 quiet acpi_backlight=vendor'|" /etc/default/grub
+sed -i "s|^GRUB_CMDLINE_LINUX=.*|GRUB_CMDLINE_LINUX='cryptdevice=/dev/nvme0n1p3:archlinux'|" /etc/default/grub
 
 # Configure mkinitcpio
-vim /etc/mkinitcpio.conf
-
-# Add 'amdgpu' to MODULES
-MODULES=(amdgpu)
+sed -i "s|^MODULES=.*|MODULES=(amdgpu)|" /etc/mkinitcpio.conf
+sed -i "s|^HOOKS=.*|HOOKS=(base udev autodetect modconf block encrypt filesystems keyboard fsck)|" /etc/mkinitcpio.conf
 
 # Add 'encrypt' to HOOKS before filesystems
 HOOKS=(base udev autodetect modconf block encrypt filesystems keyboard fsck)
