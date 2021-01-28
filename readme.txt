@@ -84,17 +84,21 @@ echo -e "en_US.UTF-8 UTF-8\nru_RU.UTF-8 UTF-8" >> /etc/locale.gen
 locale-gen
 
 # Set system language
-echo 'LANG="ru_RU.UTF-8"' > /etc/locale.conf
+echo LANG="ru_RU.UTF-8" > /etc/locale.conf
 
 # Set keymap and font for console 
-echo 'KEYMAP=ru' >> /etc/vconsole.conf
-echo 'FONT=cyr-sun16' >> /etc/vconsole.conf
+echo KEYMAP=ru >> /etc/vconsole.conf
+echo FONT=cyr-sun16 >> /etc/vconsole.conf
 
 # Set the hostname
 echo arch >> /etc/hostname
 
 # Set the host
-vim /etc/hosts
+cat <<EOF
+127.0.0.1    localhost
+::1          localhost
+127.0.1.1    arch.localdomain arch
+EOF
 ----------------------
 127.0.0.1	   localhost
 ::1		       localhost
