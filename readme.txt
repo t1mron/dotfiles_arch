@@ -147,7 +147,7 @@ paru
 
 # Optional: 
 # Window manager
-sudo pacman -S i3-wm xorg-server xorg-xinit xorg-xev termite rofi nautilus ttf-font-awesome arandr autorandr
+sudo pacman -S i3-wm xorg-server xorg-xinit xorg-xev xorg-xkill termite rofi nautilus ttf-font-awesome arandr autorandr
 paru -S polybar
 
 # Network
