@@ -158,7 +158,7 @@ sudo pacman -S wget
 sudo pacman -S mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon 
 
 # Laptop
-sudo pacman -S light tlp
+sudo pacman -S xf86-input-synaptics light tlp
 sudo systemctl enable --now tlp
 
 # wi-fi, sound, bluetooth, vpn
