@@ -128,24 +128,23 @@ grub-install --boot-directory=/boot --efi-directory=/boot/efi /dev/nvme0n1p2
 grub-mkconfig -o /boot/grub/grub.cfg
 grub-mkconfig -o /boot/efi/EFI/arch/grub.cfg
 
-# Exit new system and go into the cd shell
-exit
-
-# Reboot into the new system, don't forget to remove the usb
-reboot
-
-# login user
-
-sudo systemctl enable --now systemd-networkd
-sudo systemctl enable --now systemd-resolved
+# Enable services at startup 
+systemctl enable --now systemd-networkd
+systemctl enable --now systemd-resolved
 
 # Install AUR helper - paru 
 git clone https://aur.archlinux.org/paru.git ~/git/paru
 cd ~/git/paru && makepkg -si
 
+# Exit new system and go into the cd shell
+exit
+
+# Reboot into the new system, don't forget to remove the usb
+reboot
+-------------------------------------------------------------------------
 ::TODO:: Update the installed packages. Finish configuration.
 paru 
--------------------------------------------------------------------------
+
 # Optional: 
 # Window manager
 sudo pacman -S i3-wm xorg-server xorg-xinit xorg-xev termite rofi nautilus ttf-font-awesome arandr autorandr
