@@ -160,7 +160,6 @@ sudo pacman -S mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon
 # Laptop
 sudo pacman -S xf86-input-synaptics light tlp
 sudo systemctl enable --now tlp
-echo 'DEVICES_TO_DISABLE_ON_STARTUP="bluetooth wifi"' | sudo tee -a /etc/tlp.conf
 
 # wi-fi, sound, bluetooth, vpn
 sudo pacman -S iwd pulseaudio alsa-lib alsa-utils pavucontrol bluez bluez-utils blueberry
@@ -183,7 +182,7 @@ sudo pacman -S libreoffice-still zathura zathura-pdf-poppler zathura-ps
 paru -S lxappearance gruvbox-dark-gtk gruvbox-dark-icons-gtk
 
 # Utilities
-sudo pacman -S keepass man-db
+sudo pacman -S keepass man-db flameshot
 
 # System tools
 sudo pacman -S pacman-contrib neofetch bleachbit htop f2fs-tools dosfstools ntfs-3g gvfs 
