@@ -190,7 +190,7 @@ sudo pacman -S pacman-contrib bleachbit htop f2fs-tools dosfstools ntfs-3g gvfs
 paru -S timeshift-bin
 
 # Multimedia
-sudo pacman -S mpv telegram-desktop-bin
+sudo pacman -S mpv telegram-desktop-bin obs-studio
 paru -S librewolf-bin spotify 
 
 # Virtualisation
