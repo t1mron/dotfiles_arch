@@ -162,7 +162,7 @@ sudo pacman -S xf86-input-synaptics light tlp
 sudo systemctl enable --now tlp
 
 # wi-fi, sound, bluetooth, vpn
-sudo pacman -S iwd pulseaudio alsa-lib alsa-utils pavucontrol bluez bluez-utils blueberry
+sudo pacman -S iwd pulseaudio alsa-lib alsa-utils pavucontrol bluez bluez-utils blueman
 paru  -S iwgtk
 
 sudo systemctl enable --now iwd
@@ -179,18 +179,18 @@ gsettings set org.blueman.plugins.powermanager auto-power-on false
 sudo pacman -S libreoffice-still zathura zathura-pdf-poppler zathura-ps
 
 # Look and feel
-paru -S lxappearance gruvbox-dark-gtk gruvbox-dark-icons-gtk
+paru -S lxappearance gruvbox-dark-gtk gruvbox-dark-icons-gtk neofetch
 
 # Utilities
 sudo pacman -S keepass man-db flameshot
 
 # System tools
-sudo pacman -S pacman-contrib neofetch bleachbit htop f2fs-tools dosfstools ntfs-3g gvfs 
+sudo pacman -S pacman-contrib bleachbit htop f2fs-tools dosfstools ntfs-3g gvfs 
 paru -S timeshift-bin
 
 # Multimedia
 sudo pacman -S mpv telegram-desktop-bin
-paru -S librewolf-bin spotify spotify-adblock-git
+paru -S librewolf-bin spotify 
 
 # Virtualisation
 sudo pacman -S 
