@@ -190,7 +190,7 @@ paru -S timeshift-bin
 
 # Multimedia
 sudo pacman -S mpv telegram-desktop-bin
-paru -S librewolf-bin spotify spotify-adblock-linux
+paru -S librewolf-bin spotify spotify-adblock-git
 
 # Virtualisation
 sudo pacman -S 
