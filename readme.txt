@@ -183,7 +183,7 @@ paru -S lxappearance gruvbox-dark-gtk gruvbox-dark-icons-gtk neofetch
 
 # Utilities
 sudo pacman -S keepass man-db flameshot redshift
-systemctl --user enable redshift
+systemctl --user enable --now redshift
 
 # System tools
 sudo pacman -S pacman-contrib bleachbit htop f2fs-tools dosfstools ntfs-3g gvfs 
