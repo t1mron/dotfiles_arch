@@ -194,7 +194,14 @@ sudo pacman -S firefox mpv telegram-desktop-bin obs-studio
 paru -S librewolf-bin spotify 
 
 # Virtualisation
-sudo pacman -S 
+sudo pacman -S qemu virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat libguestfs dmidecode ebtables iptables
+
+echo 'unix_sock_group = "libvirt"' | sudo tee -a /etc/libvirt/libvirtd.conf
+echo 'unix_sock_rw_perms = "0770"' | sudo tee -a /etc/libvirt/libvirtd.conf
+sudo usermod -a -G libvirt $(whoami)
+newgrp libvirt
+
+sudo systemctl enable --now libvirtd.service
 
 # Development
 sudo pacman -S code
