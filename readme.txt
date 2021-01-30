@@ -113,6 +113,8 @@ ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
 sed -i "s|^GRUB_CMDLINE_LINUX_DEFAULT=.*|GRUB_CMDLINE_LINUX_DEFAULT='loglevel=3 quiet acpi_backlight=vendor'|" /etc/default/grub
 sed -i "s|^GRUB_CMDLINE_LINUX=.*|GRUB_CMDLINE_LINUX='cryptdevice=/dev/nvme0n1p3:archlinux'|" /etc/default/grub
 
+GRUB_CMDLINE_LINUX_DEFAULT='resume=/dev/mapper/archlinux resume_offset=34816 loglevel=3 quiet acpi_backlight=vendor'
+
 # Configure mkinitcpio
 sed -i "s|^MODULES=.*|MODULES=(amdgpu)|" /etc/mkinitcpio.conf
 sed -i "s|^HOOKS=.*|HOOKS=(base udev autodetect modconf block encrypt filesystems keyboard fsck)|" /etc/mkinitcpio.conf
