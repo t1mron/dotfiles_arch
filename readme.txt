@@ -130,8 +130,8 @@ systemctl enable --now systemd-networkd
 systemctl enable --now systemd-resolved
 
 # Install AUR helper - paru 
-git clone https://aur.archlinux.org/paru.git ~/git/paru
-cd ~/git/paru && makepkg -si
+git clone https://aur.archlinux.org/paru.git /home/user/git/paru
+cd /home/user/git/paru && makepkg -si
 
 # Install doas instead of sudo
 paru -S doas
