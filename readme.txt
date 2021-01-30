@@ -54,7 +54,7 @@ swapon /mnt/swap
 pacstrap /mnt base linux linux-firmware base-devel efibootmgr grub amd-ucode vim git
 
 # Generate fstab
-genfstab -U /mnt > /mnt/etc/fstab
+genfstab -U /mnt >> /mnt/etc/fstab
 
 # Review the /mnt/etc/fstab
 #rw,noatime
@@ -69,9 +69,6 @@ passwd user
 # Disable root login
 passwd --lock root
 
-# set sudo privileges
-echo "%wheel ALL=(All) NOPASSWD: ALL" >> /etc/sudoers
-
 # Set the time zone and a system clock
 ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 hwclock --systohc --utc
@@ -83,7 +80,7 @@ echo -e "en_US.UTF-8 UTF-8\nru_RU.UTF-8 UTF-8" >> /etc/locale.gen
 locale-gen
 
 # Set system language
-echo LANG="ru_RU.UTF-8" > /etc/locale.conf
+echo LANG="ru_RU.UTF-8" >> /etc/locale.conf
 
 # Set keymap and font for console 
 echo KEYMAP=ru >> /etc/vconsole.conf
@@ -135,6 +132,9 @@ systemctl enable --now systemd-resolved
 # Install AUR helper - paru 
 git clone https://aur.archlinux.org/paru.git ~/git/paru
 cd ~/git/paru && makepkg -si
+
+# Install doas instead of sudo
+paru -S doas
 
 # Exit new system and go into the cd shell
 exit
