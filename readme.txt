@@ -147,74 +147,75 @@ paru
 
 # Optional: 
 # Window manager
-sudo pacman -S i3-wm xorg-server xorg-xinit xorg-xev xorg-xprop xorg-xkill termite rofi nautilus ttf-font-awesome arandr autorandr
+doas pacman -S i3-wm xorg-server xorg-xinit xorg-xev xorg-xprop xorg-xkill termite rofi nautilus ttf-font-awesome arandr autorandr
 paru -S polybar
 
 # Network
 paru  -S 
-sudo pacman -S wget 
+doas pacman -S wget 
 
 # AMD drivers
-sudo pacman -S mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon 
+doas pacman -S mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon 
 
 # Laptop
-sudo pacman -S xf86-input-synaptics light tlp
-sudo systemctl enable --now tlp
+doas pacman -S xf86-input-synaptics light tlp
+doas systemctl enable --now tlp
 
 # wi-fi, sound, bluetooth, vpn
-sudo pacman -S iwd pulseaudio alsa-lib alsa-utils pavucontrol bluez bluez-utils blueman
+doas pacman -S iwd pulseaudio alsa-lib alsa-utils pavucontrol bluez bluez-utils blueman
 paru  -S iwgtk
 
-sudo systemctl enable --now iwd
+doas systemctl enable --now iwd
 modprobe btusb
-sudo systemctl enable --now bluetooth
+doas systemctl enable --now bluetooth
 gsettings set org.blueman.plugins.powermanager auto-power-on false
 
   # Disable POP and BEEP sound
-  sudo sed -i -e 's/load-module module-suspend-on-idle//g' /etc/pulse/default.pa
-  echo "blacklist snd_hda_codec_realtek" | sudo tee -a /etc/modprobe.d/disable_pop.conf
+  doas sed -i -e 's/load-module module-suspend-on-idle//g' /etc/pulse/default.pa
+  echo "blacklist snd_hda_codec_realtek" | doas tee -a /etc/modprobe.d/disable_pop.conf
   echo "blacklist pcspkr" | sudo tee -a /etc/modprobe.d/nobeep.conf
 
 # Office programs
-sudo pacman -S libreoffice-still zathura zathura-pdf-poppler zathura-ps
+doas pacman -S libreoffice-still zathura zathura-pdf-poppler zathura-ps
 
 # Look and feel
 paru -S lxappearance gruvbox-dark-gtk gruvbox-dark-icons-gtk neofetch
 
 # Utilities
-sudo pacman -S keepass man-db flameshot redshift
+doas pacman -S keepass man-db flameshot redshift
 systemctl --user enable --now redshift
 
 # System tools
-sudo pacman -S pacman-contrib bleachbit htop f2fs-tools dosfstools ntfs-3g gvfs 
+doas pacman -S pacman-contrib bleachbit htop f2fs-tools dosfstools ntfs-3g gvfs 
 paru -S timeshift-bin
 
 # Multimedia
-sudo pacman -S firefox mpv telegram-desktop-bin obs-studio
+doas pacman -S firefox mpv telegram-desktop-bin obs-studio
 paru -S librewolf-bin spotify 
 
 # Virtualisation
-sudo pacman -S qemu virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat libguestfs dmidecode ebtables iptables
+doas pacman -S qemu virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat libguestfs dmidecode ebtables iptables
 
 echo 'unix_sock_group = "libvirt"' | sudo tee -a /etc/libvirt/libvirtd.conf
 echo 'unix_sock_rw_perms = "0770"' | sudo tee -a /etc/libvirt/libvirtd.conf
-sudo usermod -a -G libvirt $(whoami)
+doas usermod -a -G libvirt $(whoami)
 newgrp libvirt
 
-sudo systemctl enable --now libvirtd.service
+doas systemctl enable --now libvirtd.service
 
 # Development
-sudo pacman -S code
+doas pacman -S code
 
 ---------------------------------------------
 # Security (create systemd file)
-sudo pacman -S ufw etckeeper rkhunter clamav clamtk
+doas pacman -S ufw etckeeper rkhunter clamav clamtk
 paru -S chkrootkit
 #xss-lock
 
-sudo ufw enable &&sudo ufw reload
+doas ufw enable &&sudo ufw reload
 
-sudo freshclam
+doas freshclam
+
 #if error freshclam
 sudo systemctl stop clamav-daemon.service
 sudo rm /var/log/clamav/freshclam.log
@@ -250,4 +251,4 @@ RemainAfterElapse=true
 [Install]
 WantedBy=timers.target
 ___________________________________________
-ава
+
