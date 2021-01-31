@@ -8,9 +8,6 @@ ping archlinux.org
 # Sync time 
 timedatectl set-ntp true 
 
-# Choose the disk
-fdisk -l
-
 # Wipe disk before install
 (echo g;echo w) | fdisk /dev/nvme0n1
 
@@ -80,12 +77,10 @@ echo -e "en_US.UTF-8 UTF-8\nru_RU.UTF-8 UTF-8" >> /etc/locale.gen
 locale-gen
 
 # Set system language
-echo LANG="ru_RU.UTF-8" >> /etc/locale.conf
+echo LANG=en_US.UTF-8 >> /etc/locale.conf
 
 # Set keymap and font for console 
 echo -e "KEYMAP=ru\nFONT=cyr-sun16" >> /etc/vconsole.conf
-
-
 
 # Set the hostname
 echo arch >> /etc/hostname
