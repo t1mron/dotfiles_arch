@@ -188,7 +188,7 @@ doas pacman -S pacman-contrib bleachbit htop f2fs-tools dosfstools ntfs-3g gvfs
 paru -S timeshift-bin
 
 # Multimedia
-doas pacman -S firefox mpv telegram-desktop-bin obs-studio
+doas pacman -S firefox mpv sxiv telegram-desktop-bin obs-studio
 paru -S librewolf-bin spotify 
 
 # Virtualisation
