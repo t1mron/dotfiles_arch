@@ -83,8 +83,9 @@ locale-gen
 echo LANG="ru_RU.UTF-8" >> /etc/locale.conf
 
 # Set keymap and font for console 
-echo KEYMAP=ru >> /etc/vconsole.conf
-echo FONT=cyr-sun16 >> /etc/vconsole.conf
+echo -e "KEYMAP=ru\nFONT=cyr-sun16" >> /etc/vconsole.conf
+
+
 
 # Set the hostname
 echo arch >> /etc/hostname
@@ -110,14 +111,11 @@ rm -rf /etc/resolv.conf
 ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
 
 # Setup grub
-sed -i "s|^GRUB_CMDLINE_LINUX_DEFAULT=.*|GRUB_CMDLINE_LINUX_DEFAULT='loglevel=3 quiet acpi_backlight=vendor'|" /etc/default/grub
+sed -i "s|^GRUB_CMDLINE_LINUX_DEFAULT=.*|GRUB_CMDLINE_LINUX_DEFAULT='resume=/dev/mapper/archlinux resume_offset=34816 loglevel=3 quiet acpi_backlight=vendor'|" /etc/default/grub
 sed -i "s|^GRUB_CMDLINE_LINUX=.*|GRUB_CMDLINE_LINUX='cryptdevice=/dev/nvme0n1p3:archlinux'|" /etc/default/grub
 
-GRUB_CMDLINE_LINUX_DEFAULT='resume=/dev/mapper/archlinux resume_offset=34816 loglevel=3 quiet acpi_backlight=vendor'
-
 # Configure mkinitcpio
-sed -i "s|^MODULES=.*|MODULES=(amdgpu)|" /etc/mkinitcpio.conf
-sed -i "s|^HOOKS=.*|HOOKS=(base udev autodetect modconf block encrypt filesystems keyboard fsck)|" /etc/mkinitcpio.conf
+sed -i "s|^HOOKS=.*|HOOKS=(base udev autodetect modconf block keyboard encrypt fsck filesystems resume)|" /etc/mkinitcpio.conf
 
 # Regenerate initrd image
 mkinitcpio -p linux
