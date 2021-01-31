@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/bash
 
 if [ -z "$1" ]; then
   volume=$(pacmd list-sources | grep "\* index:" -A 7 | grep "volume" | awk -F/ '{print $2}')
