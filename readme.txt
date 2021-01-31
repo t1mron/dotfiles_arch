@@ -133,8 +133,6 @@ exit
 
 # Reboot into the new system, don't forget to remove the usb
 reboot
-
-rm systemd-backlight@.service
 -------------------------------------------------------------------------
 ::TODO:: Update the installed packages. Finish configuration.
 paru 
