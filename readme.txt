@@ -106,7 +106,7 @@ ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
 echo HandleSuspendKey=hibernate >> /etc/systemd/logind.conf
 
 # Setup grub
-sed -i "s|^GRUB_TIMEOUT=.*|GRUB_TIMEOUT=0|" /etc/default/grub
+sed -i "s|^GRUB_TIMEOUT=.*|GRUB_TIMEOUT=1|" /etc/default/grub
 sed -i "s|^GRUB_CMDLINE_LINUX_DEFAULT=.*|GRUB_CMDLINE_LINUX_DEFAULT='loglevel=3 quiet acpi_backlight=vendor'|" /etc/default/grub
 sed -i "s|^GRUB_CMDLINE_LINUX=.*|GRUB_CMDLINE_LINUX='cryptdevice=/dev/nvme0n1p3:archlinux resume=/dev/mapper/archlinux resume_offset=34816'|" /etc/default/grub
 
@@ -192,8 +192,8 @@ paru -S librewolf-bin spotify
 # Virtualisation
 doas pacman -S qemu virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat libguestfs dmidecode ebtables iptables
 
-echo 'unix_sock_group = "libvirt"' | sudo tee -a /etc/libvirt/libvirtd.conf
-echo 'unix_sock_rw_perms = "0770"' | sudo tee -a /etc/libvirt/libvirtd.conf
+echo 'unix_sock_group = "libvirt"' | doas tee -a /etc/libvirt/libvirtd.conf
+echo 'unix_sock_rw_perms = "0770"' | doas tee -a /etc/libvirt/libvirtd.conf
 doas usermod -a -G libvirt $(whoami)
 newgrp libvirt
 
