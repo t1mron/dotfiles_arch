@@ -53,9 +53,6 @@ pacstrap /mnt base linux linux-firmware base-devel efibootmgr grub amd-ucode vim
 # Generate fstab
 genfstab -U /mnt >> /mnt/etc/fstab
 
-# Review the /mnt/etc/fstab
-#rw,noatime
-
 # Enter the new system
 arch-chroot /mnt /bin/bash
 
