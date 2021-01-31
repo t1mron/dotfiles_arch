@@ -102,6 +102,9 @@ EOF
 rm -rf /etc/resolv.conf
 ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
 
+# Set hibernate button
+echo HandleSuspendKey=hibernate >> /etc/systemd/logind.conf
+
 # Setup grub
 sed -i "s|^GRUB_TIMEOUT=.*|GRUB_TIMEOUT=0|" /etc/default/grub
 sed -i "s|^GRUB_CMDLINE_LINUX_DEFAULT=.*|GRUB_CMDLINE_LINUX_DEFAULT='loglevel=3 quiet acpi_backlight=vendor'|" /etc/default/grub
