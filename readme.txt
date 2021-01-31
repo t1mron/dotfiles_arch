@@ -180,7 +180,7 @@ doas pacman -S libreoffice-still zathura zathura-pdf-poppler zathura-ps
 paru -S lxappearance gruvbox-dark-gtk gruvbox-dark-icons-gtk neofetch
 
 # Utilities
-doas pacman -S keepass man-db flameshot redshift
+doas pacman -S keepass man-db flameshot qbittorrent redshift
 systemctl --user enable --now redshift
 
 # System tools
