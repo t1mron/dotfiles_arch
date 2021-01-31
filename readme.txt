@@ -154,8 +154,10 @@ doas pacman -S wget
 doas pacman -S mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon 
 
 # Laptop
-doas pacman -S xf86-input-synaptics light tlp
+doas pacman -S xf86-input-synaptics light tlp powertop 
 doas systemctl enable --now tlp
+doas systemctl enable powertop
+doas powertop --calibrate
 
 # wi-fi, sound, bluetooth, vpn
 doas pacman -S iwd pulseaudio alsa-lib alsa-utils pavucontrol bluez bluez-utils blueman
