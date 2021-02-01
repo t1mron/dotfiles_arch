@@ -181,7 +181,6 @@ paru -S lxappearance gruvbox-dark-gtk gruvbox-dark-icons-gtk neofetch
 
 # Utilities
 doas pacman -S keepass man-db flameshot qbittorrent redshift
-systemctl --user enable --now redshift
 
 # System tools
 doas pacman -S pacman-contrib bleachbit htop f2fs-tools dosfstools ntfs-3g gvfs 
