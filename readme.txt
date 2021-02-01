@@ -154,8 +154,8 @@ gsettings set org.blueman.plugins.powermanager auto-power-on false
 
   # Disable POP and BEEP sound
   doas sed -i -e 's/load-module module-suspend-on-idle//g' /etc/pulse/default.pa
-  echo "blacklist snd_hda_codec_realtek" | doas tee -a /etc/modprobe.d/disable_pop.conf
-  echo "blacklist pcspkr" | sudo tee -a /etc/modprobe.d/nobeep.conf
+  doas sh -c "echo 'blacklist snd_hda_codec_realtek' >> /etc/modprobe.d/disable_pop.conf"
+  doas sh -c "echo 'blacklist pcspkr' >> /etc/modprobe.d/nobeep.conf"
 
 # Office programs
 doas pacman -S libreoffice-still zathura zathura-pdf-poppler zathura-ps
@@ -176,12 +176,6 @@ paru -S librewolf-bin spotify
 
 # Virtualisation
 doas pacman -S qemu virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat libguestfs dmidecode ebtables iptables
-
-echo 'unix_sock_group = "libvirt"' | doas tee -a /etc/libvirt/libvirtd.conf
-echo 'unix_sock_rw_perms = "0770"' | doas tee -a /etc/libvirt/libvirtd.conf
-doas usermod -a -G libvirt $(whoami)
-newgrp libvirt
-
 doas systemctl enable --now libvirtd.service
 
 # Development
