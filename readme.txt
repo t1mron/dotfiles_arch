@@ -168,7 +168,7 @@ doas pacman -S libreoffice-still zathura zathura-pdf-poppler zathura-ps
 paru -S lxappearance gruvbox-dark-gtk gruvbox-dark-icons-gtk neofetch
 
 # Utilities
-doas pacman -S keepass man-db flameshot qbittorrent redshift
+doas pacman -S keepass man-db flameshot qbittorrent redshift rclone
 
 # System tools
 doas pacman -S pacman-contrib bleachbit htop f2fs-tools dosfstools ntfs-3g gvfs 
