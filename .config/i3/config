@@ -9,6 +9,7 @@ set $alt Mod1
 # font
 font pango:monospace 8
 
+
 #-----------------------------#
 # WINDOW / WORKSPACE COMMANDS #
 #-----------------------------#
@@ -17,7 +18,7 @@ font pango:monospace 8
 floating_modifier $alt
 
 # kill focused window
-bindsym $mod+shift+q --release kill
+bindsym $mod+q kill
 
 # change focus
 bindsym $mod+h focus left
@@ -32,13 +33,13 @@ bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
 # toggle split
-bindsym $mod+v split toggle
+bindsym $mod+Shift+v split toggle
 
 # enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
+bindsym $mod+Shift+f fullscreen toggle
 
 # toggle tiling / floating
-bindsym $mod+b floating toggle, resize set 1280 720, move position center
+bindsym $mod+Shift+b floating toggle, resize set 1280 720, move position center
 
 workspace_auto_back_and_forth yes
 
@@ -49,23 +50,37 @@ bindsym $mod+Shift+z move scratchpad
 bindsym $mod+z scratchpad show
 
 # Sticky floating windows
-bindsym $mod+w sticky toggle
-bindsym $mod+Shift+w sticky enable, floating enable, resize set 480 270
+bindsym $mod+Shift+w sticky toggle
 
-bindsym $mod+p layout toggle tabbed split
+bindsym $mod+Shift+p layout toggle tabbed split
 
-# Define names for default workspaces for which we configure key bindings later on.
-# We use variables to avoid repeating the names in multiple places.
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
+# set workspace name 
+set $ws1 "1" 
+set $ws2 "2" 
+set $ws3 "3" 
+set $ws4 "4" 
+set $ws5 "5" 
 set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
+
+# set monitor name
+set $eDP eDP
+set $HDMI HDMI-A-0
+
+# pin workspace to monitor
+workspace $ws1 output  $eDP 
+workspace $ws2 output  $eDP 
+workspace $ws3 output  $eDP 
+workspace $ws4 output  $eDP 
+workspace $ws5 output  $eDP  
+workspace $ws6 output  $eDP
+workspace $ws7 output  $eDP
+workspace $ws8 output  $HDMI
+workspace $ws9 output  $HDMI
+workspace $ws10 output $HDMI
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -91,7 +106,9 @@ bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
-bindsym $mod+y move workspace to output up
+# move focused container to another screen
+bindsym $mod+Up move container to output up
+bindsym $mod+Down move container to output down
 
 mode "resize" {
 	bindsym h resize shrink width 10 px
@@ -104,11 +121,13 @@ mode "resize" {
 	bindsym $mod+r mode "default"
 }
 
-bindsym $mod+r mode "resize"
+bindsym $mod+Shift+r mode "resize"
 
-# logout 
-bindsym $mod+Shift+End exec i3-msg exit
+# reload i3 config
+bindsym $mod+Shift+c reload
 
+# restart i3
+bindsym $mod+Shift+Delete exit 
 
 #----------------#
 # BASIC BINDINGS #
@@ -118,7 +137,7 @@ bindsym $mod+Shift+End exec i3-msg exit
 bindsym $mod+d exec --no-startup-id rofi -show run -theme gruvbox-dark-soft
 
 # clipmenu
-#bindsym $alt+v exec --no-startup-id ~/bin/rofi.sh -l
+#bindsym $alt+v exec --no-startup-id 
 
 # print screen
 bindsym Print exec --no-startup-id flameshot gui
@@ -130,55 +149,79 @@ bindsym $mod+Shift+Return exec --no-startup-id termite --title="i3-float"
 # File Manager
 bindsym $mod+Tab exec --no-startup-id nautilus
 
-# restart i3 in place
-bindsym $mod+Shift+r restart
+# Librewolf	
+bindsym $mod+f exec --no-startup-id librewolf
 
-# Firefox
-bindsym $mod+a exec --no-startup-id firefox
+# Libreoffice
+bindsym $mod+w exec --no-startup-id libreoffice
 
 # Telegram
-#bindsym $mod+t exec --no-startup-id flatpak run org.telegram.desktop
+bindsym $mod+t exec --no-startup-id telegram-desktop
+
+# Spotify
+bindsym $mod+s exec --no-startup-id env LD_PRELOAD=/usr/local/lib/spotify-adblock.so spotify %U
+
+# VScode
+bindsym $mod+c exec --no-startup-id code-oss
+
+# OBS
+bindsym $mod+o exec --no-startup-id obs
+
+# reload autorandr 
+bindsym $mod+Home exec --no-startup-id autorandr -c
+
+# kill lag window
+bindsym --release $mod+Escape exec --no-startup-id xkill
 
 
 #------------#
 # APPEARANCE #
 #------------#
 
-#smart_borders on
-
 # window border
 for_window [class="^.*"] border pixel 1
+
+set $grv #665C54
+
+# class       	  border backgr text  indicator child_border
+client.focused    $grv   $grv   $grv  $grv      $grv
+client.urgent     $grv   $grv   $grv  $grv      $grv
 
 
 #----------------------#
 # STARTUP APPLICATIONS #
 #----------------------#
-
-exec_always --no-startup-id setxkbmap -layout us,ru && setxkbmap -option 'grp:alt_shift_toggle' &
-exec_always --no-startup-id killall polybar; polybar -r main 
-#exec --no-startup-id udiskie --smart-tray &
-#exec --no-startup-id redshift &
-#exec --no-startup-id corectrl &
+#exec_always --no-startup-id autorandr --change
+exec_always --no-startup-id setxkbmap -layout us,ru && setxkbmap -option 'grp:alt_shift_toggle' 
+#exec_always --no-startup-id killall polybar; ~/.config/polybar/scripts/launch_polybar 
 
 
 #---------------#
 # SPECIAL CASES #
 #---------------#
 
-# Telegram
-#for_window [class="TelegramDesktop"]                                            resize set 400 1000, move position 20 40
-for_window [class="TelegramDesktop" title="Media viewer"]       fullscreen enable
+# nautilus
+for_window [class="Nautilus"]              			floating enable, resize set 1280 720, move position center
 
-# Nautilus
-for_window [class="Nautilus" window_type="normal"]              floating enable, resize set 1280 720, move position center
+# browser/library	
+for_window [class="Library"]             			floating enable, resize set 1280 720, move position center
 
 # iwgtk
-for_window [title="iwgtk"]					floating enable, resize set 1280 720, move position center
+for_window [class="Iwgtk"]					floating enable, resize set 1280 720, move position center
 
-# Pavucontrol
+# pavucontrol
 for_window [class="Pavucontrol"]				floating enable, resize set 1280 720, move position center
 
-# Make window with specified title float
+# sxiv
+for_window [class="Sxiv"]				floating enable, resize set 1280 720, move position center
+
+# mpv
+for_window [class="mpv"]      					fullscreen enable
+
+# blueman
+for_window [class="Blueman-manager"]				floating enable, resize set 1280 720, move position center
+
+# make window with specified title float
 for_window [title="^i3-float$"]                                	floating enable, resize set 1280 720, move position center
 
 
@@ -190,27 +233,38 @@ for_window [title="^i3-float$"]                                	floating enable,
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% 
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% 
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+# mic controls
+bindsym $mod+XF86AudioRaiseVolume exec --no-startup-id pactl set-source-volume @DEFAULT_SOURCE@ +10%  
+bindsym $mod+XF86AudioLowerVolume exec --no-startup-id pactl set-source-volume @DEFAULT_SOURCE@ -10% 
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle 
 
 # screen brightness controls
 bindsym XF86MonBrightnessUp exec --no-startup-id light -A 10
 bindsym XF86MonBrightnessDown exec --no-startup-id light -U 10
 
+# wi-fi controls
+bindsym $mod+Prior exec --no-startup-id sudo ip link set wlan0 up
+bindsym $mod+Next exec --no-startup-id sudo ip link set wlan0 down
+
+# show/hide polybar  
+bindsym XF86Display exec --no-startup-id polybar-msg cmd toggle
+
+# on/off touchpad  
+bindsym F2 exec --no-startup-id ~/.config/i3/scripts/touchpad
+
 
 #-------------#
 # ASSIGNMENTS #
 #-------------#
 
-#assign [class="firefox" window_type="normal"] $ws2
-#assign [class="Code"] $ws3
+assign [class="LibreWolf" window_type="normal"] $ws2
+assign [class="Code"] $ws3
 assign [class="code-oss"] $ws3
-#assign [class="VSCodium"] $ws3
-#assign [class="qBittorrent" window_type="normal"] $ws4
-#assign [class="Transmission" window_type="normal"] $ws4
-#assign [class="Deluge" window_type="normal"] $ws4
-#assign [class="mpv"] $ws5
-#assign [class="Steam" title="Steam"] $ws6
-#assign [class="TelegramDesktop"] $ws7
-#assign [class="KotatogramDesktop"] $ws7
-#assign [class="discord"] $ws7
-#for_window [class="Spotify"] move to workspace $ws10
+assign [class="libreoffice"] $ws4
+assign [class="firefox"] $ws4
+assign [class="qBittorrent" window_type="normal"] $ws5
+assign [class="Steam" title="Steam"] $ws6
+assign [class="mpv"] $ws7
+assign [class="obs"] $ws7
+for_window [class="Spotify"] move to workspace $ws7
