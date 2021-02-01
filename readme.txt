@@ -105,16 +105,16 @@ grub-install --boot-directory=/boot --efi-directory=/boot/efi /dev/nvme0n1p2
 grub-mkconfig -o /boot/grub/grub.cfg
 grub-mkconfig -o /boot/efi/EFI/arch/grub.cfg
 
-# Enable services at startup 
-systemctl enable --now systemd-networkd
-systemctl enable --now systemd-resolved
-
 # Install AUR helper - paru 
 git clone https://aur.archlinux.org/paru.git /home/user/git/paru
 cd /home/user/git/paru && makepkg -si
 
 # Install doas instead of sudo
 paru -S doas
+
+# Enable services at startup 
+systemctl enable --now systemd-networkd
+systemctl enable --now systemd-resolved
 
 # Exit new system and go into the cd shell
 exit
