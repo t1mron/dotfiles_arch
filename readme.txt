@@ -82,22 +82,6 @@ echo -e "KEYMAP=ru\nFONT=cyr-sun16" >> /etc/vconsole.conf
 # Set the hostname
 echo arch >> /etc/hostname
 
-# Set the host
-cat << EOF | tee -a /etc/hosts
-127.0.0.1    localhost
-::1          localhost
-127.0.1.1    arch.localdomain arch
-EOF
-
-# set systemd-networkd
-cat << EOF | tee -a /etc/systemd/network/20-wired.network
-[Match]
-Name=enp1s0
-
-[Network]
-DHCP=ipv4
-EOF
-
 # symlink resolv.conf
 rm -rf /etc/resolv.conf
 ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
