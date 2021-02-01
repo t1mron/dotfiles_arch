@@ -112,6 +112,10 @@ cd /home/user/git/paru && makepkg -si
 # Install doas instead of sudo
 paru -S doas
 
+# Clone my repo
+git clone https://github.com/t1mron/dotfiles_arch.git /home/user/git/dotfiles_arch
+cd /home/user/git/dotfiles_arch && 
+
 # Enable services at startup 
 systemctl enable --now systemd-networkd
 systemctl enable --now systemd-resolved
