@@ -3,5 +3,8 @@
 # Disable wi-fi on boot
 ip link set wlan0 down 
 
+# Disable eth on boot
+ip link set enp1s0 down
+
 # Disable auto-suspend on mouse
 echo 'on' | tee -a /sys/bus/usb/devices/3-3/power/control
