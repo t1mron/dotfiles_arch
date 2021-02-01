@@ -1,15 +1,15 @@
 [colors]
 foreground = #D2BF8C
 background = #32302F
-background-alt= #665C54
-alert = #bd2c40
+primary= #665C54
+
 
 [bar/main]
 monitor = ${env:MONITOR:eDP}
+enable-ipc = true
 
 # Dimensions
 height = 22
-wm-restack = i3
 
 # Fonts
 font-0 = DejaVu Sans Mono:size=9;2
@@ -35,20 +35,20 @@ modules-right = updates wi-fi bluetooth pulseaudio mic backlight filesystem cpu 
 [module/i3]
 type = internal/i3
 
-ws-icon-0 = 1;1
-ws-icon-1 = 2;2
-ws-icon-2 = 3;3
-ws-icon-3 = 4;4
-ws-icon-4 = 5;5
-ws-icon-5 = 6;6
-ws-icon-6 = 7;7
-ws-icon-7 = 8;8
-ws-icon-8 = 9;9
-ws-icon-9 = 10;10
+ws-icon-0 = 1;
+ws-icon-1 = 2;
+ws-icon-2 = 3;
+ws-icon-3 = 4;
+ws-icon-4 = 5;
+ws-icon-5 = 6;
+ws-icon-6 = 7;
+ws-icon-7 = 8;
+ws-icon-8 = 9;
+ws-icon-9 = 10;
 
-pin-workspaces = false
+pin-workspaces = true
 index-sort = true
-enable-click = false
+enable-click = true
 enable-scroll = false
 
 format = <label-state> <label-mode>
@@ -57,7 +57,7 @@ label-mode = %mode%
 label-mode-padding = 1
 
 label-focused = %icon%
-label-focused-background = ${colors.background-alt}
+label-focused-background = ${colors.primary}
 label-focused-padding = 1
 
 label-unfocused = %icon%
@@ -67,19 +67,17 @@ label-visible = %icon%
 label-visible-padding = 1
 
 label-urgent = %icon%
-label-urgent-background = ${colors.alert}
 label-urgent-padding = 1
-
 
 [module/time]
 type = internal/date
-interval = 60
 date = %H:%M
+interval = 60
 
 
 [module/updates]
 type = custom/script
-exec = bash ~/.config/polybar/scripts/updates.sh
+exec = ~/.config/polybar/scripts/updates
 interval = 600
 
 
@@ -93,15 +91,14 @@ label-disconnected = %{A1:iwgtk:}%{F#66ffffff}%{F-}%{A}
 
 [module/bluetooth]
 type = custom/script
-exec = bash ~/.config/polybar/scripts/bluetooth.sh
+exec = ~/.config/polybar/scripts/bluetooth
 interval = 1
 
-format=%{A1:blueberry:}<label>%{A}
+format=%{A1:blueman-manager:}<label>%{A}
 
 
 [module/pulseaudio]
 type = internal/pulseaudio
-use-ui-max = false
 
 label-volume = %{A1:pavucontrol -t 1:} %percentage:3%%%{A}
 label-muted = %{A1:pavucontrol -t 1:}%{F#66ffffff} %percentage:3%%%{F-}%{A}
@@ -113,7 +110,7 @@ interval = 1
 
 format=%{A1:pavucontrol -t 4:}<label>%{A}
 
-exec = bash ~/.config/polybar/scripts/mic.sh 
+exec = ~/.config/polybar/scripts/mic
 
 
 [module/backlight]
@@ -129,7 +126,7 @@ type = internal/fs
 interval = 25
 mount-0 = /
 
-label-mounted =  %percentage_used:3%%
+label-mounted =  %percentage_used:2%%
 #label-unmounted = %mountpoint% not mounted
 
 
@@ -149,7 +146,7 @@ type = internal/xkeyboard
 blacklist-0 = num lock
 blacklist-1 = scroll lock
 blacklist-2 = caps lock
-label-layout =  %{A1::} %layout%%{A}
+label-layout = %{A1::} %layout%%{A}
 
 
 [module/battery]
@@ -159,7 +156,7 @@ battery = BAT0
 adapter = AC
 
 format-charging = <ramp-capacity> <label-charging>
-format-discharging = <ramp-capacity> <label-discharging>
+format-discharging = %{F#66ffffff}<ramp-capacity>%{F-} <label-discharging>
 
 label-charging = %percentage%%
 label-discharging = %percentage%%
