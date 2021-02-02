@@ -1,0 +1,9 @@
+[Unit]
+Description=Disable Wi-Fi on boot
+After=hibernate.target
+
+[Service]
+ExecStart=/sbin/ip link set wlan0 down
+
+[Install]
+WantedBy=hibernate.target
