@@ -3,6 +3,9 @@
 # Disable touchpad 
 synclient touchpadoff=1 
 
+# Disable bluetooth
+rfkill block bluetooth
+
 # Disable wi-fi 
 ip link set wlan0 down 
 
