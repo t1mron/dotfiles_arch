@@ -176,7 +176,7 @@ paru -S timeshift-bin
 
 # Multimedia
 doas pacman -S firefox mpv sxiv telegram-desktop-bin obs-studio
-paru -S librewolf-bin spotify 
+paru -S librewolf-bin spotify spotify-adblock-git
 
 # Virtualisation
 doas pacman -S qemu virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat libguestfs dmidecode ebtables iptables
