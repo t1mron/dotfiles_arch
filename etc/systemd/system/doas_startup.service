@@ -1,9 +1,9 @@
 [Unit]
-Description= disable Wi-Fi on boot
+Description= doas startup
 After=hibernate.target
 
 [Service]
-ExecStart=/sbin/ip link set wlan0 down
+ExecStart=/etc/doas_startup
 
 [Install]
 WantedBy=hibernate.target
