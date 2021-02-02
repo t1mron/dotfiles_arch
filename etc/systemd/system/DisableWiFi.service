@@ -1,5 +1,5 @@
 [Unit]
-Description=Disable Wi-Fi on boot
+Description= disable Wi-Fi on boot
 After=hibernate.target
 
 [Service]
