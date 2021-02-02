@@ -176,6 +176,8 @@ paru -S timeshift-bin
 doas pacman -S firefox mpv sxiv telegram-desktop-bin obs-studio
 paru -S librewolf-bin spotify polybar-spotify-module
 
+systemctl --user enable spotify-listener
+
 git clone https://github.com/abba23/spotify-adblock-linux.git ~/git/spotify-adblock-linux && cd ~/git/spotify-adblock-linux && wget -O cef.tar.bz2 https://cef-builds.spotifycdn.com/cef_binary_88.1.6%2Bg4fe33a1%2Bchromium-88.0.4324.96_linux64_minimal.tar.bz2 && tar -xf cef.tar.bz2 --wildcards '*/include' --strip-components=1 && make && doas make install 
 
 # Virtualisation
