@@ -167,14 +167,14 @@ doas pacman -S libreoffice-still zathura zathura-pdf-poppler zathura-ps
 paru -S lxappearance gruvbox-dark-gtk gruvbox-dark-icons-gtk neofetch
 
 # Utilities
-doas pacman -S keepass man-db flameshot qbittorrent redshift rclone
+doas pacman -S keepass man-db flameshot qbittorrent redshift mpv sxiv
 
 # System tools
 doas pacman -S pacman-contrib bleachbit htop f2fs-tools dosfstools ntfs-3g gvfs 
 paru -S timeshift-bin
 
 # Multimedia
-doas pacman -S firefox mpv sxiv telegram-desktop-bin obs-studio
+doas pacman -S firefox telegram-desktop-bin obs-studio discord
 paru -S librewolf-bin spotify polybar-spotify-module
 
 systemctl --user enable spotify-listener
