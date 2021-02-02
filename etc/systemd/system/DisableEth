@@ -1,0 +1,9 @@
+[Unit]
+Description= disable eth on boot
+After=hibernate.target
+
+[Service]
+ExecStart=/sbin/ip link set enp1s0 down
+
+[Install]
+WantedBy=hibernate.target
