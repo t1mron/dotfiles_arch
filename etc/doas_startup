@@ -1,13 +1,17 @@
 #!/bin/bash
 
-# Disable touchpad on boot
+# Disable touchpad 
 synclient touchpadoff=1 
 
-# Disable wi-fi on boot
+# Disable wi-fi 
 ip link set wlan0 down 
 
-# Disable eth on boot
+# Disable eth 
 ip link set enp1s0 down
+
+# Disable volume/mic 
+pactl set-sink-mute @DEFAULT_SINK@ toggle
+pactl set-source-mute @DEFAULT_SOURCE@ toggle 
 
 # Disable auto-suspend on mouse
 #echo 'on' | tee -a /sys/bus/usb/devices/3-3/power/control
