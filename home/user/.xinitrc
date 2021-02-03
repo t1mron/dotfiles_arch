@@ -1,11 +1,1 @@
-#!/bin/sh
-
-if [ -d /etc/X11/xinit/xinitrc.d ] ; then
-    for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
-        [ -x "$f" ] && . "$f"
-    done
-    unset f
-fi
-
-# Execute i3
-exec i3
+/private/var/mobile/Containers/Shared/AppGroup/4E25C027-DBD4-4BCD-9D9D-467A0DCEDC61/File Provider Storage/Repositories/dotfiles_arch/.xinitrc

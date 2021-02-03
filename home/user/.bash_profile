@@ -1,2 +1,1 @@
-[[ -f ~/.bashrc ]] && . ~/.bashrc
-[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx &> /dev/null
+/private/var/mobile/Containers/Shared/AppGroup/4E25C027-DBD4-4BCD-9D9D-467A0DCEDC61/File Provider Storage/Repositories/dotfiles_arch/.bash_profile
