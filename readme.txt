@@ -40,13 +40,6 @@ mount /dev/nvme0n1p2 /mnt/boot
 mkdir /mnt/boot/efi
 mount /dev/nvme0n1p1 /mnt/boot/efi
 
-# Setup swap 
-#count=<amount of your RAM>
-dd if=/dev/zero of=/mnt/swap bs=1M count=16384 status=progress
-chmod 0600 /mnt/swap
-mkswap /mnt/swap
-swapon /mnt/swap
-
 # Install the system and some tools
 pacstrap /mnt base linux linux-firmware base-devel efibootmgr grub amd-ucode vim git
 
@@ -57,7 +50,7 @@ genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt /bin/bash
 
 # Create user
-useradd -G wheel,video -m -d /home/user user
+useradd -m -d /home/user user
 passwd user
 
 # Disable root login
@@ -92,10 +85,10 @@ echo HandleSuspendKey=hibernate >> /etc/systemd/logind.conf
 # Setup grub
 sed -i "s|^GRUB_TIMEOUT=.*|GRUB_TIMEOUT=1|" /etc/default/grub
 sed -i "s|^GRUB_CMDLINE_LINUX_DEFAULT=.*|GRUB_CMDLINE_LINUX_DEFAULT='loglevel=3 quiet acpi_backlight=vendor'|" /etc/default/grub
-sed -i "s|^GRUB_CMDLINE_LINUX=.*|GRUB_CMDLINE_LINUX='cryptdevice=/dev/nvme0n1p3:archlinux resume=/dev/mapper/archlinux resume_offset=34816'|" /etc/default/grub
+sed -i "s|^GRUB_CMDLINE_LINUX=.*|GRUB_CMDLINE_LINUX='cryptdevice=/dev/nvme0n1p3:archlinux'|" /etc/default/grub
 
 # Configure mkinitcpio
-sed -i "s|^HOOKS=.*|HOOKS=(base udev autodetect modconf block keyboard encrypt fsck filesystems resume)|" /etc/mkinitcpio.conf
+sed -i "s|^HOOKS=.*|HOOKS=(base udev autodetect modconf block keyboard encrypt fsck filesystems)|" /etc/mkinitcpio.conf
 
 # Regenerate initrd image
 mkinitcpio -p linux
@@ -144,7 +137,6 @@ doas pacman -S mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon
 # Laptop
 doas pacman -S xf86-input-synaptics light tlp libimobiledevice
 doas systemctl enable --now tlp
-doas systemctl enable doas_startup
 
 # wi-fi, sound, bluetooth, vpn
 doas pacman -S iwd pulseaudio alsa-lib alsa-utils pavucontrol bluez bluez-utils blueman
