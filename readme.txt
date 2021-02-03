@@ -88,6 +88,7 @@ sed -i "s|^GRUB_CMDLINE_LINUX_DEFAULT=.*|GRUB_CMDLINE_LINUX_DEFAULT='loglevel=3 
 sed -i "s|^GRUB_CMDLINE_LINUX=.*|GRUB_CMDLINE_LINUX='cryptdevice=/dev/nvme0n1p3:archlinux'|" /etc/default/grub
 
 # Configure mkinitcpio
+sed -i "s|^MODULES=.*|MODULES=(amdgpu)|" /etc/mkinitcpio.conf
 sed -i "s|^HOOKS=.*|HOOKS=(base udev autodetect modconf block keyboard encrypt fsck filesystems)|" /etc/mkinitcpio.conf
 
 # Regenerate initrd image
