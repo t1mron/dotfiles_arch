@@ -112,7 +112,7 @@ paru -S doas
 
 # Clone my repo
 git clone https://github.com/t1mron/dotfiles_arch.git /home/user/git/dotfiles_arch
-cd /home/user/git/dotfiles_arch && 
+cd /home/user/git/dotfiles_arch && cp -r {.xinitrc,.bash_profile,.config} /home/user/ && 
 
 # Enable services at startup 
 systemctl enable --now systemd-networkd
