@@ -110,7 +110,7 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 bindsym $mod+Up move container to output up
 bindsym $mod+Down move container to output down
 
-mode "resize" {
+mode "" {
 	bindsym h resize shrink width 10 px
 	bindsym j resize grow height 10 px
 	bindsym k resize shrink height 10 px
@@ -121,26 +121,29 @@ mode "resize" {
 	bindsym $mod+r mode "default"
 }
 
-bindsym $mod+Shift+r mode "resize"
+bindsym $mod+Shift+r mode ""
 
 # reload i3 config
 bindsym $mod+Shift+c reload
 
-# restart i3
-bindsym $mod+Shift+Delete exit 
+# exit i3
+bindsym $mod+Shift+End exit
 
 #----------------#
 # BASIC BINDINGS #
 #----------------#
 
 # rofi 
-bindsym $mod+d exec --no-startup-id rofi -show run -theme gruvbox-dark-soft
+bindsym $mod+r exec --no-startup-id rofi -show run -theme gruvbox-dark-soft
 
 # clipmenu
 #bindsym $alt+v exec --no-startup-id 
 
 # print screen
 bindsym Print exec --no-startup-id flameshot gui
+
+# discord
+bindsym $mod+d exec --no-startup-id discord
 
 # terminal
 bindsym $mod+Return exec --no-startup-id termite
@@ -155,17 +158,26 @@ bindsym $mod+f exec --no-startup-id librewolf
 # Libreoffice
 bindsym $mod+w exec --no-startup-id libreoffice
 
+# Virt-manager
+bindsym $mod+v exec --no-startup-id virt-manager
+
 # Telegram
 bindsym $mod+t exec --no-startup-id telegram-desktop
 
 # Spotify
-bindsym $mod+s exec --no-startup-id env LD_PRELOAD=/usr/local/lib/spotify-adblock.so spotify %U
+bindsym $mod+s exec --no-startup-id LD_PRELOAD=/usr/local/lib/spotify-adblock.so spotify
 
 # VScode
 bindsym $mod+c exec --no-startup-id code-oss
 
+# Gedit
+bindsym $mod+g exec --no-startup-id gedit
+
 # OBS
 bindsym $mod+o exec --no-startup-id obs
+
+# Google Drive
+#bindsym $mod+g exec --no-startup-id rclone mount --config /home/user/.config/rclone/rclone.conf  google: /home/user/Cloud/GDrive
 
 # reload autorandr 
 bindsym $mod+Home exec --no-startup-id autorandr -c
@@ -191,9 +203,28 @@ client.urgent     $grv   $grv   $grv  $grv      $grv
 #----------------------#
 # STARTUP APPLICATIONS #
 #----------------------#
-#exec_always --no-startup-id autorandr --change
-exec_always --no-startup-id setxkbmap -layout us,ru && setxkbmap -option 'grp:alt_shift_toggle' 
-#exec_always --no-startup-id killall polybar; ~/.config/polybar/scripts/launch_polybar 
+exec_always --no-startup-id setxkbmap -layout us,ru && setxkbmap -option 'grp:alt_shift_toggle' &
+exec_always --no-startup-id pkill polybar; /home/user/.config/polybar/scripts/launch_polybar &
+
+exec --no-startup-id autorandr --change &
+exec --no-startup-id redshift &
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+
+# Disable touchpad 
+exec --no-startup-id synclient touchpadoff=1 &
+
+# Disable wi-fi 
+exec --no-startup-id doas /sbin/ip link set wlan0 down &
+
+# Disable eth 
+exec --no-startup-id doas /sbin/ip link set enp1s0 down &
+
+# Disable volume/mic 
+exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle &
+exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle &
+
+# Disable auto-suspend on mouse
+#echo 'on' | tee -a /sys/bus/usb/devices/3-3/power/control
 
 
 #---------------#
@@ -213,7 +244,7 @@ for_window [class="Iwgtk"]					floating enable, resize set 1280 720, move positi
 for_window [class="Pavucontrol"]				floating enable, resize set 1280 720, move position center
 
 # sxiv
-for_window [class="Sxiv"]				floating enable, resize set 1280 720, move position center
+for_window [class="Sxiv"]				        floating enable, resize set 1280 720, move position center
 
 # mpv
 for_window [class="mpv"]      					fullscreen enable
@@ -240,31 +271,39 @@ bindsym $mod+XF86AudioLowerVolume exec --no-startup-id pactl set-source-volume @
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle 
 
 # screen brightness controls
-bindsym XF86MonBrightnessUp exec --no-startup-id light -A 10
-bindsym XF86MonBrightnessDown exec --no-startup-id light -U 10
+bindsym XF86MonBrightnessUp exec --no-startup-id doas /sbin/light -A 10
+bindsym XF86MonBrightnessDown exec --no-startup-id doas /sbin/light -U 10
 
 # wi-fi controls
-bindsym $mod+Prior exec --no-startup-id sudo ip link set wlan0 up
-bindsym $mod+Next exec --no-startup-id sudo ip link set wlan0 down
+bindsym $mod+Prior exec --no-startup-id doas /sbin/ip link set wlan0 up
+bindsym $mod+Next exec --no-startup-id doas /sbin/ip link set wlan0 down
 
 # show/hide polybar  
 bindsym XF86Display exec --no-startup-id polybar-msg cmd toggle
 
 # on/off touchpad  
-bindsym F2 exec --no-startup-id ~/.config/i3/scripts/touchpad
+bindsym F2 exec --no-startup-id /home/user/.config/i3/scripts/touchpad
+
+# lock session
+bindsym --release XF86Sleep exec --no-startup-id slock
 
 
 #-------------#
 # ASSIGNMENTS #
 #-------------#
-
+assign [class="Gedit"] $ws1
 assign [class="LibreWolf" window_type="normal"] $ws2
+assign [class="firefox"] $ws2
 assign [class="Code"] $ws3
 assign [class="code-oss"] $ws3
 assign [class="libreoffice"] $ws4
-assign [class="firefox"] $ws4
-assign [class="qBittorrent" window_type="normal"] $ws5
-assign [class="Steam" title="Steam"] $ws6
-assign [class="mpv"] $ws7
-assign [class="obs"] $ws7
-for_window [class="Spotify"] move to workspace $ws7
+for_window [class="libreoffice"] move to workspace $ws4
+assign [class="Zathura"] $ws4
+for_window [class="Spotify"] move to workspace $ws5
+assign [class="mpv"] $ws5
+assign [class="obs"] $ws5
+assign [class="TelegramDesktop"] $ws6
+assign [class="discord"] $ws6
+assign [class="Steam" title="Steam"] $ws7
+assign [class="Virt-manager"] $ws7
+
