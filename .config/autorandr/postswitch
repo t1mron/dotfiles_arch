@@ -1,5 +1,5 @@
 #!/usr/bin/bash
 
-if [ autorandr --current=monitor ]; then
+if ["autorandr --current"="monitor"]; then
 	/home/user/.config/polybar/scripts/launch_polybar;
 fi
