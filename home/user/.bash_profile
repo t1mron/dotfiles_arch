@@ -1,1 +1,0 @@
-/private/var/mobile/Containers/Shared/AppGroup/4E25C027-DBD4-4BCD-9D9D-467A0DCEDC61/File Provider Storage/Repositories/dotfiles_arch/.bash_profile
