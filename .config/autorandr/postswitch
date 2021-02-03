@@ -1,3 +1,5 @@
 #!/usr/bin/bash
 
-pkill polybar; ~/.config/polybar/scripts/launch_polybar
+if [ autorandr --current=monitor ]; then
+	 /home/user/.config/polybar/scripts/launch_polybar;
+fi
