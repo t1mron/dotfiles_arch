@@ -205,8 +205,8 @@ client.urgent     $grv   $grv   $grv  $grv      $grv
 #----------------------#
 exec_always --no-startup-id setxkbmap -layout us,ru && setxkbmap -option 'grp:alt_shift_toggle' &
 exec_always --no-startup-id pkill polybar; /home/user/.config/polybar/scripts/launch_polybar &
+exec_always --no-startup-id autorandr --change &
 
-exec --no-startup-id autorandr --change &
 exec --no-startup-id redshift &
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
@@ -306,4 +306,3 @@ assign [class="TelegramDesktop"] $ws6
 assign [class="discord"] $ws6
 assign [class="Steam" title="Steam"] $ws7
 assign [class="Virt-manager"] $ws7
-
