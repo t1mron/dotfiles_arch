@@ -179,7 +179,7 @@ systemctl --user enable spotify-listener
 git clone https://github.com/abba23/spotify-adblock-linux.git ~/git/spotify-adblock-linux && cd ~/git/spotify-adblock-linux && wget -O cef.tar.bz2 https://cef-builds.spotifycdn.com/cef_binary_88.1.6%2Bg4fe33a1%2Bchromium-88.0.4324.96_linux64_minimal.tar.bz2 && tar -xf cef.tar.bz2 --wildcards '*/include' --strip-components=1 && make && doas make install 
 
 # Virtualisation
-doas pacman -S qemu virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat libguestfs dmidecode ebtables iptables
+doas pacman -S wine qemu virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat libguestfs dmidecode ebtables iptables
 doas systemctl enable --now libvirtd.service
 doas usermod -a -G libvirt user
 
