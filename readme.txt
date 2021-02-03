@@ -162,7 +162,7 @@ paru -S lxappearance gruvbox-dark-gtk gruvbox-dark-icons-gtk neofetch
 doas pacman -S keepass man-db flameshot qbittorrent redshift mpv sxiv
 
 # System tools
-doas pacman -S pacman-contrib bleachbit htop f2fs-tools dosfstools ntfs-3g gvfs 
+doas pacman -S pacman-contrib bleachbit htop f2fs-tools dosfstools ntfs-3g gvfs udisks2 polkit 
 paru -S timeshift-bin
 
 # Multimedia
