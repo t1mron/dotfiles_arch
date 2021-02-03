@@ -176,6 +176,7 @@ git clone https://github.com/abba23/spotify-adblock-linux.git ~/git/spotify-adbl
 # Virtualisation
 doas pacman -S qemu virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat libguestfs dmidecode ebtables iptables
 doas systemctl enable --now libvirtd.service
+doas usermod -a -G libvirt user
 
 # Development
 doas pacman -S code
