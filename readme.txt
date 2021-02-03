@@ -79,8 +79,8 @@ echo arch >> /etc/hostname
 rm -rf /etc/resolv.conf
 ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
 
-# Set hibernate button
-echo HandleSuspendKey=hibernate >> /etc/systemd/logind.conf
+# Disable suspend button
+echo HandleSuspendKey=ignore >> /etc/systemd/logind.conf
 
 # Setup grub
 sed -i "s|^GRUB_TIMEOUT=.*|GRUB_TIMEOUT=1|" /etc/default/grub
