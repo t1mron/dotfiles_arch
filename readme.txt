@@ -82,6 +82,9 @@ ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
 # Disable suspend button
 echo HandleSuspendKey=ignore >> /etc/systemd/logind.conf
 
+# Add multilib repo for pacman 
+echo "Include = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf
+
 # Setup grub
 sed -i "s|^GRUB_TIMEOUT=.*|GRUB_TIMEOUT=1|" /etc/default/grub
 sed -i "s|^GRUB_CMDLINE_LINUX_DEFAULT=.*|GRUB_CMDLINE_LINUX_DEFAULT='loglevel=3 quiet acpi_backlight=vendor'|" /etc/default/grub
