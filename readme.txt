@@ -125,7 +125,7 @@ paru
 
 # Optional: 
 # Window manager
-doas pacman -S i3-wm xorg-server xorg-xinit xorg-xev xorg-xprop xorg-xkill xorg-xset xsecurelock xscreensaver termite rofi nautilus ttf-font-awesome arandr autorandr
+doas pacman -S i3-wm xorg-server xorg-xinit xorg-xev xorg-xprop xorg-xkill xorg-xset slock termite rofi nautilus ttf-font-awesome arandr autorandr
 paru -S polybar
 
 # Network
