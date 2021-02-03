@@ -1,9 +1,0 @@
-[Unit]
-Description= doas startup
-After=hibernate.target
-
-[Service]
-ExecStart=/etc/doas_startup
-
-[Install]
-WantedBy=hibernate.target
