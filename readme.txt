@@ -49,9 +49,6 @@ genfstab -U /mnt >> /mnt/etc/fstab
 # Enter the new system
 arch-chroot /mnt /bin/bash
 
-# Disable root login
-passwd --lock root
-
 # Create user
 useradd -G wheel -m -d /home/user user
 passwd user
@@ -214,8 +211,16 @@ paru -S chkrootkit
 
 sudo ufw enable &&sudo ufw reload
 
+#Disable root login over ssh
+echo "PermitRootLogin no"| sudo tee -a /etc/ssh/sshd_config
+
+ 
 echo "-:root:ALL except LOCAL" | sudo tee -a /etc/security/access.conf
 
+
+
+# Disable root login
+passwd --lock root
 
 
 
