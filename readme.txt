@@ -49,12 +49,15 @@ genfstab -U /mnt >> /mnt/etc/fstab
 # Enter the new system
 arch-chroot /mnt /bin/bash
 
-# Create user
-useradd -m -d /home/user user
-passwd user
-
 # Disable root login
 passwd --lock root
+
+# Create user
+useradd -G wheel -m -d /home/user user
+passwd user
+
+# Add sudo privileges
+echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers
 
 # Set the time zone and a system clock
 ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime
@@ -74,6 +77,22 @@ echo -e "KEYMAP=ru\nFONT=cyr-sun16" >> /etc/vconsole.conf
 
 # Set the hostname
 echo arch >> /etc/hostname
+
+# Set the host
+cat << EOF | tee -a /etc/hosts
+127.0.0.1    localhost
+::1          localhost
+127.0.1.1    arch.localdomain arch
+EOF
+
+# Set systemd-networkd
+cat << EOF | tee -a /etc/systemd/network/20-wired.network
+[Match]
+Name=enp1s0
+
+[Network]
+DHCP=yes
+EOF
 
 # Disable suspend button
 echo HandleSuspendKey=ignore >> /etc/systemd/logind.conf
@@ -118,16 +137,13 @@ systemctl enable --now systemd-resolved
 paru 
 
 # Optional: 
-# Window manager
-doas pacman -S i3-wm xorg-server xorg-xinit xorg-xev xorg-xprop xorg-xkill xorg-xset slock termite rofi nautilus ttf-font-awesome arandr autorandr
-paru -S polybar
-
-# Network
-paru  -S 
-doas pacman -S wget 
 
 # AMD drivers
 doas pacman -S mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon 
+
+# Window manager
+doas pacman -S i3-wm xorg-server xorg-xinit xorg-xev xorg-xprop xorg-xkill slock termite rofi nautilus ttf-font-awesome arandr autorandr
+paru -S polybar
 
 # Laptop
 doas pacman -S xf86-input-synaptics light tlp powertop libimobiledevice
@@ -161,8 +177,12 @@ doas pacman -S keepass man-db flameshot qbittorrent redshift mpv sxiv
 doas pacman -S pacman-contrib bleachbit htop f2fs-tools dosfstools ntfs-3g gvfs udisks2 polkit-gnome
 paru -S timeshift-bin
 
+# Network
+paru  -S 
+doas pacman -S wget 
+
 # Multimedia
-doas pacman -S firefox telegram-desktop-bin obs-studio discord
+doas pacman -S firefox telegram-desktop obs-studio discord
 paru -S librewolf-bin spotify polybar-spotify-module
 
 systemctl --user enable spotify-listener
