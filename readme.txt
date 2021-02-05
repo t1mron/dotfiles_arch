@@ -131,10 +131,22 @@ sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 systemctl enable --now systemd-networkd
 systemctl enable --now systemd-resolved
 
+# Install AUR helper - paru 
+git clone https://aur.archlinux.org/paru.git /home/user/git/paru
+cd /home/user/git/paru && makepkg -si
+
+# Install doas
+paru -S doas
+
+# Clone my repo
+git clone https://github.com/t1mron/dotfiles_arch.git /home/user/git/dotfiles_arch
+cd /home/user/git/dotfiles_arch && sudo cp -r {etc,home} /
+
 
 -------------------------------------------------------------------------
 ::TODO:: Update the installed packages. Finish configuration.
 paru 
+
 
 # Optional: 
 
@@ -198,25 +210,6 @@ doas usermod -a -G libvirt user
 doas pacman -S code
 
 ---------------------------------------------
-# Install AUR helper - paru 
-git clone https://aur.archlinux.org/paru.git /home/user/git/paru
-cd /home/user/git/paru && makepkg -si
-
-# Install doas instead of sudo
-
-paru -S doas
-
-
-
-# Clone my repo
-
-git clone https://github.com/t1mron/dotfiles_arch.git /home/user/git/dotfiles_arch
-
-cd /home/user/git/dotfiles_arch && cp -r {etc,home} /
-
-
-
-
 
 # Security (create systemd file)
 doas pacman -S ufw etckeeper rkhunter clamav clamtk
