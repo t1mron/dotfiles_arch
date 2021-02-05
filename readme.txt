@@ -212,8 +212,13 @@ sudo pacman -S code
 sudo pacman -S ufw etckeeper rkhunter clamav clamtk doas
 paru -S chkrootkit
 
-
 sudo ufw enable &&sudo ufw reload
+
+echo "-:root:ALL except LOCAL" | sudo tee -a /etc/security/access.conf
+
+
+
+
 
 sudo freshclam
 
