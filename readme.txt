@@ -135,9 +135,6 @@ systemctl enable --now systemd-resolved
 git clone https://aur.archlinux.org/paru.git /home/user/git/paru
 cd /home/user/git/paru && makepkg -si
 
-# Install doas
-paru -S doas
-
 # Clone my repo
 git clone https://github.com/t1mron/dotfiles_arch.git /home/user/git/dotfiles_arch
 cd /home/user/git/dotfiles_arch && sudo cp -r {etc,home} /
@@ -151,74 +148,74 @@ paru
 # Optional: 
 
 # AMD drivers
-doas pacman -S mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon 
+sudo pacman -S mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon 
 
 # Window manager
-doas pacman -S i3-wm xorg-server xorg-xinit xorg-xev xorg-xprop xorg-xkill slock termite rofi nautilus ttf-font-awesome arandr autorandr
+sudo pacman -S i3-wm xorg-server xorg-xinit xorg-xev xorg-xprop xorg-xkill slock termite rofi nautilus ttf-font-awesome arandr autorandr
 paru -S polybar
 
 # Laptop
-doas pacman -S xf86-input-synaptics light tlp powertop libimobiledevice
-doas systemctl enable --now tlp
-doas powertop -c
+sudo pacman -S xf86-input-synaptics light tlp powertop libimobiledevice
+sudo systemctl enable --now tlp
+sudo powertop -c
 
 # wi-fi, sound, bluetooth, vpn
-doas pacman -S iwd pulseaudio alsa-lib alsa-utils pavucontrol bluez bluez-utils blueman
+sudo pacman -S iwd pulseaudio alsa-lib alsa-utils pavucontrol bluez bluez-utils blueman
 paru  -S iwgtk
 
-doas systemctl enable --now iwd
+sudo systemctl enable --now iwd
 modprobe btusb
-doas systemctl enable --now bluetooth
+sudo systemctl enable --now bluetooth
 gsettings set org.blueman.plugins.powermanager auto-power-on false
 
   # Disable POP and BEEP sound
-  doas sed -i -e 's/load-module module-suspend-on-idle//g' /etc/pulse/default.pa
-  doas sh -c "echo 'blacklist snd_hda_codec_realtek' >> /etc/modprobe.d/disable_pop.conf"
-  doas sh -c "echo 'blacklist pcspkr' >> /etc/modprobe.d/nobeep.conf"
+  sudo sed -i -e 's/load-module module-suspend-on-idle//g' /etc/pulse/default.pa
+  sudo sh -c "echo 'blacklist snd_hda_codec_realtek' >> /etc/modprobe.d/disable_pop.conf"
+  sudo sh -c "echo 'blacklist pcspkr' >> /etc/modprobe.d/nobeep.conf"
 
 # Office programs
-doas pacman -S libreoffice-still zathura zathura-pdf-poppler zathura-ps
+sudo pacman -S libreoffice-still zathura zathura-pdf-poppler zathura-ps
 
 # Look and feel
 paru -S lxappearance gruvbox-dark-gtk gruvbox-dark-icons-gtk neofetch
 
 # Utilities
-doas pacman -S keepass man-db flameshot qbittorrent redshift mpv sxiv
+sudo pacman -S keepass man-db flameshot qbittorrent redshift mpv sxiv
 
 # System tools
-doas pacman -S pacman-contrib bleachbit htop f2fs-tools dosfstools ntfs-3g gvfs udisks2 polkit-gnome
+sudo pacman -S pacman-contrib bleachbit htop f2fs-tools dosfstools ntfs-3g gvfs udisks2 polkit-gnome
 paru -S timeshift-bin
 
 # Network
 paru  -S 
-doas pacman -S wget 
+sudo pacman -S wget 
 
 # Multimedia
-doas pacman -S firefox telegram-desktop obs-studio discord
+sudo pacman -S firefox telegram-desktop obs-studio discord
 paru -S librewolf-bin spotify polybar-spotify-module
 
 systemctl --user enable spotify-listener
 
-git clone https://github.com/abba23/spotify-adblock-linux.git ~/git/spotify-adblock-linux && cd ~/git/spotify-adblock-linux && wget -O cef.tar.bz2 https://cef-builds.spotifycdn.com/cef_binary_88.1.6%2Bg4fe33a1%2Bchromium-88.0.4324.96_linux64_minimal.tar.bz2 && tar -xf cef.tar.bz2 --wildcards '*/include' --strip-components=1 && make && doas make install 
+git clone https://github.com/abba23/spotify-adblock-linux.git ~/git/spotify-adblock-linux && cd ~/git/spotify-adblock-linux && wget -O cef.tar.bz2 https://cef-builds.spotifycdn.com/cef_binary_88.1.6%2Bg4fe33a1%2Bchromium-88.0.4324.96_linux64_minimal.tar.bz2 && tar -xf cef.tar.bz2 --wildcards '*/include' --strip-components=1 && make && sudo make install 
 
 # Virtualisation
-doas pacman -S wine qemu virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat libguestfs dmidecode ebtables iptables
-doas systemctl enable --now libvirtd.service
-doas usermod -a -G libvirt user
+sudo pacman -S wine qemu virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat libguestfs dmidecode ebtables iptables
+sudo systemctl enable --now libvirtd.service
+sudo usermod -a -G libvirt user
 
 # Development
-doas pacman -S code
+sudo pacman -S code
 
 ---------------------------------------------
 
 # Security (create systemd file)
-doas pacman -S ufw etckeeper rkhunter clamav clamtk
+sudo pacman -S ufw etckeeper rkhunter clamav clamtk doas
 paru -S chkrootkit
-#xss-lock
 
-doas ufw enable &&sudo ufw reload
 
-doas freshclam
+sudo ufw enable &&sudo ufw reload
+
+sudo freshclam
 
 #if error freshclam
 sudo systemctl stop clamav-daemon.service
