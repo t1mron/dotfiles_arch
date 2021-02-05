@@ -75,10 +75,6 @@ echo -e "KEYMAP=ru\nFONT=cyr-sun16" >> /etc/vconsole.conf
 # Set the hostname
 echo arch >> /etc/hostname
 
-# symlink resolv.conf
-rm -rf /etc/resolv.conf
-ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
-
 # Disable suspend button
 echo HandleSuspendKey=ignore >> /etc/systemd/logind.conf
 
@@ -103,26 +99,20 @@ grub-install --boot-directory=/boot --efi-directory=/boot/efi /dev/nvme0n1p2
 grub-mkconfig -o /boot/grub/grub.cfg
 grub-mkconfig -o /boot/efi/EFI/arch/grub.cfg
 
-# Install AUR helper - paru 
-git clone https://aur.archlinux.org/paru.git /home/user/git/paru
-cd /home/user/git/paru && makepkg -si
-
-# Install doas instead of sudo
-paru -S doas
-
-# Clone my repo
-git clone https://github.com/t1mron/dotfiles_arch.git /home/user/git/dotfiles_arch
-cd /home/user/git/dotfiles_arch && cp -r {etc,home} /
-
-# Enable services at startup 
-systemctl enable --now systemd-networkd
-systemctl enable --now systemd-resolved
-
 # Exit new system and go into the cd shell
 exit
 
 # Reboot into the new system, don't forget to remove the usb
 reboot
+
+# symlink resolv.conf
+sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+
+# Enable services at startup 
+systemctl enable --now systemd-networkd
+systemctl enable --now systemd-resolved
+
+
 -------------------------------------------------------------------------
 ::TODO:: Update the installed packages. Finish configuration.
 paru 
@@ -188,6 +178,26 @@ doas usermod -a -G libvirt user
 doas pacman -S code
 
 ---------------------------------------------
+# Install AUR helper - paru 
+git clone https://aur.archlinux.org/paru.git /home/user/git/paru
+cd /home/user/git/paru && makepkg -si
+
+# Install doas instead of sudo
+
+paru -S doas
+
+
+
+# Clone my repo
+
+git clone https://github.com/t1mron/dotfiles_arch.git /home/user/git/dotfiles_arch
+
+cd /home/user/git/dotfiles_arch && cp -r {etc,home} /
+
+
+
+
+
 # Security (create systemd file)
 doas pacman -S ufw etckeeper rkhunter clamav clamtk
 paru -S chkrootkit
