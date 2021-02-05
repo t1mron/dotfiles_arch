@@ -28,7 +28,7 @@ module-margin = 1
 # Modules
 modules-left = time keyboard previous playpause next spotify
 modules-center = i3
-modules-right = updates wi-fi bluetooth pulseaudio mic backlight filesystem cpu memory  battery
+modules-right = updates wi-fi pulseaudio mic backlight filesystem cpu memory  battery
 
 
 # LEFT
