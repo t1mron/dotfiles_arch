@@ -188,7 +188,7 @@ paru  -S
 sudo pacman -S wget 
 
 # Multimedia
-sudo pacman -S firefox telegram-desktop obs-studio discord
+sudo pacman -S firefox telegram-desktop obs-studio discord steam
 paru -S librewolf-bin spotify polybar-spotify-module
 
 systemctl --user enable spotify-listener
