@@ -9,6 +9,9 @@ set $alt Mod1
 # font
 font pango:monospace 8
 
+# Automatic back-and-forth when switching to the current workspace
+workspace_auto_back_and_forth yes
+
 
 #-----------------------------#
 # WINDOW / WORKSPACE COMMANDS #
@@ -33,26 +36,20 @@ bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
 # toggle split
-bindsym $mod+Shift+v split toggle
+bindsym $mod+Shift+s split toggle
+bindsym $mod+Shift+d layout toggle tabbed split
+
+# toggle tiling / floating
+bindsym $mod+Shift+x floating toggle, resize set 1280 720, move position center
 
 # enter fullscreen mode for the focused container
 bindsym $mod+Shift+f fullscreen toggle
-
-# toggle tiling / floating
-bindsym $mod+Shift+b floating toggle, resize set 1280 720, move position center
-
-workspace_auto_back_and_forth yes
 
 # Make the currently focused window a scratchpad
 bindsym $mod+Shift+z move scratchpad
 
 # Show the first scratchpad window
 bindsym $mod+z scratchpad show
-
-# Sticky floating windows
-bindsym $mod+Shift+w sticky toggle
-
-bindsym $mod+Shift+p layout toggle tabbed split
 
 # set workspace name 
 set $ws1 "1" 
@@ -111,10 +108,10 @@ bindsym $mod+Up move container to output up
 bindsym $mod+Down move container to output down
 
 mode "" {
-	bindsym h resize shrink width 10 px
-	bindsym j resize grow height 10 px
-	bindsym k resize shrink height 10 px
-	bindsym l resize grow width 10 px
+	bindsym l resize shrink width 10 px or 10 ppt
+	bindsym k resize grow height 10 px or 10 ppt
+	bindsym j resize shrink height 10 px or 10 ppt
+	bindsym h resize grow width 10 px or 10 ppt
 
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
@@ -128,6 +125,7 @@ bindsym $mod+Shift+c reload
 
 # exit i3
 bindsym $mod+Shift+End exit
+
 
 #----------------#
 # BASIC BINDINGS #
@@ -167,11 +165,14 @@ bindsym $mod+t exec --no-startup-id telegram-desktop
 # Spotify
 bindsym $mod+s exec --no-startup-id LD_PRELOAD=/usr/local/lib/spotify-adblock.so spotify
 
+# Litrus
+bindsym $mod+g exec --no-startup-id lutris
+
 # VScode
 bindsym $mod+c exec --no-startup-id code-oss
 
-# Gedit
-bindsym $mod+g exec --no-startup-id gedit
+# Geforce Now
+bindsym $mod+n exeЫc --no-startup-id /opt/geforcenow-electron/geforcenow
 
 # OBS
 bindsym $mod+o exec --no-startup-id obs
@@ -217,11 +218,11 @@ exec --no-startup-id synclient touchpadoff=1 &
 exec --no-startup-id doas /sbin/ip link set wlan0 down &
 
 # Disable eth 
-exec --no-startup-id doas /sbin/ip link set enp1s0 down &
+#exec --no-startup-id doas /sbin/ip link set enp1s0 down &
 
 # Disable volume/mic 
-exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle &
-exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle &
+exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ 1 &
+exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ 1 &
 
 # Disable auto-suspend on mouse
 #echo 'on' | tee -a /sys/bus/usb/devices/3-3/power/control
@@ -247,7 +248,7 @@ for_window [class="Pavucontrol"]				floating enable, resize set 1280 720, move p
 for_window [class="Sxiv"]				        floating enable, resize set 1280 720, move position center
 
 # mpv
-for_window [class="mpv"]      					fullscreen enable
+#for_window [class="mpv"]      					fullscreen enable
 
 # blueman
 for_window [class="Blueman-manager"]				floating enable, resize set 1280 720, move position center
@@ -300,9 +301,11 @@ assign [class="libreoffice"] $ws4
 for_window [class="libreoffice"] move to workspace $ws4
 assign [class="Zathura"] $ws4
 for_window [class="Spotify"] move to workspace $ws5
-assign [class="mpv"] $ws5
+#assign [class="mpv"] $ws5
 assign [class="obs"] $ws5
 assign [class="TelegramDesktop"] $ws6
 assign [class="discord"] $ws6
 assign [class="Steam" title="Steam"] $ws7
 assign [class="Virt-manager"] $ws7
+assign [class="GeForce NOW"] $ws7
+assign [class="Lutris"] $ws7
