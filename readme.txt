@@ -128,6 +128,9 @@ sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 systemctl enable --now systemd-networkd
 systemctl enable --now systemd-resolved
 
+sudo pacman -Syu
+sudo pacman -S rust 
+
 # Install AUR helper - paru 
 git clone https://aur.archlinux.org/paru.git /home/user/git/paru
 cd /home/user/git/paru && makepkg -si
@@ -161,7 +164,7 @@ sudo pacman -S iwd pulseaudio alsa-lib alsa-utils pavucontrol bluez bluez-utils 
 paru  -S iwgtk
 
 sudo systemctl enable --now iwd
-modprobe btusb
+sudo modprobe btusb
 sudo systemctl enable --now bluetooth
 gsettings set org.blueman.plugins.powermanager auto-power-on false
 
@@ -173,7 +176,7 @@ gsettings set org.blueman.plugins.powermanager auto-power-on false
 sudo pacman -S libreoffice-still zathura zathura-pdf-poppler zathura-ps
 
 # Look and feel
-paru -S lxappearance neofetch
+sudo pacman -S lxappearance neofetch
 
 # Utilities
 sudo pacman -S keepass man-db flameshot qbittorrent redshift mpv sxiv
@@ -183,20 +186,16 @@ sudo pacman -S pacman-contrib bleachbit htop f2fs-tools dosfstools ntfs-3g gvfs 
 paru -S timeshift-bin
 
 # Network
-paru  -S 
 sudo pacman -S wget 
 
 # Multimedia
 sudo pacman -S firefox telegram-desktop obs-studio discord steam lutris
-paru -S librewolf-bin spotify polybar-spotify-module
-
-systemctl --user enable spotify-listener
- ~/git/spotify-adblock-linux && wget -O cef.tar.bz2 https:inary_88.1.6%2Bg4fe33a1%2Bchromium-88.0.4324.96_linux64_minimal.tar.bz2 && tar -xf cef.tar.bz2 --wildcards '*/include' --strip-components=1 && make && sudo make install 
+paru -S spotify 
 
 # Virtualisation
 sudo pacman -S wine qemu virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat libguestfs dmidecode ebtables iptables
-sudo systemctl enable --now libvirtd.service
 sudo usermod -a -G libvirt user
+sudo systemctl enable --now libvirtd.service
 
 # Development
 sudo pacman -S code
