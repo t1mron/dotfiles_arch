@@ -150,8 +150,8 @@ bindsym $mod+Shift+Return exec --no-startup-id termite --title="i3-float"
 # File Manager
 bindsym $mod+Tab exec --no-startup-id nautilus
 
-# Librewolf	
-bindsym $mod+f exec --no-startup-id librewolf
+# Firefox	
+bindsym $mod+f exec --no-startup-id firefox
 
 # Libreoffice
 bindsym $mod+w exec --no-startup-id libreoffice
@@ -197,16 +197,16 @@ for_window [class="^.*"] border pixel 1
 set $grv #665C54
 
 # class       	  border backgr text  indicator child_border
-client.focused    $grv   $grv   $grv  $grv      $grv
-client.urgent     $grv   $grv   $grv  $grv      $grv
+#client.focused    $grv   $grv   $grv  $grv      $grv
+#client.urgent     $grv   $grv   $grv  $grv      $grv
 
 
 #----------------------#
 # STARTUP APPLICATIONS #
 #----------------------#
+
 exec_always --no-startup-id setxkbmap -layout us,ru && setxkbmap -option 'grp:alt_shift_toggle' &
 exec_always --no-startup-id pkill polybar; /home/user/.config/polybar/scripts/launch_polybar &
-exec_always --no-startup-id autorandr --change &
 
 exec --no-startup-id redshift &
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
@@ -223,9 +223,6 @@ exec --no-startup-id doas /sbin/ip link set wlan0 down &
 # Disable volume/mic 
 exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ 1 &
 exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ 1 &
-
-# Disable auto-suspend on mouse
-#echo 'on' | tee -a /sys/bus/usb/devices/3-3/power/control
 
 
 #---------------#
@@ -292,20 +289,20 @@ bindsym --release XF86Sleep exec --no-startup-id slock
 #-------------#
 # ASSIGNMENTS #
 #-------------#
+
 assign [class="Gedit"] $ws1
-assign [class="LibreWolf" window_type="normal"] $ws2
 assign [class="firefox"] $ws2
 assign [class="Code"] $ws3
 assign [class="code-oss"] $ws3
+assign [class="Zathura"] $ws3
 assign [class="libreoffice"] $ws4
 for_window [class="libreoffice"] move to workspace $ws4
-assign [class="Zathura"] $ws4
 for_window [class="Spotify"] move to workspace $ws5
 #assign [class="mpv"] $ws5
 assign [class="obs"] $ws5
 assign [class="TelegramDesktop"] $ws6
 assign [class="discord"] $ws6
-assign [class="Steam" title="Steam"] $ws7
+#assign [class="Steam" title="Steam"] $ws7
 assign [class="Virt-manager"] $ws7
-assign [class="GeForce NOW"] $ws7
-assign [class="Lutris"] $ws7
+#assign [class="GeForce NOW"] $ws7
+#assign [class="Lutris"] $ws7
