@@ -190,7 +190,7 @@ sudo pacman -S wget
 
 # Multimedia
 sudo pacman -S firefox telegram-desktop obs-studio discord steam lutris
-paru -S spotify 
+paru -S spotify spotify-adblock-git
 
 # Virtualisation
 sudo pacman -S wine qemu virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat libguestfs dmidecode ebtables iptables
