@@ -190,7 +190,9 @@ sudo pacman -S wget
 
 # Multimedia
 sudo pacman -S firefox telegram-desktop obs-studio discord steam lutris
-paru -S spotify spotify-adblock-git
+paru -S spotify spotify-adblock-git polybar-spotify-module
+
+systemctl --user enable --now spotify-listener
 
 # Virtualisation
 sudo pacman -S wine qemu virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat libguestfs dmidecode ebtables iptables
