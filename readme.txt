@@ -166,7 +166,6 @@ sudo systemctl enable --now bluetooth
 gsettings set org.blueman.plugins.powermanager auto-power-on false
 
   # Disable POP and BEEP sound
-  sudo sed -i -e 's/load-module module-suspend-on-idle//g' /etc/pulse/default.pa
   sudo sh -c "echo 'blacklist snd_hda_codec_realtek' >> /etc/modprobe.d/disable_pop.conf"
   sudo sh -c "echo 'blacklist pcspkr' >> /etc/modprobe.d/nobeep.conf"
 
@@ -174,7 +173,7 @@ gsettings set org.blueman.plugins.powermanager auto-power-on false
 sudo pacman -S libreoffice-still zathura zathura-pdf-poppler zathura-ps
 
 # Look and feel
-paru -S lxappearance gruvbox-dark-gtk gruvbox-dark-icons-gtk neofetch
+paru -S lxappearance neofetch
 
 # Utilities
 sudo pacman -S keepass man-db flameshot qbittorrent redshift mpv sxiv
@@ -192,8 +191,7 @@ sudo pacman -S firefox telegram-desktop obs-studio discord steam lutris
 paru -S librewolf-bin spotify polybar-spotify-module
 
 systemctl --user enable spotify-listener
-
-git clone https://github.com/abba23/spotify-adblock-linux.git ~/git/spotify-adblock-linux && cd ~/git/spotify-adblock-linux && wget -O cef.tar.bz2 https://cef-builds.spotifycdn.com/cef_binary_88.1.6%2Bg4fe33a1%2Bchromium-88.0.4324.96_linux64_minimal.tar.bz2 && tar -xf cef.tar.bz2 --wildcards '*/include' --strip-components=1 && make && sudo make install 
+ ~/git/spotify-adblock-linux && wget -O cef.tar.bz2 https:inary_88.1.6%2Bg4fe33a1%2Bchromium-88.0.4324.96_linux64_minimal.tar.bz2 && tar -xf cef.tar.bz2 --wildcards '*/include' --strip-components=1 && make && sudo make install 
 
 # Virtualisation
 sudo pacman -S wine qemu virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat libguestfs dmidecode ebtables iptables
