@@ -159,11 +159,14 @@ bindsym $mod+w exec --no-startup-id libreoffice
 # Virt-manager
 bindsym $mod+v exec --no-startup-id virt-manager
 
+# Windows 10 LTSC
+bindsym $mod+Shift+v exec --no-startup-id VBoxManage startvm "Windows 10 LTSC"
+
 # Telegram
 bindsym $mod+t exec --no-startup-id telegram-desktop
 
 # Spotify
-bindsym $mod+s exec --no-startup-id LD_PRELOAD=/usr/local/lib/spotify-adblock.so spotify
+bindsym $mod+s exec --no-startup-id LD_PRELOAD=/usr/lib/spotify-adblock.so spotify
 
 # Litrus
 bindsym $mod+g exec --no-startup-id lutris
@@ -172,7 +175,7 @@ bindsym $mod+g exec --no-startup-id lutris
 bindsym $mod+c exec --no-startup-id code-oss
 
 # Geforce Now
-bindsym $mod+n exeЫc --no-startup-id /opt/geforcenow-electron/geforcenow
+bindsym $mod+n exec --no-startup-id /opt/geforcenow-electron/geforcenow
 
 # OBS
 bindsym $mod+o exec --no-startup-id obs
@@ -197,8 +200,8 @@ for_window [class="^.*"] border pixel 1
 set $grv #665C54
 
 # class       	  border backgr text  indicator child_border
-#client.focused    $grv   $grv   $grv  $grv      $grv
-#client.urgent     $grv   $grv   $grv  $grv      $grv
+client.focused    $grv   $grv   $grv  $grv      $grv
+client.urgent     $grv   $grv   $grv  $grv      $grv
 
 
 #----------------------#
@@ -207,6 +210,7 @@ set $grv #665C54
 
 exec_always --no-startup-id setxkbmap -layout us,ru && setxkbmap -option 'grp:alt_shift_toggle' &
 exec_always --no-startup-id pkill polybar; /home/user/.config/polybar/scripts/launch_polybar &
+exec_always --no-startup-id autorandr -c &
 
 exec --no-startup-id redshift &
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
@@ -224,6 +228,9 @@ exec --no-startup-id doas /sbin/ip link set wlan0 down &
 exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ 1 &
 exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ 1 &
 
+exec --no-startup-id xset s off &
+exec --no-startup-id xset -dpms &
+exec --no-startup-id xset s noblank &
 
 #---------------#
 # SPECIAL CASES #
@@ -304,5 +311,7 @@ assign [class="TelegramDesktop"] $ws6
 assign [class="discord"] $ws6
 #assign [class="Steam" title="Steam"] $ws7
 assign [class="Virt-manager"] $ws7
+assign [class="VirtualBox Manager"] $ws7
+for_window [class="VirtualBox Machine"] move to workspace $ws7
 #assign [class="GeForce NOW"] $ws7
 #assign [class="Lutris"] $ws7
