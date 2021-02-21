@@ -154,6 +154,8 @@ sudo pacman -S mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon
 sudo pacman -S i3-wm xorg-server xorg-xinit xorg-xev xorg-xprop xorg-xkill slock termite rofi nautilus ttf-font-awesome arandr autorandr
 paru -S polybar
 
+sudo systemctl enable slock@user.service
+
 # Laptop
 sudo pacman -S xf86-input-synaptics light tlp powertop libimobiledevice
 sudo systemctl enable --now tlp
