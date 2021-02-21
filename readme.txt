@@ -175,7 +175,7 @@ gsettings set org.blueman.plugins.powermanager auto-power-on false
   sudo sh -c "echo 'blacklist pcspkr' >> /etc/modprobe.d/nobeep.conf"
 
 # Office programs
-sudo pacman -S libreoffice-still zathura zathura-pdf-poppler zathura-ps
+sudo pacman -S libreoffice-still zathura zathura-pdf-poppler zathura-ps zathura-djvu
 
 # Look and feel
 sudo pacman -S lxappearance neofetch
