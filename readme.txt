@@ -148,7 +148,7 @@ paru
 # Optional: 
 
 # AMD drivers
-sudo pacman -S mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon 
+sudo pacman -S mesa lib32-mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon lib32-vulkan-radeon vulkan-icd-loader lib32-vulkan-icd-loader
 
 # Window manager
 sudo pacman -S i3-wm xorg-server xorg-xinit xorg-xev xorg-xprop xorg-xkill slock termite rofi nautilus ttf-font-awesome arandr autorandr
