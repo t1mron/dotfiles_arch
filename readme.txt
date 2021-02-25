@@ -191,12 +191,9 @@ paru -S timeshift-bin
 sudo pacman -S wget 
 
 # Multimedia
-sudo pacman -S firefox telegram-desktop obs-studio discord steam lutris
-paru -S spotify spotify-adblock-git polybar-spotify-module
+sudo pacman -S firefox telegram-desktop obs-studio discord 
 
-systemctl --user enable --now spotify-listener
-
-# Virtualisation
+# Virtualisation (???)
 sudo pacman -S wine qemu virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat libguestfs dmidecode ebtables iptables
 sudo usermod -a -G libvirt user
 sudo systemctl enable --now libvirtd.service
@@ -218,10 +215,12 @@ echo "PermitRootLogin no"| sudo tee -a /etc/ssh/sshd_config
  
 echo "-:root:ALL except LOCAL" | sudo tee -a /etc/security/access.conf
 
-
-
 # Disable root login
 passwd --lock root
+
+
+
+
 
 
 
