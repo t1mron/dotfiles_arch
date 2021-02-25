@@ -165,23 +165,14 @@ bindsym $mod+Shift+v exec --no-startup-id VBoxManage startvm "Windows 10 LTSC"
 # Telegram
 bindsym $mod+t exec --no-startup-id telegram-desktop
 
-# Spotify
-bindsym $mod+s exec --no-startup-id LD_PRELOAD=/usr/lib/spotify-adblock.so spotify
-
-# Litrus
-bindsym $mod+g exec --no-startup-id lutris
-
 # VScode
 bindsym $mod+c exec --no-startup-id code-oss
 
-# Geforce Now
-bindsym $mod+n exec --no-startup-id /opt/geforcenow-electron/geforcenow
+# gedit
+bindsym $mod+g exec --no-startup-id gedit
 
 # OBS
 bindsym $mod+o exec --no-startup-id obs
-
-# Google Drive
-#bindsym $mod+g exec --no-startup-id rclone mount --config /home/user/.config/rclone/rclone.conf  google: /home/user/Cloud/GDrive
 
 # reload autorandr 
 bindsym $mod+Home exec --no-startup-id autorandr -c
@@ -216,7 +207,7 @@ exec --no-startup-id redshift &
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
 # Disable touchpad 
-exec --no-startup-id synclient touchpadoff=1 &
+exec --no-startup-id xinput disable 12 &
 
 # Disable wi-fi 
 exec --no-startup-id doas /sbin/ip link set wlan0 down &
@@ -228,9 +219,11 @@ exec --no-startup-id doas /sbin/ip link set wlan0 down &
 exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ 1 &
 exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ 1 &
 
+# Disable turn off screen
 exec --no-startup-id xset s off &
 exec --no-startup-id xset -dpms &
 exec --no-startup-id xset s noblank &
+
 
 #---------------#
 # SPECIAL CASES #
@@ -290,7 +283,7 @@ bindsym XF86Display exec --no-startup-id polybar-msg cmd toggle
 bindsym F2 exec --no-startup-id /home/user/.config/i3/scripts/touchpad
 
 # lock session
-bindsym --release XF86Sleep exec --no-startup-id slock
+bindsym --release XF86Sleep exec --no-startup-id slock & sleep 0.5 && xset dpms force off
 
 
 #-------------#
@@ -304,14 +297,9 @@ assign [class="code-oss"] $ws3
 assign [class="Zathura"] $ws3
 assign [class="libreoffice"] $ws4
 for_window [class="libreoffice"] move to workspace $ws4
-for_window [class="Spotify"] move to workspace $ws5
-#assign [class="mpv"] $ws5
-assign [class="obs"] $ws5
-assign [class="TelegramDesktop"] $ws6
-assign [class="discord"] $ws6
-#assign [class="Steam" title="Steam"] $ws7
-assign [class="Virt-manager"] $ws7
-assign [class="VirtualBox Manager"] $ws7
-for_window [class="VirtualBox Machine"] move to workspace $ws7
-#assign [class="GeForce NOW"] $ws7
-#assign [class="Lutris"] $ws7
+assign [class="TelegramDesktop"] $ws5
+assign [class="discord"] $ws5
+assign [class="Virt-manager"] $ws6
+assign [class="VirtualBox Manager"] $ws6
+for_window [class="VirtualBox Machine"] move to workspace $ws6
+assign [class="obs"] $ws7
