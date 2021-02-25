@@ -157,7 +157,7 @@ paru -S polybar
 sudo systemctl enable slock@user.service
 
 # Laptop
-sudo pacman -S xf86-input-synaptics light tlp powertop libimobiledevice
+sudo pacman -S libinput light tlp powertop libimobiledevice
 sudo systemctl enable --now tlp
 sudo powertop -c
 
@@ -181,7 +181,7 @@ sudo pacman -S libreoffice-still zathura zathura-pdf-poppler zathura-ps zathura-
 sudo pacman -S lxappearance neofetch
 
 # Utilities
-sudo pacman -S keepass man-db flameshot qbittorrent redshift mpv sxiv
+sudo pacman -S man-db flameshot qbittorrent redshift mpv sxiv
 
 # System tools
 sudo pacman -S pacman-contrib bleachbit htop f2fs-tools dosfstools ntfs-3g gvfs udisks2 polkit-gnome
