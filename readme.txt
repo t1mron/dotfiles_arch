@@ -137,7 +137,7 @@ cd /home/user/git/paru && makepkg -si
 
 # Clone my repo
 git clone https://github.com/t1mron/dotfiles_arch.git /home/user/git/dotfiles_arch
-cd /home/user/git/dotfiles_arch && sudo cp -r {etc,home} /
+cd /home/user/git/dotfiles_arch && sudo cp -r etc / && cp /user/. /home/user/
 
 
 -------------------------------------------------------------------------
