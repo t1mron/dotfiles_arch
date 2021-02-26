@@ -40,6 +40,12 @@ mount /dev/nvme0n1p2 /mnt/boot
 mkdir /mnt/boot/efi
 mount /dev/nvme0n1p1 /mnt/boot/efi
 
+# Setup swap 
+dd if=/dev/zero of=/mnt/swap bs=1M count=2048 status=progress
+chmod 0600 /mnt/swap
+mkswap /mnt/swap
+swapon /mnt/swap
+
 # Install the system and some tools
 pacstrap /mnt base linux linux-firmware base-devel efibootmgr grub amd-ucode vim git
 
