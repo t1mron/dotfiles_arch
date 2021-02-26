@@ -132,7 +132,7 @@ bindsym $mod+Shift+End exit
 #----------------#
 
 # rofi 
-bindsym $mod+r exec --no-startup-id rofi -show run -theme gruvbox-dark-soft
+bindsym $mod+r exec --no-startup-id rofi -show run -theme Arc
 
 # clipmenu
 #bindsym $alt+v exec --no-startup-id 
