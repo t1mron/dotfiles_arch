@@ -192,6 +192,7 @@ sudo pacman -S wget
 
 # Multimedia
 sudo pacman -S firefox telegram-desktop obs-studio discord 
+paru -S zoom
 
 # Virtualisation 
 sudo pacman -S virtualbox virtualbox-host-modules-arch 
