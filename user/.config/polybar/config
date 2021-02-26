@@ -1,7 +1,7 @@
 [colors]
-foreground = #D2BF8C
-background = #32302F
-primary= #665C54
+foreground = #333333
+background = #FFFFFF
+primary= #cccccc
 
 
 [bar/main]
@@ -107,7 +107,7 @@ interface = wlan0
 interval = 1
 
 label-connected = %{A1:iwgtk:}%essid% %{A}
-label-disconnected = %{A1:iwgtk:}%{F#66ffffff}%{F-}%{A}
+label-disconnected = %{A1:iwgtk:}%{F#999999}%{F-}%{A}
 
 
 [module/bluetooth]
@@ -123,7 +123,7 @@ format=%{A1:blueman-manager:}<label>%{A}
 type = internal/pulseaudio
 
 label-volume = %{A1:pavucontrol -t 1:} %percentage:3%%%{A}
-label-muted = %{A1:pavucontrol -t 1:}%{F#66ffffff} %percentage:3%%%{F-}%{A}
+label-muted = %{A1:pavucontrol -t 1:}%{F#999999} %percentage:3%%%{F-}%{A}
 
 
 [module/mic]
@@ -168,7 +168,7 @@ battery = BAT0
 adapter = AC
 
 format-charging = <ramp-capacity> <label-charging>
-format-discharging = %{F#66ffffff}<ramp-capacity>%{F-} <label-discharging>
+format-discharging = %{F#999999}<ramp-capacity>%{F-} <label-discharging>
 
 label-full =  99%
 label-charging = %percentage%%
