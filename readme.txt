@@ -193,8 +193,12 @@ sudo pacman -S wget
 # Multimedia
 sudo pacman -S firefox telegram-desktop obs-studio discord 
 
-# Virtualisation (???)
-sudo pacman -S wine qemu virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat libguestfs dmidecode ebtables iptables
+# Virtualisation 
+sudo pacman -S virtualbox virtualbox-host-modules-arch 
+
+
+----------------------------------------------------
+wine qemu virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat libguestfs dmidecode ebtables iptables
 sudo usermod -a -G libvirt user
 sudo systemctl enable --now libvirtd.service
 
