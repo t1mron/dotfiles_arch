@@ -13,7 +13,7 @@ if [ -z "$volume" ]; then
 else
   volume="${volume//[[:blank:]]/}" 
   if [[ "$mute" == *"yes"* ]]; then
-    echo "%{F#66ffffff} $volume"
+    echo "%{F#999999} $volume"
   elif [[ "$mute" == *"no"* ]]; then
     echo " $volume"
   else
