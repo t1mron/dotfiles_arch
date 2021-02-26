@@ -181,7 +181,7 @@ sudo pacman -S libreoffice-still zathura zathura-pdf-poppler zathura-djvu
 sudo pacman -S lxappearance neofetch
 
 # Utilities
-sudo pacman -S man-db flameshot qbittorrent redshift mpv sxiv
+sudo pacman -S man-db flameshot qbittorrent redshift mpv sxiv gedit
 
 # System tools
 sudo pacman -S pacman-contrib bleachbit htop f2fs-tools dosfstools ntfs-3g gvfs udisks2 polkit-gnome
