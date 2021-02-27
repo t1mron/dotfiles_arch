@@ -187,10 +187,10 @@ sudo pacman -S libreoffice-still zathura zathura-pdf-mupdf
 sudo pacman -S neofetch
 
 # Utilities
-sudo pacman -S man-db flameshot qbittorrent redshift mpv sxiv gedit
+sudo pacman -S man-db flameshot qbittorrent redshift mpv sxiv gedit 
 
 # System tools
-sudo pacman -S pacman-contrib bleachbit htop f2fs-tools dosfstools ntfs-3g gvfs udisks2 polkit-gnome
+sudo pacman -S pacman-contrib bleachbit htop f2fs-tools dosfstools ntfs-3g gvfs gvfs-afc gvfs-gphoto2 udisks2 polkit-gnome
 paru -S timeshift-bin
 
 # Network
