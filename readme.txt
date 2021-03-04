@@ -190,11 +190,11 @@ sudo pacman -S neofetch
 sudo pacman -S man-db flameshot qbittorrent redshift mpv sxiv gedit 
 
 # System tools
-sudo pacman -S pacman-contrib bleachbit htop f2fs-tools dosfstools ntfs-3g gvfs gvfs-afc gvfs-gphoto2 udisks2 polkit-gnome
+sudo pacman -S pacman-contrib bleachbit htop f2fs-tools dosfstools ntfs-3g gvfs gvfs-afc gvfs-gphoto2 udisks2 polkit-gnome 
 paru -S timeshift-bin
 
 # Network
-sudo pacman -S wget 
+sudo pacman -S wget reflector
 
 # Multimedia
 sudo pacman -S firefox telegram-desktop obs-studio discord 
