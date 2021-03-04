@@ -157,7 +157,7 @@ paru
 sudo pacman -S mesa lib32-mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon lib32-vulkan-radeon vulkan-icd-loader lib32-vulkan-icd-loader
 
 # Window manager
-sudo pacman -S i3-wm xorg-server xorg-xinit xorg-xev xorg-xprop xorg-xinput xorg-xsetroot xorg-xkill slock termite rofi nautilus ttf-font-awesome arandr autorandr
+sudo pacman -S i3-wm xorg-server xorg-xinit xorg-xev xorg-xprop xorg-xinput xorg-xsetroot xorg-xkill slock termite rofi nautilus xdg-user-dirs ttf-font-awesome arandr autorandr
 paru -S polybar
 
 sudo systemctl enable slock@user.service
