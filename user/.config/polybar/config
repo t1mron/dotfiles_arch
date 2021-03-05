@@ -26,7 +26,7 @@ padding= 1
 module-margin = 1
 
 # Modules
-modules-left = time keyboard 
+modules-left = time keyboard previous playpause next spotify
 modules-center = i3
 modules-right = updates wi-fi pulseaudio mic backlight filesystem cpu memory  battery
 
@@ -48,6 +48,43 @@ blacklist-1 = scroll lock
 blacklist-2 = caps lock
 
 label-layout = %{A1::} %layout%%{A}
+
+
+[module/previous]
+type = custom/ipc
+
+hook-0 = echo ""
+hook-1 = echo ""
+
+click-left = "spotifyctl -q previous"
+
+
+[module/playpause]
+type = custom/ipc
+
+hook-0 = echo ""
+hook-1 = echo ""
+hook-2 = echo ""
+
+click-left = "spotifyctl -q playpause"
+
+
+[module/next]
+type = custom/ipc
+
+hook-0 = echo ""
+hook-1 = echo ""
+
+click-left = "spotifyctl -q next"
+
+
+[module/spotify]
+type = custom/ipc
+
+hook-0 = echo ""
+hook-1 = spotifyctl -q status --format '%artist% : %title%'
+
+click-left = i3-msg '[class="Spotify"] focus'
 
 
 # CENTER
