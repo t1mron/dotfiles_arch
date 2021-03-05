@@ -156,11 +156,14 @@ bindsym $mod+f exec --no-startup-id firefox
 # Libreoffice
 bindsym $mod+w exec --no-startup-id libreoffice
 
-# Virt-manager
-bindsym $mod+v exec --no-startup-id virt-manager
+# Spotify
+bindsym $mod+s exec --no-startup-id LD_PRELOAD=/usr/lib/spotify-adblock.so spotify
+
+# virtual box 
+bindsym $mod+v exec --no-startup-id VirtualBox 
 
 # Windows 10 LTSC
-bindsym $mod+Shift+v exec --no-startup-id VBoxManage startvm "Windows 10 LTSC"
+bindsym $mod+Shift+v exec --no-startup-id VBoxManage startvm "Win 10 LTSC"
 
 # Telegram
 bindsym $mod+t exec --no-startup-id telegram-desktop
@@ -188,7 +191,7 @@ bindsym --release $mod+Escape exec --no-startup-id xkill
 # window border
 for_window [class="^.*"] border pixel 1
 
-set $clr #6495ed
+set $clr #00bfff
 
 # class       	  border backgr text  indicator child_border
 client.focused    $clr   $clr   $clr  $clr      $clr
@@ -203,11 +206,16 @@ exec_always --no-startup-id setxkbmap -layout us,ru && setxkbmap -option 'grp:al
 exec_always --no-startup-id pkill polybar; /home/user/.config/polybar/scripts/launch_polybar &
 exec_always --no-startup-id autorandr -c &
 
+# Disable turn off screen
+exec_always --no-startup-id xset s off &
+exec_always --no-startup-id xset -dpms &
+exec_always --no-startup-id xset s noblank &
+
 exec --no-startup-id redshift &
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
 # Disable touchpad 
-exec --no-startup-id xinput disable 12 &
+exec --no-startup-id xinput disable "SYNA30AC:00 06CB:CDEB Touchpad" &
 
 # Disable wi-fi 
 exec --no-startup-id doas /sbin/ip link set wlan0 down &
@@ -219,10 +227,8 @@ exec --no-startup-id doas /sbin/ip link set wlan0 down &
 exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ 1 &
 exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ 1 &
 
-# Disable turn off screen
-exec --no-startup-id xset s off &
-exec --no-startup-id xset -dpms &
-exec --no-startup-id xset s noblank &
+# Solid color background
+exec --no-startup-id xsetroot -solid "#cccccc" &
 
 
 #---------------#
@@ -283,7 +289,7 @@ bindsym XF86Display exec --no-startup-id polybar-msg cmd toggle
 bindsym F2 exec --no-startup-id /home/user/.config/i3/scripts/touchpad
 
 # lock session
-bindsym --release XF86Sleep exec --no-startup-id slock & sleep 0.5 && xset dpms force off
+#bindsym --release XF86Sleep exec --no-startup-id slock & sleep 0.5 && xset dpms force off
 
 
 #-------------#
@@ -303,3 +309,4 @@ assign [class="Virt-manager"] $ws6
 assign [class="VirtualBox Manager"] $ws6
 for_window [class="VirtualBox Machine"] move to workspace $ws6
 assign [class="obs"] $ws7
+for_window [class="Spotify"] move to workspace $ws7
