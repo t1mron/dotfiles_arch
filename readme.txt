@@ -97,9 +97,6 @@ Name=enp1s0
 DHCP=yes
 EOF
 
-# Disable suspend button
-echo HandleSuspendKey=ignore >> /etc/systemd/logind.conf
-
 # Add multilib repo for pacman 
 echo [multilib] >> /etc/pacman.conf 
 echo "Include = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf
