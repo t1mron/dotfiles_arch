@@ -108,10 +108,10 @@ bindsym $mod+Up move container to output up
 bindsym $mod+Down move container to output down
 
 mode "" {
-	bindsym l resize shrink width 10 px or 10 ppt
+	bindsym h resize shrink width 10 px or 10 ppt
 	bindsym k resize grow height 10 px or 10 ppt
 	bindsym j resize shrink height 10 px or 10 ppt
-	bindsym h resize grow width 10 px or 10 ppt
+	bindsym l resize grow width 10 px or 10 ppt
 
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
@@ -162,9 +162,6 @@ bindsym $mod+s exec --no-startup-id LD_PRELOAD=/usr/lib/spotify-adblock.so spoti
 # virtual box 
 bindsym $mod+v exec --no-startup-id VirtualBox 
 
-# Windows 10 LTSC
-bindsym $mod+Shift+v exec --no-startup-id VBoxManage startvm "Win 10 LTSC"
-
 # Telegram
 bindsym $mod+t exec --no-startup-id telegram-desktop
 
@@ -204,7 +201,6 @@ client.urgent     $clr   $clr   $clr  $clr      $clr
 
 exec_always --no-startup-id setxkbmap -layout us,ru && setxkbmap -option 'grp:alt_shift_toggle' &
 exec_always --no-startup-id pkill polybar; /home/user/.config/polybar/scripts/launch_polybar &
-exec_always --no-startup-id autorandr -c &
 
 # Disable turn off screen
 exec_always --no-startup-id xset s off &
@@ -288,9 +284,6 @@ bindsym XF86Display exec --no-startup-id polybar-msg cmd toggle
 # on/off touchpad  
 bindsym F2 exec --no-startup-id /home/user/.config/i3/scripts/touchpad
 
-# lock session
-#bindsym --release XF86Sleep exec --no-startup-id slock & sleep 0.5 && xset dpms force off
-
 
 #-------------#
 # ASSIGNMENTS #
@@ -307,6 +300,5 @@ assign [class="TelegramDesktop"] $ws5
 assign [class="discord"] $ws5
 assign [class="Virt-manager"] $ws6
 assign [class="VirtualBox Manager"] $ws6
-for_window [class="VirtualBox Machine"] move to workspace $ws6
 assign [class="obs"] $ws7
 for_window [class="Spotify"] move to workspace $ws7
