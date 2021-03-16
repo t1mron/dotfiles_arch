@@ -144,7 +144,7 @@ interface = wlan0
 interval = 1
 
 label-connected = %{A1:iwgtk:}%essid% %{A}
-label-disconnected = %{A1:iwgtk:}%{F#999999}%{F-}%{A}
+label-disconnected = %{A1:iwgtk:}%{F#cccccc}%{F-}%{A}
 
 
 [module/bluetooth]
@@ -160,7 +160,7 @@ format=%{A1:blueman-manager:}<label>%{A}
 type = internal/pulseaudio
 
 label-volume = %{A1:pavucontrol -t 1:} %percentage:3%%%{A}
-label-muted = %{A1:pavucontrol -t 1:}%{F#999999} %percentage:3%%%{F-}%{A}
+label-muted = %{A1:pavucontrol -t 1:}%{F#cccccc} %percentage:3%%%{F-}%{A}
 
 
 [module/mic]
