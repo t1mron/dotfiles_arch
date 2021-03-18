@@ -195,9 +195,7 @@ sudo pacman -S wget reflector
 
 # Multimedia
 sudo pacman -S firefox telegram-desktop obs-studio discord 
-paru -S zoom spotify spotify-adblock-git polybar-spotify-module
-
-systemctl --user enable --now spotify-listener
+paru -S zoom 
 
 # Virtualisation 
 sudo pacman -S virtualbox virtualbox-host-modules-arch 
