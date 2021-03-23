@@ -47,7 +47,7 @@ mkswap /mnt/swap
 swapon /mnt/swap
 
 # Install the system and some tools
-pacstrap /mnt base linux linux-firmware base-devel efibootmgr grub vim git netctl dhcpcd openssh amd-ucode intel-ucode 
+pacstrap /mnt base linux linux-firmware base-devel efibootmgr grub vim git wget networkmamager amd-ucode intel-ucode 
 
 # Generate fstab
 genfstab -U /mnt >> /mnt/etc/fstab
