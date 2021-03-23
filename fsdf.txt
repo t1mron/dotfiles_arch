@@ -112,6 +112,7 @@ sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 
 # Enable at startup 
 systemctl enable --now systemd-resolved
+systemctl enable --now sshd
 
 # Reboot into the new system, don't forget to remove the usb
 reboot
