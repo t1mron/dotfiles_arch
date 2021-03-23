@@ -11,13 +11,13 @@ timedatectl set-ntp true
 # Wipe disk before install
 (echo g;echo w) | fdisk /dev/sda
 
-# /dev/nvme0n1p1 256M EFI
+# /dev/sda1 256M EFI
 (echo n;echo ;echo ;echo 526335;echo t;echo 1;echo w) | fdisk /dev/sda
 
-# /dev/nvme0n1p2 512M Linux filesystem
+# /dev/sda2 512M Linux filesystem
 (echo n;echo ;echo ;echo 1574911; echo w) | fdisk /dev/sda
 
-# /dev/nvme0n1p3 All Linux filesystem
+# /dev/sda3 All Linux filesystem
 (echo n;echo ;echo ;echo ; echo w) | fdisk /dev/sda
 
 # Load encrypt modules 
