@@ -47,7 +47,7 @@ mkswap /mnt/swap
 swapon /mnt/swap
 
 # Install the system and some tools
-pacstrap /mnt base linux linux-firmware base-devel efibootmgr grub vim git netctl dhcpcd amd-ucode intel-ucode 
+pacstrap /mnt base linux linux-firmware base-devel efibootmgr grub vim git netctl dhcpcd openssh amd-ucode intel-ucode 
 
 # Generate fstab
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -80,6 +80,9 @@ echo -e "KEYMAP=ru\nFONT=cyr-sun16" >> /etc/vconsole.conf
 
 # Set the hostname
 echo lfs >> /etc/hostname
+
+# Add ssh connection
+echo "Port 22" >> /etc/ssh/sshd_config
 
 # Add multilib repo for pacman 
 echo "[multilib]" >> /etc/pacman.conf 
