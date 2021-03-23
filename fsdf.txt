@@ -107,13 +107,6 @@ exit
 # Reboot into the new system, don't forget to remove the usb
 reboot
 
-# symlink resolv.conf
-sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
-
-# Enable services at startup 
-systemctl enable --now systemd-networkd
-systemctl enable --now systemd-resolved
-
 -------------------------------------------------------------------------
 ::TODO:: Update the installed packages. Finish configuration.
 sudo pacman -Syu
