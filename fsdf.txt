@@ -81,9 +81,6 @@ echo -e "KEYMAP=ru\nFONT=cyr-sun16" >> /etc/vconsole.conf
 # Set the hostname
 echo lfs >> /etc/hostname
 
-# Add ssh connection
-echo "Port 22" >> /etc/ssh/sshd_config
-
 # Add multilib repo for pacman 
 echo "[multilib]" >> /etc/pacman.conf 
 echo "Include = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf
