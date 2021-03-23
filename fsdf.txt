@@ -9,45 +9,45 @@ ping archlinux.org
 timedatectl set-ntp true 
 
 # Wipe disk before install
-(echo g;echo w) | fdisk /dev/nvme0n1
+(echo g;echo w) | fdisk /dev/sda
 
 # /dev/nvme0n1p1 256M EFI
-(echo n;echo ;echo ;echo 526335;echo t;echo 1;echo w) | fdisk /dev/nvme0n1
+(echo n;echo ;echo ;echo 526335;echo t;echo 1;echo w) | fdisk /dev/sda
 
 # /dev/nvme0n1p2 512M Linux filesystem
-(echo n;echo ;echo ;echo 1574911; echo w) | fdisk /dev/nvme0n1
+(echo n;echo ;echo ;echo 1574911; echo w) | fdisk /dev/sda
 
 # /dev/nvme0n1p3 All Linux filesystem
-(echo n;echo ;echo ;echo ; echo w) | fdisk /dev/nvme0n1
+(echo n;echo ;echo ;echo ; echo w) | fdisk /dev/sda
 
 # Load encrypt modules 
 modprobe dm-crypt
 modprobe dm-mod
 
-# Encrypt and open /dev/nvme0n1p3  
-cryptsetup luksFormat -v -s 512 -h sha512 /dev/nvme0n1p3
-cryptsetup open /dev/nvme0n1p3 archlinux
+# Encrypt and open /dev/sda3
+cryptsetup luksFormat -v -s 512 -h sha512 /dev/sda3    (mireatop)
+cryptsetup open /dev/sda3 lfs
 
 # Formatting the partitions
-mkfs.vfat -n "EFI System" /dev/nvme0n1p1
-mkfs.ext4 -L boot /dev/nvme0n1p2
-mkfs.ext4 -L root /dev/mapper/archlinux
+mkfs.vfat -n "EFI System" /dev/sda1
+mkfs.ext4 -L boot /dev/sda2
+mkfs.ext4 -L root /dev/mapper/lfs
 
 # Mount partitions and create folders
-mount /dev/mapper/archlinux /mnt
+mount /dev/mapper/lfs /mnt
 mkdir /mnt/boot
-mount /dev/nvme0n1p2 /mnt/boot
+mount /dev/sda2 /mnt/boot
 mkdir /mnt/boot/efi
-mount /dev/nvme0n1p1 /mnt/boot/efi
+mount /dev/sda1 /mnt/boot/efi
 
 # Setup swap 
-dd if=/dev/zero of=/mnt/swap bs=1M count=2048 status=progress
+dd if=/dev/zero of=/mnt/swap bs=1M count=1024 status=progress
 chmod 0600 /mnt/swap
 mkswap /mnt/swap
 swapon /mnt/swap
 
 # Install the system and some tools
-pacstrap /mnt base linux linux-firmware base-devel efibootmgr grub amd-ucode vim git
+pacstrap /mnt base linux linux-firmware base-devel efibootmgr grub vim git netctl dhcpcd amd-ucode intel-ucode 
 
 # Generate fstab
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -63,7 +63,7 @@ passwd user
 echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers
 
 # Set the time zone and a system clock
-ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime
+ln -sf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 hwclock --systohc --utc
 
 # Set default locale
@@ -79,42 +79,25 @@ echo LANG=en_US.UTF-8 >> /etc/locale.conf
 echo -e "KEYMAP=ru\nFONT=cyr-sun16" >> /etc/vconsole.conf
 
 # Set the hostname
-echo arch >> /etc/hostname
-
-# Set the host
-cat << EOF | tee -a /etc/hosts
-127.0.0.1    localhost
-::1          localhost
-127.0.1.1    arch.localdomain arch
-EOF
-
-# Set systemd-networkd
-cat << EOF | tee -a /etc/systemd/network/20-wired.network
-[Match]
-Name=enp1s0
-
-[Network]
-DHCP=yes
-EOF
+echo lfs >> /etc/hostname
 
 # Add multilib repo for pacman 
-echo [multilib] >> /etc/pacman.conf 
+echo "[multilib]" >> /etc/pacman.conf 
 echo "Include = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf
 
 # Setup grub
 sed -i "s|^GRUB_TIMEOUT=.*|GRUB_TIMEOUT=1|" /etc/default/grub
-sed -i "s|^GRUB_CMDLINE_LINUX_DEFAULT=.*|GRUB_CMDLINE_LINUX_DEFAULT='loglevel=3 quiet acpi_backlight=vendor'|" /etc/default/grub
-sed -i "s|^GRUB_CMDLINE_LINUX=.*|GRUB_CMDLINE_LINUX='cryptdevice=/dev/nvme0n1p3:archlinux'|" /etc/default/grub
+sed -i "s|^GRUB_CMDLINE_LINUX_DEFAULT=.*|GRUB_CMDLINE_LINUX_DEFAULT='loglevel=3 quiet'|" /etc/default/grub
+sed -i "s|^GRUB_CMDLINE_LINUX=.*|GRUB_CMDLINE_LINUX='cryptdevice=/dev/sda3:lfs'|" /etc/default/grub
 
 # Configure mkinitcpio
-sed -i "s|^MODULES=.*|MODULES=(amdgpu)|" /etc/mkinitcpio.conf
 sed -i "s|^HOOKS=.*|HOOKS=(base udev autodetect modconf block keyboard encrypt fsck filesystems)|" /etc/mkinitcpio.conf
 
 # Regenerate initrd image
 mkinitcpio -p linux
 
 # Install grub and create configuration
-grub-install --boot-directory=/boot --efi-directory=/boot/efi /dev/nvme0n1p2
+grub-install --boot-directory=/boot --efi-directory=/boot/efi /dev/sda2
 grub-mkconfig -o /boot/grub/grub.cfg
 grub-mkconfig -o /boot/efi/EFI/arch/grub.cfg
 
@@ -131,21 +114,9 @@ sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 systemctl enable --now systemd-networkd
 systemctl enable --now systemd-resolved
 
-sudo pacman -Syu
-sudo pacman -S rust 
-
-# Install AUR helper - paru 
-git clone https://aur.archlinux.org/paru.git /home/user/git/paru
-cd /home/user/git/paru && makepkg -si
-
-# Clone my repo
-git clone https://github.com/t1mron/dotfiles_arch.git /home/user/git/dotfiles_arch
-cd /home/user/git/dotfiles_arch && sudo cp -r etc / && cp /user/. /home/user/
-
-
 -------------------------------------------------------------------------
 ::TODO:: Update the installed packages. Finish configuration.
-paru 
+sudo pacman -Syu
 
 
 # Optional: 
