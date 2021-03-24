@@ -115,127 +115,14 @@ reboot
 ::TODO:: Update the installed packages. Finish configuration.
 sudo pacman -Syu
 
-
 # Optional: 
 
-# AMD drivers
-sudo pacman -S mesa lib32-mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon lib32-vulkan-radeon vulkan-icd-loader lib32-vulkan-icd-loader
-
-# Window manager
-sudo pacman -S i3-wm xorg-server xorg-xinit xorg-xev xorg-xprop xorg-xinput xorg-xsetroot xorg-xkill slock termite rofi nautilus xdg-user-dirs ttf-font-awesome arandr autorandr
-paru -S polybar
-
-sudo systemctl enable slock@user.service
-
-# Laptop
-sudo pacman -S libinput light tlp powertop libimobiledevice
-sudo systemctl enable --now tlp
-sudo powertop -c
-
-# wi-fi, sound, bluetooth, vpn
-sudo pacman -S iwd pulseaudio alsa-lib alsa-utils pavucontrol bluez bluez-utils blueman
-paru  -S iwgtk
-
-sudo systemctl enable --now iwd
-sudo modprobe btusb
-sudo systemctl enable --now bluetooth
-gsettings set org.blueman.plugins.powermanager auto-power-on false
-
-  # Disable POP and BEEP sound
-  sudo sh -c "echo 'blacklist snd_hda_codec_realtek' >> /etc/modprobe.d/disable_pop.conf"
-  sudo sh -c "echo 'blacklist pcspkr' >> /etc/modprobe.d/nobeep.conf"
-
-# Office programs
-sudo pacman -S libreoffice-still zathura zathura-pdf-mupdf 
-
-# Look and feel
-sudo pacman -S neofetch
-
-# Utilities
-sudo pacman -S man-db flameshot qbittorrent redshift mpv sxiv gedit 
-
-# System tools
-sudo pacman -S pacman-contrib bleachbit htop f2fs-tools dosfstools ntfs-3g gvfs gvfs-afc gvfs-gphoto2 udisks2 polkit-gnome 
-paru -S timeshift-bin
-
-# Network
-sudo pacman -S wget reflector
-
-# Multimedia
-sudo pacman -S firefox telegram-desktop obs-studio discord 
-paru -S zoom 
-
-# Virtualisation 
-sudo pacman -S virtualbox virtualbox-host-modules-arch 
-
-
-----------------------------------------------------
-wine qemu virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat libguestfs dmidecode ebtables iptables
-sudo usermod -a -G libvirt user
-sudo systemctl enable --now libvirtd.service
-
-# Development
-sudo pacman -S code
-
----------------------------------------------
-
-# Security (create systemd file)
-sudo pacman -S ufw etckeeper rkhunter clamav clamtk doas
-paru -S chkrootkit
-
-sudo ufw enable &&sudo ufw reload
-
-#Disable root login over ssh
-echo "PermitRootLogin no"| sudo tee -a /etc/ssh/sshd_config
-
- 
-echo "-:root:ALL except LOCAL" | sudo tee -a /etc/security/access.conf
-
-# Disable root login
-passwd --lock root
+# xfce
+sudo pacman -S xorg-server xorg-drivers xfce4 xfce4-goodies ttf-liberation ttf-dejavu network-manager-applet
 
 
 
 
 
 
-
-
-sudo freshclam
-
-#if error freshclam
-sudo systemctl stop clamav-daemon.service
-sudo rm /var/log/clamav/freshclam.log
-sudo systemctl start clamav-daemon.service
-sudo systemctl status clamav-daemon.service
-
-
-vim /etc/systemd/system/rkhunter.service
-
-__________________________________________
-[Unit]
-Description=rkhunter rootkit scan and malware detection
-
-Documentation=man:rkhunter
-
-[Service]
-ExecStartPre=/usr/bin/rkhunter –update
-ExecStartPre=/usr/bin/rkhunter –propupd
-ExecStart=/usr/bin/rkhunter –check -sk
-SuccessExitStatus=1 2
-____________________________________
-vim /etc/systemd/system/rkhunter.timer
-
-[Unit]
-Description=Run rkhunter daily
-
-[Timer]
-OnCalendar=*-*-* 04:20:00
-Persistent=true
-
-RemainAfterElapse=true
-
-[Install]
-WantedBy=timers.target
-___________________________________________
 
