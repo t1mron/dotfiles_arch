@@ -40,7 +40,7 @@ mount /dev/sda2 /mnt/boot
 mkdir /mnt/boot/efi
 mount /dev/sda1 /mnt/boot/efi
 
-# Setup swap 
+# Setup swap, you can change a value (1024)
 dd if=/dev/zero of=/mnt/swap bs=1M count=1024 status=progress
 chmod 0600 /mnt/swap
 mkswap /mnt/swap
@@ -101,15 +101,12 @@ grub-install --boot-directory=/boot --efi-directory=/boot/efi /dev/sda2
 grub-mkconfig -o /boot/grub/grub.cfg
 grub-mkconfig -o /boot/efi/EFI/arch/grub.cfg
 
+# Enable at startup 
+systemctl enable NetworkManager
+#systemctl enable sshd
+
 # Exit new system and go into the cd shell
 exit
-
-# symlink resolv.conf
-sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
-
-# Enable at startup 
-systemctl enable --now systemd-resolved
-systemctl enable --now sshd
 
 # Reboot into the new system, don't forget to remove the usb
 reboot
