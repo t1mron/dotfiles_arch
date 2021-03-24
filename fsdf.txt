@@ -135,3 +135,5 @@ cat > ~/.bash_profile << EOF
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 EOF
 
+# code
+sudo pacman -S python
