@@ -103,7 +103,6 @@ grub-mkconfig -o /boot/efi/EFI/arch/grub.cfg
 
 # Enable at startup 
 systemctl enable NetworkManager
-#systemctl enable sshd
 
 # Exit new system and go into the cd shell
 exit
