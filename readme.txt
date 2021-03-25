@@ -47,7 +47,7 @@ mkswap /mnt/swap
 swapon /mnt/swap
 
 # Install the system and some tools
-pacstrap /mnt base linux linux-firmware base-devel efibootmgr grub amd-ucode vim git
+pacstrap /mnt base linux linux-firmware base-devel efibootmgr grub amd-ucode neovim git
 
 # Generate fstab
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -118,18 +118,18 @@ grub-install --boot-directory=/boot --efi-directory=/boot/efi /dev/nvme0n1p2
 grub-mkconfig -o /boot/grub/grub.cfg
 grub-mkconfig -o /boot/efi/EFI/arch/grub.cfg
 
+# symlink resolv.conf
+sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+
+# Enable services at startup 
+systemctl enable systemd-networkd
+systemctl enable systemd-resolved
+
 # Exit new system and go into the cd shell
 exit
 
 # Reboot into the new system, don't forget to remove the usb
 reboot
-
-# symlink resolv.conf
-sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
-
-# Enable services at startup 
-systemctl enable --now systemd-networkd
-systemctl enable --now systemd-resolved
 
 sudo pacman -Syu
 
@@ -154,7 +154,6 @@ sudo pacman -S mesa lib32-mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vu
 
 # Window manager
 sudo pacman -S i3-wm xorg-server xorg-xinit xorg-xev xorg-xprop xorg-xinput xorg-xsetroot xorg-xkill slock termite rofi nautilus xdg-user-dirs ttf-font-awesome arandr autorandr
-paru -S polybar
 
 sudo systemctl enable slock@user.service
 
@@ -164,7 +163,7 @@ sudo systemctl enable --now tlp
 sudo powertop -c
 
 # wi-fi, sound, bluetooth, vpn
-sudo pacman -S iwd wireless_tools pulseaudio alsa-lib alsa-utils pavucontrol bluez bluez-utils blueman
+sudo pacman -S iwd pulseaudio alsa-lib alsa-utils pavucontrol bluez bluez-utils blueman
 
 sudo systemctl enable --now iwd
 sudo modprobe btusb
@@ -186,7 +185,6 @@ sudo pacman -S man-db flameshot qbittorrent redshift mpv sxiv gedit
 
 # System tools
 sudo pacman -S pacman-contrib bleachbit htop f2fs-tools dosfstools ntfs-3g gvfs gvfs-afc gvfs-gphoto2 udisks2 polkit-gnome 
-paru -S timeshift-bin
 
 # Network
 sudo pacman -S wget reflector
