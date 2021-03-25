@@ -132,11 +132,10 @@ systemctl enable --now systemd-networkd
 systemctl enable --now systemd-resolved
 
 sudo pacman -Syu
-sudo pacman -S rust 
 
-# Install AUR helper - paru 
-git clone https://aur.archlinux.org/paru.git /home/user/git/paru
-cd /home/user/git/paru && makepkg -si
+# Install AUR helper - yay
+git clone https://aur.archlinux.org/yay.git /home/user/git/yay
+cd /home/user/git/yay && makepkg -si
 
 # Clone my repo
 git clone https://github.com/t1mron/dotfiles_arch.git /home/user/git/dotfiles_arch
@@ -145,7 +144,7 @@ cd /home/user/git/dotfiles_arch && sudo cp -r etc / && cp /user/. /home/user/
 
 -------------------------------------------------------------------------
 ::TODO:: Update the installed packages. Finish configuration.
-paru 
+yay 
 
 
 # Optional: 
@@ -165,8 +164,7 @@ sudo systemctl enable --now tlp
 sudo powertop -c
 
 # wi-fi, sound, bluetooth, vpn
-sudo pacman -S iwd pulseaudio alsa-lib alsa-utils pavucontrol bluez bluez-utils blueman
-paru  -S iwgtk
+sudo pacman -S iwd wireless_tools pulseaudio alsa-lib alsa-utils pavucontrol bluez bluez-utils blueman
 
 sudo systemctl enable --now iwd
 sudo modprobe btusb
@@ -194,21 +192,19 @@ paru -S timeshift-bin
 sudo pacman -S wget reflector
 
 # Multimedia
-sudo pacman -S firefox telegram-desktop obs-studio discord 
-paru -S zoom 
+sudo pacman -S firefox telegram-desktop obs-studio discord  
 
 # Virtualisation 
 sudo pacman -S virtualbox virtualbox-host-modules-arch 
+
+# Development
+sudo pacman -S code
 
 
 ----------------------------------------------------
 wine qemu virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat libguestfs dmidecode ebtables iptables
 sudo usermod -a -G libvirt user
 sudo systemctl enable --now libvirtd.service
-
-# Development
-sudo pacman -S code
-
 ---------------------------------------------
 
 # Security (create systemd file)
