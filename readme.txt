@@ -195,6 +195,7 @@ sudo systemctl enable reflector
 
 # Multimedia
 sudo pacman -S firefox telegram-desktop obs-studio discord  
+yay -S zoom
 
 # Development
 sudo pacman -S code
