@@ -184,10 +184,10 @@ sudo pacman -S neofetch
 
 # Utilities
 sudo pacman -S man-db flameshot qbittorrent redshift mpv sxiv gedit 
+yay -S timeshift
 
 # System tools
-sudo pacman -S pacman-contrib bleachbit htop f2fs-tools dosfstools ntfs-3g gvfs gvfs-afc gvfs-gphoto2 udisks2 polkit-gnome 
-yay -S timeshift
+sudo pacman -S pacman-contrib bleachbit htop f2fs-tools dosfstools ntfs-3g gvfs gvfs-afc gvfs-gphoto2 udisks2 polkit-gnome  powerline powerline-fonts
 
 # Network
 sudo pacman -S wget reflector
