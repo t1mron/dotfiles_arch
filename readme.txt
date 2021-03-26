@@ -191,6 +191,7 @@ yay -S timeshift
 
 # Network
 sudo pacman -S wget reflector
+sudo systemctl enable reflector
 
 # Multimedia
 sudo pacman -S firefox telegram-desktop obs-studio discord  
