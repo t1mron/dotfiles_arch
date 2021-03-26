@@ -154,6 +154,7 @@ sudo pacman -S mesa lib32-mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vu
 
 # Window manager
 sudo pacman -S i3-wm i3blocks xorg-server xorg-xinit xorg-xev xorg-xprop xorg-xinput xorg-xsetroot xorg-xkill slock termite rofi nautilus xdg-user-dirs ttf-font-awesome arandr autorandr
+yay -S polybar
 
 sudo systemctl enable slock@user.service
 
@@ -164,6 +165,7 @@ sudo powertop -c
 
 # wi-fi, sound, bluetooth, vpn
 sudo pacman -S iwd pulseaudio alsa-lib alsa-utils pavucontrol bluez bluez-utils blueman
+yay -S iwgtk
 
 sudo systemctl enable --now iwd
 sudo modprobe btusb
