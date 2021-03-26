@@ -1,5 +1,5 @@
-[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx &> /dev/null
 [[ $- != *i* ]] && return
+[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx &> /dev/null
 
 if [ "$TERM" = xterm ]; then
     TERM=xterm-256color;
