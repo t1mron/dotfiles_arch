@@ -194,12 +194,11 @@ sudo pacman -S wget reflector
 # Multimedia
 sudo pacman -S firefox telegram-desktop obs-studio discord  
 
-# Virtualisation 
-sudo pacman -S virtualbox virtualbox-host-modules-arch 
-
 # Development
 sudo pacman -S code
 
+# Virtualisation 
+sudo pacman -S virtualbox virtualbox-host-modules-arch 
 
 ----------------------------------------------------
 wine qemu virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat libguestfs dmidecode ebtables iptables
@@ -207,63 +206,13 @@ sudo usermod -a -G libvirt user
 sudo systemctl enable --now libvirtd.service
 ---------------------------------------------
 
-# Security (create systemd file)
-sudo pacman -S ufw etckeeper rkhunter clamav clamtk doas
-paru -S chkrootkit
-
+# Security 
+sudo pacman -S ufw doas
 sudo ufw enable &&sudo ufw reload
 
 #Disable root login over ssh
 echo "PermitRootLogin no"| sudo tee -a /etc/ssh/sshd_config
-
- 
 echo "-:root:ALL except LOCAL" | sudo tee -a /etc/security/access.conf
 
 # Disable root login
 passwd --lock root
-
-
-
-
-
-
-
-
-sudo freshclam
-
-#if error freshclam
-sudo systemctl stop clamav-daemon.service
-sudo rm /var/log/clamav/freshclam.log
-sudo systemctl start clamav-daemon.service
-sudo systemctl status clamav-daemon.service
-
-
-vim /etc/systemd/system/rkhunter.service
-
-__________________________________________
-[Unit]
-Description=rkhunter rootkit scan and malware detection
-
-Documentation=man:rkhunter
-
-[Service]
-ExecStartPre=/usr/bin/rkhunter –update
-ExecStartPre=/usr/bin/rkhunter –propupd
-ExecStart=/usr/bin/rkhunter –check -sk
-SuccessExitStatus=1 2
-____________________________________
-vim /etc/systemd/system/rkhunter.timer
-
-[Unit]
-Description=Run rkhunter daily
-
-[Timer]
-OnCalendar=*-*-* 04:20:00
-Persistent=true
-
-RemainAfterElapse=true
-
-[Install]
-WantedBy=timers.target
-___________________________________________
-
