@@ -180,7 +180,7 @@ gsettings set org.blueman.plugins.powermanager auto-power-on false
 sudo pacman -S libreoffice-still zathura zathura-pdf-mupdf 
 
 # Look and feel
-sudo pacman -S neofetch lsd zsh zsh-completions zsh-autosuggestions zsh-theme-powerlevel10k
+sudo pacman -S neofetch lsd zsh zsh-completions
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
@@ -189,13 +189,12 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-m
 
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 
-
 # Utilities
 sudo pacman -S man-db flameshot qbittorrent redshift mpv sxiv gedit 
 yay -S timeshift
 
 # System tools
-sudo pacman -S pacman-contrib bleachbit htop f2fs-tools dosfstools ntfs-3g gvfs gvfs-afc gvfs-gphoto2 udisks2 polkit-gnome  powerline powerline-fonts
+sudo pacman -S pacman-contrib bleachbit htop f2fs-tools dosfstools ntfs-3g gvfs gvfs-afc gvfs-gphoto2 udisks2 polkit-gnome 
 
 # Network
 sudo pacman -S wget reflector
