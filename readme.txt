@@ -180,7 +180,9 @@ gsettings set org.blueman.plugins.powermanager auto-power-on false
 sudo pacman -S libreoffice-still zathura zathura-pdf-mupdf 
 
 # Look and feel
-sudo pacman -S neofetch
+sudo pacman -S neofetch lsd zsh zsh-completions 
+sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
 
 # Utilities
 sudo pacman -S man-db flameshot qbittorrent redshift mpv sxiv gedit 
