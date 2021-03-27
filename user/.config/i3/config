@@ -121,7 +121,7 @@ mode "" {
 bindsym $mod+Shift+r mode ""
 
 # reload i3 config
-bindsym $mod+Shift+c reload
+bindsym $mod+Shift+c reload 
 
 # exit i3
 bindsym $mod+Shift+End exit
@@ -144,7 +144,7 @@ bindsym Print exec --no-startup-id flameshot gui
 bindsym $mod+d exec --no-startup-id discord
 
 # terminal
-bindsym $mod+Return exec --no-startup-id termite
+bindsym $mod+Return exec --no-startup-id termite   
 bindsym $mod+Shift+Return exec --no-startup-id termite --title="i3-float"
 
 # File Manager
@@ -155,9 +155,6 @@ bindsym $mod+f exec --no-startup-id firefox
 
 # Libreoffice
 bindsym $mod+w exec --no-startup-id libreoffice
-
-# Spotify
-bindsym $mod+s exec --no-startup-id LD_PRELOAD=/usr/lib/spotify-adblock.so spotify
 
 # virtual box 
 bindsym $mod+v exec --no-startup-id VirtualBox 
@@ -192,7 +189,8 @@ set $clr #00bfff
 
 # class       	  border backgr text  indicator child_border
 client.focused    $clr   $clr   $clr  $clr      $clr
-client.urgent     $clr   $clr   $clr  $clr      $clr
+#client.unfocused  $clr     
+client.urgent  $clr   $clr   $clr  $clr      $clr
 
 
 #----------------------#
@@ -203,9 +201,9 @@ exec_always --no-startup-id setxkbmap -layout us,ru && setxkbmap -option 'grp:al
 exec_always --no-startup-id pkill polybar; /home/user/.config/polybar/scripts/launch_polybar &
 
 # Disable turn off screen
-exec_always --no-startup-id xset s off &
-exec_always --no-startup-id xset -dpms &
-exec_always --no-startup-id xset s noblank &
+#exec_always --no-startup-id xset s off &
+#exec_always --no-startup-id xset -dpms &
+#exec_always --no-startup-id xset s noblank &
 
 exec --no-startup-id redshift &
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
@@ -301,4 +299,3 @@ assign [class="discord"] $ws5
 assign [class="Virt-manager"] $ws6
 assign [class="VirtualBox Manager"] $ws6
 assign [class="obs"] $ws7
-for_window [class="Spotify"] move to workspace $ws7
