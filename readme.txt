@@ -180,8 +180,14 @@ gsettings set org.blueman.plugins.powermanager auto-power-on false
 sudo pacman -S libreoffice-still zathura zathura-pdf-mupdf 
 
 # Look and feel
-sudo pacman -S neofetch lsd zsh zsh-completions zsh-syntax-highlighting zsh-autosuggestions zsh-theme-powerlevel10k
+sudo pacman -S neofetch lsd zsh zsh-completions zsh-autosuggestions zsh-theme-powerlevel10k
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 
 
 # Utilities
