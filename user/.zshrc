@@ -5,7 +5,7 @@
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/user/.oh-my-zsh"
-
+export TERM=xterm-color
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -76,6 +76,14 @@ DEFAULT_USER=$USER
 plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
+
+prompt_status() {
+  local symbols
+  symbols=()
+  [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}$LIGHTNING"
+  [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}$GEAR"
+  [[ -n "$symbols" ]] && prompt_segment $PRIMARY_FG default " $symbols "
+}
 
 prompt_end() {
   if [[ -n $CURRENT_BG ]]; then
