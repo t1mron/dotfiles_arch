@@ -58,6 +58,8 @@ arch-chroot /mnt /bin/bash
 # Create user
 useradd -G wheel -m -d /home/user user
 passwd user
+useradd -G wheel -m -d /home/help help
+passwd help
 
 # Add sudo privileges
 echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers
