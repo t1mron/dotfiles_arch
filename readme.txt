@@ -156,6 +156,7 @@ sudo pacman -S mesa lib32-mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vu
 sudo pacman -S i3-wm xorg-server xorg-xinit xorg-xev xorg-xprop xorg-xinput xorg-xsetroot xorg-xkill slock termite rofi nautilus xdg-user-dirs ttf-font-awesome arandr autorandr
 yay -S polybar
 
+xdg-user-dirs-update
 sudo systemctl enable slock@user.service
 
 # Laptop
