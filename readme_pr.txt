@@ -52,8 +52,10 @@ echo "Include = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf
 pacman -Sy archlinux-keyring archlinuxarm-keyring parabola-keyring
 pacman -U https://www.parabola.nu/packages/core/i686/archlinux32-keyring-transition/download/
 
-# Install the system and some tools
-pacstrap /mnt base linux linux-firmware base-devel efibootmgr grub amd-ucode neovim git
+# Install the system and some tools (OpenRC)
+pacstrap /mnt linux-libre-lts base base-devel libelogind 
+
+base linux linux-firmware base-devel efibootmgr grub amd-ucode neovim git
 
 # Generate fstab
 genfstab -U /mnt >> /mnt/etc/fstab
