@@ -1,6 +1,7 @@
-# Verify the boot mode 
-ls /sys/firmware/efi/efivars
-#If the command shows the directory without error, then the system is booted in UEFI mode. If the directory does not exist, the system may be booted in BIOS mode.
+# Add ssh conection supptort
+echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+systemctl start sshd
+passwd root
 
 # Check internet connection
 ping archlinux.org
@@ -9,42 +10,47 @@ ping archlinux.org
 timedatectl set-ntp true 
 
 # Wipe disk before install
-(echo g;echo w) | fdisk /dev/nvme0n1
+head -c 3145728 /dev/urandom > /dev/sda; sync 
+(echo g;echo w) | fdisk /dev/sda
 
-# /dev/nvme0n1p1 256M EFI
-(echo n;echo ;echo ;echo 526335;echo t;echo 1;echo w) | fdisk /dev/nvme0n1
+# /dev/sda1 All Linux filesystem
+(echo n;echo ;echo ;echo ; echo w) | fdisk /dev/sda
 
-# /dev/nvme0n1p2 512M Linux filesystem
-(echo n;echo ;echo ;echo 1574911; echo w) | fdisk /dev/nvme0n1
-
-# /dev/nvme0n1p3 All Linux filesystem
-(echo n;echo ;echo ;echo ; echo w) | fdisk /dev/nvme0n1
-
-# Load encrypt modules 
-modprobe dm-crypt
+# Load encrypt module
 modprobe dm-mod
 
-# Encrypt and open /dev/nvme0n1p3  
-cryptsetup luksFormat -v -s 512 -h sha512 /dev/nvme0n1p3
-cryptsetup open /dev/nvme0n1p3 archlinux
+# Encrypt and open /dev/sda1
+cryptsetup -v --cipher serpent-xts-plain64 --key-size 512 --hash whirlpool --use-random --verify-passphrase luksFormat --type luks1 /dev/sda1 
+cryptsetup open /dev/sda1 archlinux
 
-# Formatting the partitions
-mkfs.vfat -n "EFI System" /dev/nvme0n1p1
-mkfs.ext4 -L boot /dev/nvme0n1p2
-mkfs.ext4 -L root /dev/mapper/archlinux
+# Create btrfs filesystem
+mkfs -t btrfs --force -L archlinux /dev/mapper/archlinux
 
-# Mount partitions and create folders
-mount /dev/mapper/archlinux /mnt
-mkdir /mnt/boot
-mount /dev/nvme0n1p2 /mnt/boot
-mkdir /mnt/boot/efi
-mount /dev/nvme0n1p1 /mnt/boot/efi
+# ... and subvolumes
+mount -t btrfs -o compress=lzo /dev/mapper/archlinux /mnt
+btrfs subvolume create /mnt/@
+btrfs subvolume create /mnt/@home
+btrfs subvolume create /mnt/@snapshots
 
-# Setup swap 
-dd if=/dev/zero of=/mnt/swap bs=1M count=2048 status=progress
-chmod 0600 /mnt/swap
-mkswap /mnt/swap
-swapon /mnt/swap
+# Unmount and remount with the corect partitions
+umount /mnt
+
+# Mount options
+o=defaults,x-mount.mkdir
+o_btrfs=$o,compress=lzo,ssd,noatime
+
+# Remount the partitions
+mount -o compress=lzo,subvol=@,$o_btrfs /dev/mapper/archlinux /mnt
+mount -o compress=lzo,subvol=@home,$o_btrfs /dev/mapper/archlinux /mnt/home
+mount -o compress=lzo,subvol=@snapshots,$o_btrfs /dev/mapper/archlinux /mnt/.snapshots
+
+# Add nonsystemd package repo
+echo [nonsystemd] >> /etc/pacman.conf 
+echo "Include = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf
+
+# Verification of package signatures
+pacman -Sy archlinux-keyring archlinuxarm-keyring parabola-keyring
+pacman -U https://www.parabola.nu/packages/core/i686/archlinux32-keyring-transition/download/
 
 # Install the system and some tools
 pacstrap /mnt base linux linux-firmware base-devel efibootmgr grub amd-ucode neovim git
