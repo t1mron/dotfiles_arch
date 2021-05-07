@@ -53,7 +53,7 @@ pacman -Sy archlinux-keyring archlinuxarm-keyring parabola-keyring
 pacman -U https://www.parabola.nu/packages/core/i686/archlinux32-keyring-transition/download/
 
 # Install the system and some tools (OpenRC)
-pacstrap /mnt linux-libre-lts base base-devel libelogind udev-init-scripts elogind btrfs-progs neovim git grub iwd
+pacstrap /mnt linux-libre-lts base libelogind udev-init-scripts elogind sudo btrfs-progs neovim git grub iwd
 
 # Generate fstab
 genfstab -U /mnt >> /mnt/etc/fstab
