@@ -57,10 +57,9 @@ wget -P /etc/ https://raw.githubusercontent.com/t1mron/dotfiles_arch/main/pacman
 
 pacman -Scc
 pacman -Syy
-pacman-key --refresh
 
 # Install the system and some tools (OpenRC)
-pacstrap /mnt linux-libre-lts base libelogind udev-init-scripts elogind sudo btrfs-progs neovim grub iwd
+pacstrap /mnt linux-libre-lts base libelogind udev-init-scripts elogind opendoas btrfs-progs neovim grub iwd
 
 # Generate fstab
 genfstab -U /mnt >> /mnt/etc/fstab
