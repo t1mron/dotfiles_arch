@@ -1,5 +1,4 @@
 # Add ssh conection support
-echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
 systemctl start sshd
 passwd root
 
@@ -45,16 +44,20 @@ mount -o compress=lzo,subvol=@home,$o_btrfs /dev/mapper/archlinux /mnt/home
 mount -o compress=lzo,subvol=@snapshots,$o_btrfs /dev/mapper/archlinux /mnt/.snapshots
 
 # Migration from arch to parabola
-wget https://raw.githubusercontent.com/t1mron/dotfiles_arch/main/pacman.conf
-pacman -U https://www.parabola.nu/packages/libre/any/parabola-keyring/download
-pacman -U https://www.parabola.nu/packages/libre/any/pacman-mirrorlist/download
+pacman -Syy
+pacman -S wget
+
+echo "RemoteFileSigLevel = Never" >> /etc/pacman.conf
+pacman -U https://www.parabola.nu/packages/libre/x86_64/parabola-keyring/download
+pacman -U https://www.parabola.nu/packages/libre/x86_64/pacman-mirrorlist/download
 cp -vr /etc/pacman.d/mirrorlist.pacnew /etc/pacman.d/mirrorlist
+
+rm /etc/pacman.conf
+wget -P /etc/ https://raw.githubusercontent.com/t1mron/dotfiles_arch/main/pacman.conf
+
 pacman -Scc
 pacman -Syy
 pacman-key --refresh
-pacman -Suu pacman your-freedom pacman your-privacy
-grub-mkconfig -o /boot/grub/grub.cfg
-
 
 # Install the system and some tools (OpenRC)
 pacstrap /mnt linux-libre-lts base libelogind udev-init-scripts elogind sudo btrfs-progs neovim grub iwd
