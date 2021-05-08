@@ -44,16 +44,20 @@ mount -o compress=lzo,subvol=@,$o_btrfs /dev/mapper/archlinux /mnt
 mount -o compress=lzo,subvol=@home,$o_btrfs /dev/mapper/archlinux /mnt/home
 mount -o compress=lzo,subvol=@snapshots,$o_btrfs /dev/mapper/archlinux /mnt/.snapshots
 
-# Add nonsystemd package repo
-echo [nonsystemd] >> /etc/pacman.conf 
-echo "Include = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf
+# Migration from arch to parabola
+wget https://raw.githubusercontent.com/t1mron/dotfiles_arch/main/pacman.conf
+pacman -U https://www.parabola.nu/packages/libre/any/parabola-keyring/download
+pacman -U https://www.parabola.nu/packages/libre/any/pacman-mirrorlist/download
+cp -vr /etc/pacman.d/mirrorlist.pacnew /etc/pacman.d/mirrorlist
+pacman -Scc
+pacman -Syy
+pacman-key --refresh
+pacman -Suu pacman your-freedom pacman your-privacy
+grub-mkconfig -o /boot/grub/grub.cfg
 
-# Verification of package signatures
-pacman -Sy archlinux-keyring archlinuxarm-keyring parabola-keyring
-pacman -U https://www.parabola.nu/packages/core/i686/archlinux32-keyring-transition/download/
 
 # Install the system and some tools (OpenRC)
-pacstrap /mnt linux-libre-lts base libelogind udev-init-scripts elogind sudo btrfs-progs neovim git grub iwd
+pacstrap /mnt linux-libre-lts base libelogind udev-init-scripts elogind sudo btrfs-progs neovim grub iwd
 
 # Generate fstab
 genfstab -U /mnt >> /mnt/etc/fstab
