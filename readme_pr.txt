@@ -51,12 +51,14 @@ echo "Include = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf
 # Verification of package signatures
 pacman -Sy archlinux-keyring archlinuxarm-keyring parabola-keyring
 pacman -U https://www.parabola.nu/packages/core/i686/archlinux32-keyring-transition/download/
+pacman -Scc
+pacman -Syy
 
 # Install the system and some tools (OpenRC)
-pacstrap /mnt linux-libre-lts base libelogind udev-init-scripts elogind sudo btrfs-progs neovim git grub iwd
+pacstrap /mnt linux-libre-lts base libelogind udev-init-scripts elogind doas btrfs-progs neovim grub iwd
 
 # Generate fstab
-genfstab -U /mnt >> /mnt/etc/fstab
+genfstab -L /mnt >> /mnt/etc/fstab
 
 # Enter the new system
 arch-chroot /mnt /bin/bash
