@@ -1,4 +1,5 @@
 # Add ssh conection support
+echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
 systemctl start sshd
 passwd root
 
@@ -43,23 +44,16 @@ mount -o compress=lzo,subvol=@,$o_btrfs /dev/mapper/archlinux /mnt
 mount -o compress=lzo,subvol=@home,$o_btrfs /dev/mapper/archlinux /mnt/home
 mount -o compress=lzo,subvol=@snapshots,$o_btrfs /dev/mapper/archlinux /mnt/.snapshots
 
-# Migration from arch to parabola
-pacman -Syy
-pacman -S wget
+# Add nonsystemd package repo
+echo [nonsystemd] >> /etc/pacman.conf 
+echo "Include = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf
 
-echo "RemoteFileSigLevel = Never" >> /etc/pacman.conf
-pacman -U https://www.parabola.nu/packages/libre/x86_64/parabola-keyring/download
-pacman -U https://www.parabola.nu/packages/libre/x86_64/pacman-mirrorlist/download
-cp -vr /etc/pacman.d/mirrorlist.pacnew /etc/pacman.d/mirrorlist
-
-rm /etc/pacman.conf
-wget -P /etc/ https://raw.githubusercontent.com/t1mron/dotfiles_arch/main/pacman.conf
-
-pacman -Scc
-pacman -Syy
+# Verification of package signatures
+pacman -Sy archlinux-keyring archlinuxarm-keyring parabola-keyring
+pacman -U https://www.parabola.nu/packages/core/i686/archlinux32-keyring-transition/download/
 
 # Install the system and some tools (OpenRC)
-pacstrap /mnt linux-libre-lts base libelogind udev-init-scripts elogind opendoas btrfs-progs neovim grub iwd
+pacstrap /mnt linux-libre-lts base libelogind udev-init-scripts elogind sudo btrfs-progs neovim git grub iwd
 
 # Generate fstab
 genfstab -U /mnt >> /mnt/etc/fstab
