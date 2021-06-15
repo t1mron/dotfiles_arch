@@ -193,8 +193,7 @@ sudo pacman -S reflector
 sudo systemctl enable reflector
 
 # Multimedia
-sudo pacman -S firefox telegram-desktop obs-studio
-yay -S zoom lightcord-bin
+sudo pacman -S firefox telegram-desktop obs-studio discord
 
 # Virtualisation 
 sudo pacman -S 
