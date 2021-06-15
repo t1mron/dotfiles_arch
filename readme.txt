@@ -60,6 +60,9 @@ passwd help
 # Add sudo privileges
 echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers
 
+echo "user arch = (root) NOPASSWD: /sbin/ip" >> /etc/sudoers
+echo "user arch = (root) NOPASSWD: /sbin/light" >> /etc/sudoers
+
 # Set the time zone and a system clock
 ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 hwclock --systohc --utc
@@ -160,7 +163,7 @@ sudo systemctl enable --now tlp
 sudo powertop -c
 
 # wi-fi, sound, bluetooth, vpn
-sudo pacman -S iwd pulseaudio pulseaudio-alsa pulseaudio-bluetooth bluez bluez-utils pavucontrol blueman
+sudo pacman -S iwd wireless_tools pulseaudio pulseaudio-alsa pulseaudio-bluetooth bluez bluez-utils pavucontrol blueman
 yay -S iwgtk
 
 sudo systemctl enable --now iwd
