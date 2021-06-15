@@ -40,14 +40,10 @@ mount /dev/nvme0n1p2 /mnt/boot
 mkdir /mnt/boot/efi
 mount /dev/nvme0n1p1 /mnt/boot/efi
 
-# Setup swap 
-dd if=/dev/zero of=/mnt/swap bs=1M count=2048 status=progress
-chmod 0600 /mnt/swap
-mkswap /mnt/swap
-swapon /mnt/swap
+# Setup zram
 
 # Install the system and some tools
-pacstrap /mnt base linux linux-firmware base-devel efibootmgr grub amd-ucode neovim git
+pacstrap /mnt base linux-lts linux-firmware base-devel efibootmgr grub amd-ucode neovim git wget
 
 # Generate fstab
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -100,7 +96,7 @@ DHCP=yes
 EOF
 
 # Add multilib repo for pacman 
-echo [multilib] >> /etc/pacman.conf 
+echo "[multilib]" >> /etc/pacman.conf 
 echo "Include = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf
 
 # Setup grub
@@ -110,10 +106,10 @@ sed -i "s|^GRUB_CMDLINE_LINUX=.*|GRUB_CMDLINE_LINUX='cryptdevice=/dev/nvme0n1p3:
 
 # Configure mkinitcpio
 sed -i "s|^MODULES=.*|MODULES=(amdgpu)|" /etc/mkinitcpio.conf
-sed -i "s|^HOOKS=.*|HOOKS=(base udev autodetect keyboard modconf block encrypt lvm2 filesystems fsck)|" /etc/mkinitcpio.conf
+sed -i "s|^HOOKS=.*|HOOKS=(base udev autodetect keyboard modconf block encrypt filesystems fsck)|" /etc/mkinitcpio.conf
 
 # Regenerate initrd image
-mkinitcpio -p linux
+mkinitcpio -p linux-lts
 
 # Install grub and create configuration
 grub-install --boot-directory=/boot --efi-directory=/boot/efi /dev/nvme0n1p2
@@ -143,11 +139,9 @@ cd /home/user/git/yay && makepkg -si
 git clone https://github.com/t1mron/dotfiles_arch.git /home/user/git/dotfiles_arch
 cd /home/user/git/dotfiles_arch && sudo cp -r etc / && cp /user/. /home/user/
 
-
 -------------------------------------------------------------------------
 ::TODO:: Update the installed packages. Finish configuration.
 yay 
-
 
 # Optional: 
 
@@ -155,10 +149,9 @@ yay
 sudo pacman -S mesa lib32-mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon lib32-vulkan-radeon vulkan-icd-loader lib32-vulkan-icd-loader
 
 # Window manager
-sudo pacman -S i3-wm xorg-server xorg-xinit xorg-xev xorg-xprop xorg-xinput xorg-xsetroot xorg-xkill slock termite rofi nautilus xdg-user-dirs ttf-font-awesome arandr autorandr
+sudo pacman -S i3-wm xorg-server xorg-xinit xorg-xev xorg-xprop xorg-xinput xorg-xsetroot xorg-xkill slock ranger alacritty rofi ttf-font-awesome arandr autorandr
 yay -S polybar
 
-xdg-user-dirs-update
 sudo systemctl enable slock@user.service
 
 # Laptop
@@ -167,13 +160,12 @@ sudo systemctl enable --now tlp
 sudo powertop -c
 
 # wi-fi, sound, bluetooth, vpn
-sudo pacman -S iwd pulseaudio alsa-lib alsa-utils pavucontrol bluez bluez-utils blueman
+sudo pacman -S iwd pulseaudio pulseaudio-alsa pulseaudio-bluetooth bluez bluez-utils pavucontrol blueman
 yay -S iwgtk
 
 sudo systemctl enable --now iwd
-sudo modprobe btusb
 sudo systemctl enable --now bluetooth
-gsettings set org.blueman.plugins.powermanager auto-power-on false
+#sudo modprobe btusb
 
   # Disable POP and BEEP sound
   sudo sh -c "echo 'blacklist snd_hda_codec_realtek' >> /etc/modprobe.d/disable_pop.conf"
@@ -190,25 +182,22 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
 # Utilities
-sudo pacman -S man-db flameshot redshift mpv sxiv gedit 
+sudo pacman -S man-db flameshot redshift mpv sxiv
 yay -S timeshift
 
 # System tools
-sudo pacman -S pacman-contrib bleachbit htop f2fs-tools dosfstools ntfs-3g gvfs gvfs-afc gvfs-gphoto2 udisks2 polkit-gnome 
+sudo pacman -S pacman-contrib htop f2fs-tools dosfstools ntfs-3g gvfs gvfs-afc gvfs-gphoto2 udisks2 polkit-gnome 
 
 # Network
-sudo pacman -S wget reflector
+sudo pacman -S reflector
 sudo systemctl enable reflector
 
 # Multimedia
 sudo pacman -S firefox telegram-desktop obs-studio discord  
 yay -S zoom
 
-# Development
-sudo pacman -S code
-
 # Virtualisation 
-sudo pacman -S virtualbox virtualbox-host-modules-arch 
+sudo pacman -S 
 
 ----------------------------------------------------
 wine qemu virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat libguestfs dmidecode ebtables iptables
@@ -217,8 +206,8 @@ sudo systemctl enable --now libvirtd.service
 ---------------------------------------------
 
 # Security 
-sudo pacman -S ufw doas
-sudo ufw enable &&sudo ufw reload
+sudo pacman -S ufw 
+sudo ufw enable 
 
 #Disable root login over ssh
 echo "PermitRootLogin no"| sudo tee -a /etc/ssh/sshd_config
