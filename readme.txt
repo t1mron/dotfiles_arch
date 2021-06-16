@@ -52,7 +52,7 @@ genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt /bin/bash
 
 # Create user
-useradd -G wheel -m -d /home/user user
+useradd -G wheel,rfkill -m -d /home/user user
 passwd user
 useradd -G wheel -m -d /home/help help
 passwd help
@@ -163,7 +163,7 @@ sudo systemctl enable --now tlp
 sudo powertop -c
 
 # wi-fi, sound, bluetooth, vpn
-sudo pacman -S iwd wireless_tools bc pulseaudio pulseaudio-alsa pulseaudio-bluetooth bluez bluez-utils pavucontrol blueman
+sudo pacman -S iwd wireless_tools bc pulseaudio pulseaudio-alsa pulseaudio-bluetooth bluez bluez-utils pavucontrol blueberry
 yay -S iwgtk
 
 sudo systemctl enable --now iwd
