@@ -164,7 +164,6 @@ sudo powertop -c
 
 # wi-fi, sound, bluetooth, vpn
 sudo pacman -S iwd wireless_tools bc pulseaudio pulseaudio-alsa pulseaudio-bluetooth bluez bluez-utils pavucontrol blueberry
-yay -S iwgtk
 
 sudo systemctl enable --now iwd
 sudo systemctl enable --now bluetooth
@@ -175,7 +174,7 @@ sudo systemctl enable --now bluetooth
   sudo sh -c "echo 'blacklist pcspkr' >> /etc/modprobe.d/nobeep.conf"
 
 # Office programs
-sudo pacman -S libreoffice-still zathura zathura-pdf-mupdf 
+sudo pacman -S libreoffice-still zathura zathura-pdf-mupdf vim-latexsuite
 
 # Look and feel
 sudo pacman -S neofetch lsd zsh zsh-completions
