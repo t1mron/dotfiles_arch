@@ -152,7 +152,7 @@ yay
 sudo pacman -S mesa lib32-mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon lib32-vulkan-radeon vulkan-icd-loader lib32-vulkan-icd-loader
 
 # Window manager
-sudo pacman -S bspwm sxhkd xorg-server xorg-xinit xorg-xev xorg-xprop xorg-xinput xorg-xsetroot xorg-xkill slock ranger alacritty rofi ttf-fira-code ttf-font-awesome powerline-fonts arandr autorandr
+sudo pacman -S bspwm sxhkd xorg-server xorg-xinit xorg-xev xorg-xprop xorg-xinput xorg-xsetroot xorg-xkill slock ranger kitty rofi ttf-font-awesome powerline-fonts arandr autorandr
 yay -S polybar
 
 sudo systemctl enable slock@user.service
@@ -174,16 +174,12 @@ sudo systemctl enable --now bluetooth
   sudo sh -c "echo 'blacklist pcspkr' >> /etc/modprobe.d/nobeep.conf"
 
 # Office programs
-sudo pacman -S libreoffice-still zathura zathura-pdf-mupdf vim-latexsuite
+sudo pacman -S libreoffice-still zathura zathura-pdf-mupdf
 
 # Neovim plugins
 # vim-plug
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-
-# Semshi - semantic highlighting for Python
-pip3 install pynvim --upgrade 
-
 
 # Look and feel
 sudo pacman -S neofetch lsd zsh zsh-completions
