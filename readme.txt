@@ -152,7 +152,7 @@ yay
 sudo pacman -S mesa lib32-mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon lib32-vulkan-radeon vulkan-icd-loader lib32-vulkan-icd-loader
 
 # Window manager
-sudo pacman -S bspwm xhkd xorg-server xorg-xinit xorg-xev xorg-xprop xorg-xinput xorg-xsetroot xorg-xkill slock ranger alacritty rofi ttf-font-awesome arandr autorandr
+sudo pacman -S bspwm sxhkd xorg-server xorg-xinit xorg-xev xorg-xprop xorg-xinput xorg-xsetroot xorg-xkill slock ranger alacritty rofi ttf-font-awesome arandr autorandr
 yay -S polybar
 
 sudo systemctl enable slock@user.service
