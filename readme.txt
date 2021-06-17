@@ -89,15 +89,6 @@ cat << EOF | tee -a /etc/hosts
 127.0.1.1    arch.localdomain arch
 EOF
 
-# Set systemd-networkd
-cat << EOF | tee -a /etc/systemd/network/20-wired.network
-[Match]
-Name=enp1s0
-
-[Network]
-DHCP=yes
-EOF
-
 # Add multilib repo for pacman 
 echo "[multilib]" >> /etc/pacman.conf 
 echo "Include = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf
@@ -118,13 +109,6 @@ mkinitcpio -p linux-lts
 grub-install --boot-directory=/boot --efi-directory=/boot/efi /dev/nvme0n1p2
 grub-mkconfig -o /boot/grub/grub.cfg
 grub-mkconfig -o /boot/efi/EFI/arch/grub.cfg
-
-# symlink resolv.conf
-sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
-
-# Enable services at startup 
-systemctl enable systemd-networkd
-systemctl enable systemd-resolved
 
 # Exit new system and go into the cd shell
 exit
@@ -163,7 +147,7 @@ sudo systemctl enable --now tlp
 sudo powertop -c
 
 # wi-fi, sound, bluetooth, vpn
-sudo pacman -S iwd wireless_tools bc pulseaudio pulseaudio-alsa pulseaudio-bluetooth bluez bluez-utils pavucontrol blueberry
+sudo pacman -S networkmanager network-manager-applet iwd wireless_tools bc pulseaudio pulseaudio-alsa pulseaudio-bluetooth bluez bluez-utils pavucontrol blueberry
 
 sudo systemctl enable --now iwd
 sudo systemctl enable --now bluetooth
@@ -174,7 +158,7 @@ sudo systemctl enable --now bluetooth
   sudo sh -c "echo 'blacklist pcspkr' >> /etc/modprobe.d/nobeep.conf"
 
 # Office programs
-sudo pacman -S libreoffice-still zathura zathura-pdf-mupdf
+sudo pacman -S texlive-most zathura zathura-pdf-mupdf
 
 # Neovim plugins
 # vim-plug
