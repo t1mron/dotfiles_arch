@@ -1,3 +1,0 @@
-#!/usr/bin/bash
-
-pkill polybar; /home/user/.config/polybar/scripts/launch_polybar
