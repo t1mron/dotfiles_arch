@@ -43,7 +43,7 @@ mount /dev/nvme0n1p1 /mnt/boot/efi
 # Setup zram
 
 # Install the system and some tools
-pacstrap /mnt base linux-lts linux-firmware base-devel efibootmgr grub amd-ucode neovim git wget
+pacstrap /mnt base linux-lts linux-firmware base-devel efibootmgr grub amd-ucode networkmanager neovim git wget
 
 # Generate fstab
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -88,6 +88,9 @@ cat << EOF | tee -a /etc/hosts
 ::1          localhost
 127.0.1.1    arch.localdomain arch
 EOF
+
+# Network Manager at startup
+systemctl enable NetworkManager
 
 # Add multilib repo for pacman 
 echo "[multilib]" >> /etc/pacman.conf 
@@ -147,7 +150,7 @@ sudo systemctl enable --now tlp
 sudo powertop -c
 
 # wi-fi, sound, bluetooth, vpn
-sudo pacman -S networkmanager network-manager-applet iwd wireless_tools bc pulseaudio pulseaudio-alsa pulseaudio-bluetooth bluez bluez-utils pavucontrol blueberry
+sudo pacman -S network-manager-applet iwd wireless_tools bc pulseaudio pulseaudio-alsa pulseaudio-bluetooth bluez bluez-utils pavucontrol blueberry
 
 sudo systemctl enable --now iwd
 sudo systemctl enable --now bluetooth
