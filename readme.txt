@@ -168,6 +168,8 @@ sudo pacman -S texlive-most zathura zathura-pdf-mupdf
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
+pip3 install pynvim jedi
+
 # Look and feel
 sudo pacman -S neofetch lsd zsh zsh-completions
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
