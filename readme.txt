@@ -161,13 +161,13 @@ sudo systemctl enable --now bluetooth
   sudo sh -c "echo 'blacklist pcspkr' >> /etc/modprobe.d/nobeep.conf"
 
 # Office programs
-sudo pacman -S libreoffice-still texlive-most zathura zathura-pdf-mupdf
+sudo pacman -S texlive-most zathura zathura-pdf-mupdf
 
 # Neovim plugins
-pip3 install pynvim pylint jedi
+pip3 install pynvim pylint autopep8
 
 :PlugInstall
-:CocInstall coc-json coc-python coc-snippets coc-vimlsp autopep8
+:CocInstall coc-json coc-python coc-snippets coc-vimlsp
 
 # Look and feel
 sudo pacman -S neofetch lsd zsh zsh-completions
