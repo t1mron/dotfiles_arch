@@ -167,7 +167,7 @@ sudo pacman -S libreoffice-still texlive-most zathura zathura-pdf-mupdf
 pip3 install pynvim pylint jedi
 
 :PlugInstall
-:CocInstall coc-json coc-python coc-snippets coc-vimlsp
+:CocInstall coc-json coc-python coc-snippets coc-vimlsp autopep8
 
 # Look and feel
 sudo pacman -S neofetch lsd zsh zsh-completions
