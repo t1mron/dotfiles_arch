@@ -139,7 +139,7 @@ yay
 sudo pacman -S mesa lib32-mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon lib32-vulkan-radeon vulkan-icd-loader lib32-vulkan-icd-loader
 
 # Window manager
-sudo pacman -S bspwm sxhkd xorg-server xorg-xinit xorg-xev xorg-xprop xorg-xinput xorg-xsetroot xorg-xkill slock ranger kitty rofi ttf-font-awesome powerline-fonts arandr autorandr
+sudo pacman -S bspwm sxhkd xorg-server xorg-xinit xorg-xev xorg-xprop xorg-xinput xorg-xsetroot xorg-xkill slock ranger alacritty rofi ttf-font-awesome powerline-fonts arandr autorandr
 yay -S polybar
 
 sudo systemctl enable slock@user.service
@@ -150,7 +150,7 @@ sudo systemctl enable --now tlp
 sudo powertop -c
 
 # wi-fi, sound, bluetooth, vpn
-sudo pacman -S network-manager-applet iwd wireless_tools bc pulseaudio pulseaudio-alsa pulseaudio-bluetooth bluez bluez-utils pavucontrol blueberry
+sudo pacman -S network-manager-applet iwd wireless_tools bc pulseaudio pulseaudio-alsa pulseaudio-bluetooth bluez bluez-utils pavucontrol blueman
 
 sudo systemctl enable --now iwd
 sudo systemctl enable --now bluetooth
@@ -161,7 +161,7 @@ sudo systemctl enable --now bluetooth
   sudo sh -c "echo 'blacklist pcspkr' >> /etc/modprobe.d/nobeep.conf"
 
 # Office programs
-sudo pacman -S texlive-most zathura zathura-pdf-mupdf
+sudo pacman -S libreoffice-still texlive-most zathura zathura-pdf-mupdf
 
 # Neovim plugins
 # vim-plug
