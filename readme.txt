@@ -164,10 +164,10 @@ sudo systemctl enable --now bluetooth
 sudo pacman -S libreoffice-still texlive-most zathura zathura-pdf-mupdf
 
 # Neovim plugins
-# vim-plug
-curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+pip3 install pynvim pylint jedi
 
-pip3 install pynvim jedi
+:PlugInstall
+:CocInstall coc-json coc-python coc-snippets coc-vimlsp
 
 # Look and feel
 sudo pacman -S neofetch lsd zsh zsh-completions
