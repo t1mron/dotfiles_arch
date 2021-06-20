@@ -43,7 +43,7 @@ mount /dev/nvme0n1p1 /mnt/boot/efi
 # Setup zram
 
 # Install the system and some tools
-pacstrap /mnt base linux-lts linux-firmware base-devel efibootmgr grub amd-ucode networkmanager neovim git wget
+pacstrap /mnt base linux-lts linux-firmware base-devel efibootmgr grub amd-ucode iwd neovim git wget
 
 # Generate fstab
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -90,7 +90,7 @@ cat << EOF | tee -a /etc/hosts
 EOF
 
 # Network Manager at startup
-systemctl enable NetworkManager
+
 
 # Add multilib repo for pacman 
 echo "[multilib]" >> /etc/pacman.conf 
@@ -139,7 +139,7 @@ yay
 sudo pacman -S mesa lib32-mesa libva-mesa-driver mesa-vdpau xf86-video-amdgpu vulkan-radeon lib32-vulkan-radeon vulkan-icd-loader lib32-vulkan-icd-loader
 
 # Window manager
-sudo pacman -S bspwm sxhkd xorg-server xorg-xinit xorg-xev xorg-xprop xorg-xinput xorg-xsetroot xorg-xkill slock ranger alacritty rofi ttf-font-awesome ttf-hack powerline-fonts arandr autorandr
+sudo pacman -S bspwm sxhkd xorg-server xorg-xinit xorg-xev xorg-xprop xorg-xinput xorg-xsetroot xorg-xkill slock ranger alacritty rofi ttf-font-awesome ttf-hack arandr autorandr
 yay -S polybar
 
 sudo systemctl enable slock@user.service
@@ -150,7 +150,7 @@ sudo systemctl enable --now tlp
 sudo powertop -c
 
 # wi-fi, sound, bluetooth, vpn
-sudo pacman -S network-manager-applet iwd wireless_tools bc pulseaudio pulseaudio-alsa pulseaudio-bluetooth bluez bluez-utils pavucontrol blueman
+sudo pacman -S wireless_tools bc pulseaudio pulseaudio-alsa pulseaudio-bluetooth bluez bluez-utils pavucontrol blueman
 
 sudo systemctl enable --now iwd
 sudo systemctl enable --now bluetooth
@@ -164,10 +164,9 @@ sudo systemctl enable --now bluetooth
 sudo pacman -S texlive-most zathura zathura-pdf-mupdf
 
 # Neovim plugins
-pip3 install pynvim pylint autopep8
+pip3 install 
 
 :PlugInstall
-:CocInstall coc-json coc-python coc-snippets coc-vimlsp
 
 # Look and feel
 sudo pacman -S neofetch lsd zsh zsh-completions
@@ -182,7 +181,7 @@ ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/the
 sudo pacman -S man-db flameshot redshift mpv sxiv w3m
 yay -S timeshift
 
-# System tools
+# System tools (check!)
 sudo pacman -S pacman-contrib htop f2fs-tools dosfstools ntfs-3g gvfs gvfs-afc gvfs-gphoto2 udisks2 polkit-gnome 
 
 # Network
