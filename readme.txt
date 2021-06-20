@@ -43,7 +43,7 @@ mount /dev/nvme0n1p1 /mnt/boot/efi
 # Setup zram
 
 # Install the system and some tools
-pacstrap /mnt base linux-lts linux-firmware base-devel efibootmgr grub amd-ucode iwd neovim git wget
+pacstrap /mnt base linux-lts linux-firmware base-devel efibootmgr grub amd-ucode iwd vim git wget
 
 # Generate fstab
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -90,7 +90,7 @@ cat << EOF | tee -a /etc/hosts
 EOF
 
 # Network Manager at startup
-
+systemctl enable NetworkManager
 
 # Add multilib repo for pacman 
 echo "[multilib]" >> /etc/pacman.conf 
