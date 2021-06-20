@@ -164,7 +164,7 @@ sudo systemctl enable --now bluetooth
 sudo pacman -S texlive-most zathura zathura-pdf-mupdf
 
 # Neovim plugins
-sudo pacman -S pyright
+sudo pacman -S pyright bash-language-server
 pip3 install pynvim
 
 PlugInstall
