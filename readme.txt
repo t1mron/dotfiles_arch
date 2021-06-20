@@ -165,9 +165,10 @@ sudo pacman -S texlive-most zathura zathura-pdf-mupdf
 
 # Neovim plugins
 sudo pacman -S pyright bash-language-server
-pip3 install pynvim
+pip3 install pynvim pylint
 
 PlugInstall
+CocInstall coc-json coc-python coc-snippets coc-vimlsp
 
 # Look and feel
 sudo pacman -S neofetch lsd zsh zsh-completions
