@@ -189,7 +189,7 @@ sudo pacman -S reflector
 sudo systemctl enable reflector
 
 # Multimedia
-sudo pacman -S firefox telegram-desktop obs-studio discord
+sudo pacman -S firefox telegram-desktop discord
 
 # Virtualisation 
 sudo pacman -S 
