@@ -164,8 +164,6 @@ sudo systemctl enable --now bluetooth
 sudo pacman -S texlive-most zathura zathura-pdf-mupdf
 
 # Neovim plugins
-sudo pacman -S fzf ripgrep ctags the_silver_searcher fd
-
 pip3 install pynvim pylint
 
 PlugInstall
