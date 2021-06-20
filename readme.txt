@@ -164,18 +164,9 @@ sudo systemctl enable --now bluetooth
 sudo pacman -S texlive-most zathura zathura-pdf-mupdf
 
 # Neovim plugins
-pip3 install 
+pip3 install pynvim
 
 PlugInstall
-
-TSInstall bash
-TSInstall c
-TSInstall cpp
-TSInstall c_sharp
-TSInstall json
-TSInstall latex
-TSInstall go
-TSInstall python
 
 # Look and feel
 sudo pacman -S neofetch lsd zsh zsh-completions
