@@ -43,7 +43,7 @@ mount /dev/nvme0n1p1 /mnt/boot/efi
 # Setup zram
 
 # Install the system and some tools
-pacstrap /mnt base linux-lts linux-firmware base-devel efibootmgr grub amd-ucode iwd vim git wget
+pacstrap /mnt base linux-lts linux-firmware base-devel efibootmgr grub amd-ucode networkmanager iwd vim git wget
 
 # Generate fstab
 genfstab -U /mnt >> /mnt/etc/fstab
