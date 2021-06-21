@@ -163,11 +163,11 @@ sudo systemctl enable --now bluetooth
 # Office programs
 sudo pacman -S texlive-most zathura zathura-pdf-mupdf
 
-# Neovim plugins
+# vim plugins
 pip3 install pynvim pylint
 
 PlugInstall
-CocInstall coc-json coc-python coc-snippets coc-vimlsp coc-vimtex coc-explorer
+CocInstall coc-vimlsp coc-python coc-vimtex coc-explorer
 
 # Look and feel
 sudo pacman -S neofetch lsd zsh zsh-completions
