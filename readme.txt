@@ -182,7 +182,7 @@ ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/the
 git clone https://github.com/alexanderjeurissen/ranger_devicons ~/.config/ranger/plugins/ranger_devicons
 
 # Utilities
-sudo pacman -S man-db flameshot redshift mpv sxiv w3m
+sudo pacman -S man-db flameshot redshift mpv sxiv ueberzug
 yay -S timeshift
 
 # System tools (check!)
